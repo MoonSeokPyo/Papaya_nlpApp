@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>주변 음식점</title>
+	<style>
+		.container {
+			display: flex;
+			height: 98vh;
+		}
+
+		.search-result {
+			width: 25%;
+			height: 98vh;
+		}
+
+		.restaurant-list {
+			padding-right: 20px;
+			overflow-y: auto;
+			max-height: 88%;
+		}
+
+		.map-container {
+			width: 75%;
+		}
+
+		#map {
+			height: 98vh;
+			width: 100%;
+		}
+
+		ul {
+			list-style-type: none;
+			padding-left: 0;
+		}
+
+		li {
+			margin-bottom: 10px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		li.active {
+			background-color: #f0f0f0;
+		}
+	</style>
+	<script th:inline="javascript">
+		function initMap() {
+			const mapCenter = {lat: parseFloat('[[${location.latitude}]]'), lng: parseFloat('[[${location.longitude}]]')};
+
+			const mapStyle = [{
+				featureType: "poi",
+				elementType: "labels",
+				stylers: [{visibility: "off"}]
+			}];
+
+			const map = new google.maps.Map(document.getElementById('map'), {
+				center: mapCenter,
+				zoom: 16,
+				styles: mapStyle
+			});
+
+			const userMarker = new google.maps.Marker({
+				position: mapCenter,
+				map: map,
+				title: "현위치",
+				icon: {
+					url: "/image/userLocation.png",
+					scaledSize: new google.maps.Size(50, 50)
+				}
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+
+			const restaurants = /*[[${restaurants}]]*/[];
+
+			let previousMarker = null;
+
+			restaurants.forEach(restaurant => {
+				const restaurantMarker = new google.maps.Marker({
+					position: {lat: restaurant.lat, lng: restaurant.lng},
+					map: map,
+					title: restaurant.name,
+					icon: {
+						url: "/image/restaurant.png",
+						scaledSize: new google.maps.Size(40, 40)
+					}
+				});
+
+				google.maps.event.addListener(restaurantMarker, 'click', function () {
+					if (previousMarker) {
+						previousMarker.setIcon({
+							url: previousMarker.getIcon().url,
+							scaledSize: new google.maps.Size(40, 40)
+						});
+					}
+					
+					restaurantMarker.setIcon({
+						url: restaurantMarker.getIcon().url,
+						scaledSize: new google.maps.Size(50, 50)
+					});
+
+					previousMarker = restaurantMarker;
+
+					const activeItems = document.querySelectorAll('.restaurant-list li.active');
+					activeItems.forEach(item => item.classList.remove('active'));
+
+					const listItem = document.getElementById('restaurant-' + restaurant.id);
+					listItem.classList.add('active');
+
+					listItem.scrollIntoView({
+						behavior: 'smooth',
+						block: 'center'
+					});
+
+
+				});
+			});
+		}
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="search-result">
+			<h1><span th:text="${location.address}"></span> 주변 추천 맛집</h1>
+			<button onclick="window.location.href='/'">다시 검색하기</button>
+			<div class="restaurant-list">
+
+				<ul>
+					<li th:each="restaurant : ${restaurants}" th:id="'restaurant-' + ${restaurant.id}"
+						th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'">
+						<strong th:text="${restaurant.name}"></strong> <br>
+						평점: <span th:text="${restaurant.score}"></span> <br>
+						거리: <span th:text="${restaurant.distance} + 'km'"></span><br>
+						<hr>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="map-container">
+			<div id="map"></div>
+		</div>
+	</div>
+
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQOAHhoen5B1R7h2pOaXCJQDPPyYTgHc0&callback=initMap&libraries=marker&v=weekly"
+		defer></script>
+
+</body>
+
+</html>

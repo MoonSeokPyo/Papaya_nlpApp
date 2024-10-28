@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음식점 상세정보</title>
+</head>
+<body>
+    <h1>음식점 상세 정보</h1>
+    <div>
+        <h2 th:text="${restaurant.name}">음식점 이름</h2>
+        <p><strong>주소:</strong> <span th:text="${restaurant.address}">주소</span></p>
+        <p><strong>평점:</strong> <span th:text="${restaurant.score}">평점</span></p>
+    </div>
+    <button onclick="window.history.back();">돌아가기</button>
+</body>
+</html>
