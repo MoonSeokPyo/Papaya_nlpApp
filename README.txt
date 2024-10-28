@@ -9,6 +9,10 @@ local에서 수정하고 sourcetree로 push할 때 에러 발생함
 해결 방법이 있긴 하겠으나 github는 건드리지 않고 sourcetree 만 이용할 것	
 
 -------------------------------------------------------
+sql file encoding: utf-8
+Main Table
+restraurant table(id, placeName, address, roadAddress, type, 위도 x, 경도 y)
+
 mysql table 추출
 mysqldump -u "계정이름" -p "db이름" "table이름" > "저장할table파일이름.sql"
 
