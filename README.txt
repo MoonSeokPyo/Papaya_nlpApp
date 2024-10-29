@@ -16,10 +16,14 @@ Main Table (restraurant table)
 '좌표정보(x)', '좌표정보(y) ' 제외했다.
 
 mysql table 추출
-mysqldump -u "계정이름" -p --default-character-set=utf8mb4 "db이름" "table이름" > "저장할table파일이름.sql"
+mysqldump -u 계정이름 -p --default-character-set=utf8mb4 db이름 table이름 > 저장할table파일이름.sql
 
 mysql table 삽입
-mysql -u "계정이름" -p "db이름" < "저장한table파일이름.sql"
+mysql -u 계정이름 -p db이름 < 저장한table파일이름.sql
+
+100MB 넘는 파일 업로드 할 경우
+git lfs install
+git lfs track "*.파일 확장자"
 -------------------------------------------------------
 이슈란에 각자 맡은 기능 서술
 라벨붙이기
