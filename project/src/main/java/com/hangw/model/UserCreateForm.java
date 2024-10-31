@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserCreateForm {
+public class UserCreateForm {				//회원가입 화면에서 입력이 제대로 됐는지 확인할때 사용
 	@NotEmpty(message = "사용자ID는 필수항목입니다.")
 	private String userId;
 	
@@ -23,7 +23,4 @@ public class UserCreateForm {
 	@NotEmpty(message = "email은 필수항목입니다.")
 	@Email
 	private String email;
-	
-	@NotEmpty(message = "성별은 필수항목입니다.")
-	private String gender;
 }

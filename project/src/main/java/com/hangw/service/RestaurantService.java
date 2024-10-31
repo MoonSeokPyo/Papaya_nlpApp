@@ -1,11 +1,8 @@
 package com.hangw.service;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hangw.model.DataNotFoundException;
@@ -44,9 +41,4 @@ public class RestaurantService {
         // DB에서 위도와 경도를 기준으로 1km 반경 내 음식점 찾기
         return restaurantRepository.findRestaurantsByLocation(location.getLatitude(), location.getLongitude(), 1.0);
     }
-	
-	public List<Restaurant> listRestaurant(){
-		List<Restaurant> restList = restaurantRepository.findAll(Sort.by(Sort.Direction.DESC, "score"));
-		return restList;
-	}
 }

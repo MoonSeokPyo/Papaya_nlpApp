@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>음식점 상세정보</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>음식점 상세정보</title>
 </head>
+
 <body>
-    <h1>음식점 상세 정보</h1>
-    <div>
-        <h2 th:text="${restaurant.name}">음식점 이름</h2>
-        <p><strong>주소:</strong> <span th:text="${restaurant.address}">주소</span></p>
-        <p><strong>평점:</strong> <span th:text="${restaurant.score}">평점</span></p>
-    </div>
-    <button onclick="window.history.back();">돌아가기</button>
+	<h1>음식점 상세 정보</h1>
+	<div>
+		<h2 th:text="${restaurant.name}">음식점 이름</h2>
+		<p><strong>주소:</strong> <span th:text="${restaurant.address}">주소</span></p>
+		<p><strong>평점:</strong> <span th:text="${restaurant.score}">평점</span></p>
+	</div>
+
+	<div>
+		<h3>리뷰 목록</h3>
+		<ul>
+			<li th:each="review : ${reviews}">
+				<strong th:text="${review.writer.name}">작성자</strong><br /> 
+				<span th:text="${review.content}">리뷰 내용</span>
+				<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}">작성 날짜</em></p>
+				<hr>
+			</li>
+		</ul>
+	</div>
+
+	<div>
+		<h3>리뷰 작성하기</h3>
+		<form th:action="@{/review/add}" method="post">
+			<input type="hidden" name="restId" th:value="${restaurant.id}">
+			<div>
+				<textarea id="content" name="content" rows="4" cols="50" required></textarea>
+			</div>
+			<button type="submit">등록</button>
+		</form>
+	</div>
+
+	<button onclick="history.back();">돌아가기</button>
 </body>
+
 </html>

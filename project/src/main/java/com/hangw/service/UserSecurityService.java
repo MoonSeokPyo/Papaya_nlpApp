@@ -12,31 +12,34 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.hangw.model.UserRole;
 import com.hangw.model.PageUser;
+import com.hangw.model.UserRole;
 import com.hangw.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserSecurityService implements UserDetailsService{
-	private final UserRepository userRepository;
+public class UserSecurityService implements UserDetailsService {
+    private final UserRepository userRepository;
 
-	
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<PageUser> _User = userRepository.findByUsername(username);
-		if(_User.isEmpty()) {
-			throw new UsernameNotFoundException("사용자를 찾을수 없음");
-			}
-		PageUser Users = _User.get();
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		if("admin".equals(username)) {
-			authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
-		}else {
-			authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
-		}
-		return new User(Users.getUsername(),Users.getPassword(), authorities);
-	}
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {		//user찾기 (로그인 시 사용됨)
+        Optional<PageUser> _user = userRepository.findByEmail(email);
+        if (_user.isEmpty()) {
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
+        }
+        
+        PageUser user = _user.get();
+
+        // 권한 설정
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if ("admin".equals(user.getUsername())) {
+            authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
+        } else {
+            authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
+        }
+
+        return new User(user.getEmail(), user.getPassword(), authorities);
+    }
 }

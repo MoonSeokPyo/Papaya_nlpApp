@@ -32,11 +32,11 @@ public class Review {
 	private LocalDateTime write_date;
 	
 	@ManyToOne
-	@JoinColumn(name = "restaurant_Id")
-	private Restaurant noticeBoard;
+	@JoinColumn(name = "restaurant_id")
+	private Restaurant restaurant;
 	
 	@ManyToOne
     @JoinColumn(name = "user_id")
-    private PageUser commenter;
+    private PageUser writer;
 	
 }
