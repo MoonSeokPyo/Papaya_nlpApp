@@ -2,6 +2,7 @@ package com.hangw.controller;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hangw.model.UserCreateForm;
 import com.hangw.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -37,7 +39,6 @@ public class UserController {
 
         try {
             userService.create(
-                userCreateForm.getUserId(), 
                 userCreateForm.getUserName(), 
                 userCreateForm.getEmail(), 
                 userCreateForm.getPassword1()
@@ -56,8 +57,15 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
-        return "login"; 
+    public String login(HttpServletRequest request, Model model) {
+    	String referrer = request.getHeader("Referer");
+        request.getSession().setAttribute("prevPage", referrer);
+        return "login2"; 
     }
 
+    @GetMapping("findPW")
+    public String findPW() {
+    	return "redirect:/user/login";
+    }
+    
 }

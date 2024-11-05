@@ -18,9 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	public PageUser create(String username, String name, String email, String password) {
+	public PageUser create(String name, String email, String password) {
 		PageUser user = new PageUser();
-		user.setUsername(username);
 		user.setName(name);
 		user.setEmail(email);
 		user.setPassword(passwordEncoder.encode(password));	

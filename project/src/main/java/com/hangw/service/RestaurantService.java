@@ -39,6 +39,24 @@ public class RestaurantService {
         // Geocoding API를 통해 주소를 위도와 경도로 변환
         Location location = geocodingService.getCoordinates(address);
         // DB에서 위도와 경도를 기준으로 1km 반경 내 음식점 찾기
-        return restaurantRepository.findRestaurantsByLocation(location.getLatitude(), location.getLongitude(), 1.0);
+        return restaurantRepository.findRestaurantsInBoundary(location.getLatitude(), location.getLongitude(), 1.0);
     }
+	
+	public List<RestaurantDTO> getRestaurantByLocation(String address){
+		return restaurantRepository.findRestaurantsByLocation(address);
+	}
+	
+	public List<RestaurantDTO> sortRByScore(List<RestaurantDTO> restaurants){
+		restaurants.sort((r1, r2) -> Double.compare(r2.getScore(), r1.getScore()));
+		return restaurants;
+	}
+	
+	public List<RestaurantDTO> searchRestaurantByName(String name){
+		return restaurantRepository.searchRestaurantsByName(name);
+	}
+	
+	public List<RestaurantDTO> cutTop10(List<RestaurantDTO> restaurants){
+		List<RestaurantDTO> topRestaurants = restaurants.size() > 10 ? restaurants.subList(0, 10) : restaurants;
+		return topRestaurants;
+	}
 }

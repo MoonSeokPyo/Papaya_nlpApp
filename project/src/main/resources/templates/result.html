@@ -2,145 +2,149 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=devicve-width, initial-scale=1.0">
-    <title>주변 음식점</title>
-    <style>
-        .container {
-            display: flex;
-            height: 98vh;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=devicve-width, initial-scale=1.0">
+	<title>주변 음식점</title>
+	<style>
+		.container {
+			display: flex;
+			height: 98vh;
+		}
 
-        .search-result {
-            width: 20%;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
+		.search-result {
+			width: 20%;
+			display: flex;
+			flex-direction: column;
+			overflow-y: auto;
+		}
 
-        .map-container {
-            width: 80%;
-        }
+		.map-container {
+			width: 80%;
+		}
 
-        #map {
-            height: 98vh;
-            width: 100%;
-        }
+		#map {
+			height: 98vh;
+			width: 100%;
+		}
 
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+		ul {
+			list-style-type: none;
+			padding-left: 0;
+		}
 
-        li {
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+		li {
+			margin-bottom: 10px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-        li.active {
-            background-color: #f0f0f0;
-        }
-    </style>
-    <script type="text/javascript"
-        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=eaaae920a0a9c0221057bb8ba7ce3e43"></script>
-    <script th:inline="javascript">
-        function initMap() {
-            const mapContainer = document.getElementById('map');
-            const mapCenter = new kakao.maps.LatLng(parseFloat('[[${location.latitude}]]'), parseFloat('[[${location.longitude}]]'));
+		li.active {
+			background-color: #f0f0f0;
+		}
+	</style>
+	<script type="text/javascript"
+		src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=eaaae920a0a9c0221057bb8ba7ce3e43"></script>
+	<script th:inline="javascript">
+		function initMap() {
+			const mapContainer = document.getElementById('map');
+			const mapCenter = new kakao.maps.LatLng(parseFloat('[[${location.latitude}]]'), parseFloat('[[${location.longitude}]]'));
 
-            // 지도 생성
-            const mapOption = {
-                center: mapCenter,
-                level: 4
-            };
+			// 지도 생성
+			const mapOption = {
+				center: mapCenter,
+				level: 4
+			};
 
-            const map = new kakao.maps.Map(mapContainer, mapOption);
+			const map = new kakao.maps.Map(mapContainer, mapOption);
 
-            // 사용자 위치 마커 출력
-            const userMarker = new kakao.maps.Marker({
-                position: mapCenter,
-                map: map,
-                title: "현위치",
-                image: new kakao.maps.MarkerImage(
-                    "/image/userLocation.png",
-                    new kakao.maps.Size(50, 50)
-                )
-            });
+			// 사용자 위치 마커 출력
+			const userMarker = new kakao.maps.Marker({
+				position: mapCenter,
+				map: map,
+				title: "현위치",
+				image: new kakao.maps.MarkerImage(
+					"/image/userLocation.png",
+					new kakao.maps.Size(50, 50)
+				)
+			});
 
-            const restaurants = /*[[${restaurants}]]*/[];
+			const restaurants = /*[[${restaurants}]]*/[];
 
-            let previousMarker = null;
+			let previousMarker = null;
 			const restaurantImage = "/image/restaurant.png"
-			
+
 			// 음식점 위치마다 마커 출력
-            restaurants.forEach(restaurant => {
-                const restaurantPosition = new kakao.maps.LatLng(restaurant.lat, restaurant.lng);
+			restaurants.forEach(restaurant => {
+				const restaurantPosition = new kakao.maps.LatLng(restaurant.lat, restaurant.lng);
 
-                const restaurantMarker = new kakao.maps.Marker({
-                    position: restaurantPosition,
-                    map: map,
-                    title: restaurant.name,
-                    image: new kakao.maps.MarkerImage(
-                        restaurantImage,
-                        new kakao.maps.Size(40, 40)
-                    )
-                });
+				const restaurantMarker = new kakao.maps.Marker({
+					position: restaurantPosition,
+					map: map,
+					title: restaurant.name,
+					image: new kakao.maps.MarkerImage(
+						restaurantImage,
+						new kakao.maps.Size(40, 40)
+					)
+				});
 
-                kakao.maps.event.addListener(restaurantMarker, 'click', function () {
-                    if (previousMarker) {
-                        previousMarker.setImage(new kakao.maps.MarkerImage(
-                            restaurantImage,
-                            new kakao.maps.Size(40, 40)
-                        ));
-                    }
+				kakao.maps.event.addListener(restaurantMarker, 'click', function () {
+					if (previousMarker) {
+						previousMarker.setImage(new kakao.maps.MarkerImage(
+							restaurantImage,
+							new kakao.maps.Size(40, 40)
+						));
+					}
 
-                    restaurantMarker.setImage(new kakao.maps.MarkerImage(
-                        restaurantImage,
-                        new kakao.maps.Size(50, 50)
-                    ));
+					restaurantMarker.setImage(new kakao.maps.MarkerImage(
+						restaurantImage,
+						new kakao.maps.Size(50, 50)
+					));
 
-                    previousMarker = restaurantMarker;
+					previousMarker = restaurantMarker;
 
-                    const activeItems = document.querySelectorAll('.restaurant-list li.active');
-                    activeItems.forEach(item => item.classList.remove('active'));
+					const activeItems = document.querySelectorAll('.restaurant-list li.active');
+					activeItems.forEach(item => item.classList.remove('active'));
 
-                    const listItem = document.getElementById('restaurant-' + restaurant.id);
-                    listItem.classList.add('active');
+					const listItem = document.getElementById('restaurant-' + restaurant.id);
+					listItem.classList.add('active');
 
-                    listItem.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                });
-            });
-        }
+					listItem.scrollIntoView({
+						behavior: 'smooth',
+						block: 'center'
+					});
+				});
+			});
+		}
 
-        window.onload = initMap;
-    </script>
+		window.onload = initMap;
+	</script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="search-result">
-            <h1><span th:text="${location.address}"></span> 주변 추천 맛집</h1>
-            <button onclick="window.location.href='/'">다시 검색하기</button>
-            <div class="restaurant-list">
-                <ul>
-                    <li th:each="restaurant : ${restaurants}" th:id="'restaurant-' + ${restaurant.id}"
-                        th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'">
-                        <strong th:text="${restaurant.name}"></strong> <br>
-                        평점: <span th:text="${restaurant.score}"></span> <br>
-                        <hr>
-                    </li>
-                </ul>
-            </div>
-        </div>
+	<div class="container">
+		<div class="search-result">
+			<h1><span th:text="${location.address}"></span> 주변 추천 맛집</h1>
+			<button onclick="window.location.href='/'">다시 검색하기</button>
+			<div class="restaurant-list">
+				<div th:if="${errorMessage}">
+					<p th:text="${errorMessage}"></p>
+				</div>
+				<ul>
+					<li th:each="restaurant : ${restaurants}" th:id="'restaurant-' + ${restaurant.id}"
+						th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'">
+						<strong th:text="${restaurant.name}"></strong> <br>
+						평점: <span th:text="${restaurant.score}"></span> <br>
+						거리: <span th:text="${restaurant.distance}+km"></span> <br>
+						<hr>
+					</li>
+				</ul>
+			</div>
+		</div>
 
-        <div class="map-container">
-            <div id="map"></div>
-        </div>
-    </div>
+		<div class="map-container">
+			<div id="map"></div>
+		</div>
+	</div>
 </body>
 
 </html>

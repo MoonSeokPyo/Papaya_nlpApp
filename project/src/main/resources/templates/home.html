@@ -6,38 +6,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home</title>
 	<script>
-		function searchByCurrentLocation() {			//브라우저를 통해 현재 위치정보를 받아옴
+		function searchByBoundary() {			//브라우저를 통해 현재 위치정보를 받아옴
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 			} else {
 				alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
 			}
 		}
-		
-		function cutAddress(address){
-			
-		}
-		
+
+
+
 		function successCallback(position) {
 			const lat = position.coords.latitude;
 			const lng = position.coords.longitude;
 			const API_KEY = '1aecc8adda8186c6f0963b2994520212';
-			
+
 			fetch(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lng}&y=${lat}`, {
-			    headers: {
-			        'Authorization': `KakaoAK ${API_KEY}`				//카카오 맵 api 해더
-			    }
+				headers: {
+					'Authorization': `KakaoAK ${API_KEY}`				//카카오 맵 api 해더
+				}
 			})
-			.then(response => response.json())
-			.then(data => {
-			    if (data.documents && data.documents.length > 0) {
-			        const address = data.documents[0].address; 				// 주소 정보
-					window.location.href = `/search?address=${encodeURIComponent(address.address_name)}`;
-			    } else {
-			        console.log("해당 좌표에 대한 주소를 찾을 수 없습니다.");
-			    }
-			})
-			.catch(error => console.error('Error:', error));
+				.then(response => response.json())
+				.then(data => {
+					if (data.documents && data.documents.length > 0) {
+						const address = data.documents[0].address; 				// 주소 정보
+						window.location.href = `/search/boundary?address=${encodeURIComponent(address.address_name)}`;
+					} else {
+						console.log("해당 좌표에 대한 주소를 찾을 수 없습니다.");
+					}
+				})
+				.catch(error => console.error('Error:', error));
 		}
 
 		function errorCallback(error) {
@@ -53,9 +51,14 @@
 	<a sec:authorize="isAuthenticated()" th:href="@{/user/detail}">회원정보</a>
 
 	<h1>음식점 추천 검색</h1>
-	<button onclick="searchByCurrentLocation()">현재 위치로 검색</button>
-	<form action="/search" method="get">
-		<label for="address">다른 주소로 검색:</label>
+	<button onclick="searchByBoundary()">현재 위치로 검색</button>
+	<form action="/search/boundary" method="get">
+		<label for="address">다른 주소 근처의 음식점 검색:</label>
+		<input type="text" id="address" name="address" required>
+		<button type="submit">검색</button>
+	</form>
+	<form action="/search/location" method="get">
+		<label for="address">다른 동네의 음식점 검색:</label>
 		<input type="text" id="address" name="address" required>
 		<button type="submit">검색</button>
 	</form>
