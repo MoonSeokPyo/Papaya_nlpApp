@@ -28,7 +28,27 @@ git lfs track "*.파일 확장자"
 이슈란에 각자 맡은 기능 서술
 라벨붙이기
 
-## [Restaurant Sql 삽입시 주의사항]
+[Restaurant Sql 삽입시 주의사항]
 1. csv 파일 path 확인
 2. sql 서버 확인(host 192.168.112.1:3307로 되어 있습니다.)
 	mysql+pymysql://사용자명:비밀번호@호스트:포트/스키마
+
+------------------------------------------------------
+#OAUTH2
+#google
+spring.security.oauth2.client.registration.google.client-id={clientID}
+spring.security.oauth2.client.registration.google.client-authentication-method=client_secret_basic
+spring.security.oauth2.client.registration.google.authorization-grant-type=authorization_code
+spring.security.oauth2.client.registration.google.scope=profile, email
+spring.security.oauth2.client.registration.google.redirect-uri={baseUrl}/login/oauth2/code/{registrationId}
+
+#naver
+spring.security.oauth2.client.registration.naver.client-id={clientId}
+spring.security.oauth2.client.registration.naver.client-secret={secret}
+spring.security.oauth2.client.registration.naver.redirect-uri=http://localhost:8080/login/oauth2/code/naver
+spring.security.oauth2.client.registration.naver.authorization-grant-type=authorization_code
+spring.security.oauth2.client.registration.naver.scope=name,email
+spring.security.oauth2.client.provider.naver.authorization-uri=https://nid.naver.com/oauth2.0/authorize
+spring.security.oauth2.client.provider.naver.token-uri=https://nid.naver.com/oauth2.0/token
+spring.security.oauth2.client.provider.naver.user-info-uri=https://openapi.naver.com/v1/nid/me
+spring.security.oauth2.client.provider.naver.user-name-attribute=response
