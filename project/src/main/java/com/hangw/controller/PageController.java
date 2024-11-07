@@ -93,7 +93,12 @@ public class PageController {
 				mv.setViewName("restaurantDetail");
 				mv.addObject("restaurant", restaurant);
 				mv.addObject("reviews", reviews);
-			} else {
+			} else if (restaurants.isEmpty()) {
+				mv.setViewName("result");
+				mv.addObject("errorMessage", "해당 이름의 음식점을 찾을 수 없습니다.");
+				mv.addObject("location", location);
+			}
+			else {
 				restaurants = restaurantService.sortRByScore(restaurants);
 				mv.setViewName("result");
 				mv.addObject("restaurants", restaurants);

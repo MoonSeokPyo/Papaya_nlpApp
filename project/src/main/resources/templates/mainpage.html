@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="css/mainstyles.css" />
 	<link rel="stylesheet" type="text/css" href="css/styleguide.css" />
 	<link rel="stylesheet" type="text/css" href="css/globals.css" />
-	<script src="/js/search.js"></script>
 </head>
 
 <body style="margin: 0; background: #ffffff">
@@ -23,23 +22,22 @@
 			<div class="navigation">
 				<div class="textfield-1 textfield-2">
 					<form onsubmit="searchByName(document.getElementById('name').value); return false;">
-					    <input type="text" class="text-3 roboto-normal-black-14px" placeholder="음식점 이름으로 검색"
-					           style="border:none" size="18" height="25" id="name" name="name" required>
-					    <button type="submit" class="search-button" style="border:none"></button>
+						<input type="text" class="text-3 roboto-normal-black-14px" placeholder="음식점 이름으로 검색"
+							style="border:none" size="18" height="25" id="name" name="name" required>
+						<button type="submit" class="search-button" style="border:none"></button>
 					</form>
-
 				</div>
-
-			</div>
-			<div class="menu-container">
-				<img class="menuicon" src="img/menu-icon.png" onclick="toggleMenu()" />
-				<div id="dropdownMenu" class="dropdown-menu">
-					<a sec:authorize="isAnonymous()" id="leftmenu" class="loginbutton" th:href="@{/user/login}">로그인</a>
-					<a sec:authorize="isAuthenticated()" id="leftmenu" class="loginbutton" th:href="@{/user/logout}">로그아웃</a>
-					<div>마이페이지</div>
-					<div id="leftmenu" href="#about">앱 소개</div>
-					<div id="leftmenu" href="#contact">공지사항</div>
-					<div>문의 게시판</div>
+				<div class="menu-container">
+					<img class="vector" src="img/vector.png" alt="Menu Icon" id="menuIcon" />
+					<div class="dropdown-menu" id="dropdownMenu">
+						<div sec:authorize="isAnonymous()" onclick="navigateToPage('/user/login')" class="menu-item">로그인
+						</div>
+						<div sec:authorize="isAuthenticated()" onclick="navigateToPage('/user/logout')"
+							class="menu-item">로그아웃</div>
+						<div class="menu-item" onclick="navigateToPage('app-intro.html')">앱 소개</div>
+						<div class="menu-item" onclick="navigateToPage('inquiries.html')">문의사항</div>
+						<div class="menu-item" onclick="navigateToPage('notice.html')">공지사항</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -322,11 +320,12 @@
 			<div class="container-4 roboto-normal-black-20px">
 				<div class="title-11 valign-text-middle">Papaya 음식점</div>
 				<div class="title-12 valign-text-middle">서울특별시 성북구 서경대학교 소프트웨어학과</div>
-				<div class="title-13 valign-text-middle">website</div>
+				<div class="title-13 valign-text-middle"></div>
 			</div>
 		</div>
 	</div>
 	<script src="js/mainscript.js"></script>
+	<script src="js/search.js"></script>
 </body>
 
 </html>

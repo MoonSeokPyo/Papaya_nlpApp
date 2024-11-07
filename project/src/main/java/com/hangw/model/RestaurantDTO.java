@@ -27,15 +27,6 @@ public class RestaurantDTO {
         this.distance = roundToOneDecimalPlace(distance);
     }
 	
-	public RestaurantDTO(long id, String name, String address, double score, double lat, double lng) {
-		this.id = id;
-        this.name = name;
-        this.address = address;
-        this.score = score;
-        this.lat = lat;
-        this.lng = lng;
-    }
-	
 	private double roundToOneDecimalPlace(double value) {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(1, RoundingMode.HALF_UP);
