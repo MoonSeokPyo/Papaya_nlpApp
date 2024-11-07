@@ -17,7 +17,6 @@ import com.hangw.service.GeocodingService;
 import com.hangw.service.RestaurantService;
 import com.hangw.service.ReviewService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -53,8 +52,9 @@ public class PageController {
 	@GetMapping("/search/location") // 검색결과처리(특정 동네 이름을 검색하면 주소에 그 동네 이름이 들어있는 음식점들의 데이터만 넘김)
 	public String searchRestaurantsByLocation(@RequestParam String address, Model model) {
 		try {
-			List<RestaurantDTO> restaurants = restaurantService.getRestaurantByLocation(address);
 			Location location = geocodingService.getCoordinates(address);
+			List<RestaurantDTO> restaurants = restaurantService.getRestaurantByLocation(address, location.getLatitude(),
+					location.getLongitude());
 			restaurants = restaurantService.sortRByScore(restaurants);
 			model.addAttribute("restaurants", restaurants);
 			model.addAttribute("location", location);
@@ -71,7 +71,7 @@ public class PageController {
 	public ModelAndView viewRestaurant(@RequestParam(value = "id") Long restaurantId) {
 		Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 		List<Review> reviews = reviewService.viewReview(restaurantId);
-	    
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("restaurantDetail");
 		mv.addObject("restaurant", restaurant);
@@ -80,29 +80,32 @@ public class PageController {
 	}
 
 	@GetMapping("/search/restaurant") // 검색을 통한 음식점 상세정보페이지 연결
-	public ModelAndView searchRestaurant(@RequestParam String name) {
-		List<RestaurantDTO> restaurants = restaurantService.searchRestaurantByName(name);
+	public ModelAndView searchRestaurant(@RequestParam String address, @RequestParam String name) {
 		ModelAndView mv = new ModelAndView();
-		if (restaurants.size() == 1) {
-			Restaurant restaurant = restaurantService.getRestaurant(name);
-			List<Review> reviews = reviewService.viewReview(restaurant.getId());
+		try {
+			Location location = geocodingService.getCoordinates(address);
+			List<RestaurantDTO> restaurants = restaurantService.searchRestaurantByName(name, location.getLatitude(),location.getLongitude());
 
-			mv.setViewName("restaurantDetail");
-			mv.addObject("restaurant", restaurant);
-			mv.addObject("reviews", reviews);
-		} else {
-			try {
+			if (restaurants.size() == 1) {
+				Restaurant restaurant = restaurantService.getRestaurant(name);
+				List<Review> reviews = reviewService.viewReview(restaurant.getId());
+
+				mv.setViewName("restaurantDetail");
+				mv.addObject("restaurant", restaurant);
+				mv.addObject("reviews", reviews);
+			} else {
 				restaurants = restaurantService.sortRByScore(restaurants);
-				Location location = geocodingService.getCoordinates("서울");
 				mv.setViewName("result");
-				mv.addObject("restaurants",restaurants);
-				mv.addObject("location",location);
-			} catch (Exception e) {
-				mv.addObject(e);
+				mv.addObject("restaurants", restaurants);
+				mv.addObject("location", location);
 			}
 
+		} catch (Exception e) {
+			mv.addObject(e);
 		}
+
 		return mv;
+
 	}
 
 	@GetMapping("/ranking") // 평점이 좋은 음식점 랭킹

@@ -22,10 +22,10 @@
 			<div class="title-8">Papaya 음식점 추천</div>
 			<div class="navigation">
 				<div class="textfield-1 textfield-2">
-					<form action="/search/restaurant" method="get">
-						<input type="text" class="text-3 roboto-normal-black-14px" placeholder="음식점 이름으로 검색"
-							style="border:none" size="18" height="25" id="name" name="name" required>
-						<button type="submit" class="search-button" style="border:none"></button>
+					<form onsubmit="searchByName(document.getElementById('name').value); return false;">
+					    <input type="text" class="text-3 roboto-normal-black-14px" placeholder="음식점 이름으로 검색"
+					           style="border:none" size="18" height="25" id="name" name="name" required>
+					    <button type="submit" class="search-button" style="border:none"></button>
 					</form>
 
 				</div>

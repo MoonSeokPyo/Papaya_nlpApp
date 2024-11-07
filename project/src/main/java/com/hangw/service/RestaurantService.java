@@ -42,8 +42,8 @@ public class RestaurantService {
         return restaurantRepository.findRestaurantsInBoundary(location.getLatitude(), location.getLongitude(), 1.0);
     }
 	
-	public List<RestaurantDTO> getRestaurantByLocation(String address){
-		return restaurantRepository.findRestaurantsByLocation(address);
+	public List<RestaurantDTO> getRestaurantByLocation(String address, double latitude, double longitude){
+		return restaurantRepository.findRestaurantsByLocation(address, latitude, longitude);
 	}
 	
 	public List<RestaurantDTO> sortRByScore(List<RestaurantDTO> restaurants){
@@ -51,8 +51,8 @@ public class RestaurantService {
 		return restaurants;
 	}
 	
-	public List<RestaurantDTO> searchRestaurantByName(String name){
-		return restaurantRepository.searchRestaurantsByName(name);
+	public List<RestaurantDTO> searchRestaurantByName(String name, double latitude, double longitude){
+		return restaurantRepository.searchRestaurantsByName(name,latitude,longitude);
 	}
 	
 	public List<RestaurantDTO> cutTop10(List<RestaurantDTO> restaurants){
