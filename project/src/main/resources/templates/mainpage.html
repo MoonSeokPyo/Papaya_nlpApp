@@ -35,8 +35,7 @@
 				<img class="menuicon" src="img/menu-icon.png" onclick="toggleMenu()" />
 				<div id="dropdownMenu" class="dropdown-menu">
 					<a sec:authorize="isAnonymous()" id="leftmenu" class="loginbutton" th:href="@{/user/login}">로그인</a>
-					<a sec:authorize="isAuthenticated()" id="leftmenu" class="loginbutton"
-						th:href="@{/user/logout}">로그아웃</a>
+					<a sec:authorize="isAuthenticated()" id="leftmenu" class="loginbutton" th:href="@{/user/logout}">로그아웃</a>
 					<div>마이페이지</div>
 					<div id="leftmenu" href="#about">앱 소개</div>
 					<div id="leftmenu" href="#contact">공지사항</div>
