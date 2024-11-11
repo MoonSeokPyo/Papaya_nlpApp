@@ -32,7 +32,7 @@
 			.then(data => {
 			    if (data.documents && data.documents.length > 0) {
 			        const address = data.documents[0].address; 				// 주소 정보
-					window.location.href = `/search?address=${encodeURIComponent(address.address_name)}`;
+					window.location.href = `/search/boundary?address=${encodeURIComponent(address.address_name)}`;
 			    } else {
 			        console.log("해당 좌표에 대한 주소를 찾을 수 없습니다.");
 			    }
@@ -54,7 +54,7 @@
 
 	<h1>음식점 추천 검색</h1>
 	<button onclick="searchByCurrentLocation()">현재 위치로 검색</button>
-	<form action="/search" method="get">
+	<form action="/search/location" method="get">
 		<label for="address">다른 주소로 검색:</label>
 		<input type="text" id="address" name="address" required>
 		<button type="submit">검색</button>

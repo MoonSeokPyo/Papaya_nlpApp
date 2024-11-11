@@ -2,9 +2,11 @@ package com.hangw.model;
 
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,10 +29,17 @@ public class Restaurant {
 	
 	private String address;
 	
+	private String roadAdress;
+	
+	@Column(nullable = true)
 	private double latitude;
 	
+	@Column(nullable = true)
     private double longitude;
     
+	private String category;
+	
+	@ColumnDefault("0")
     private double score;
     
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

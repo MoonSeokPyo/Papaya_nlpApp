@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>음식점 상세정보</title>
+
 </head>
 
 <body>
@@ -19,7 +20,7 @@
 		<h3>리뷰 목록</h3>
 		<ul>
 			<li th:each="review : ${reviews}">
-				<strong th:text="${review.writer.name}">작성자</strong><br /> 
+				<strong th:text="${review.writer.name}">작성자</strong><br />
 				<span th:text="${review.content}">리뷰 내용</span>
 				<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}">작성 날짜</em></p>
 				<hr>
@@ -37,8 +38,6 @@
 			<button type="submit">등록</button>
 		</form>
 	</div>
-
 	<button onclick="history.back();">돌아가기</button>
 </body>
-
 </html>

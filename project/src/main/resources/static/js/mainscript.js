@@ -18,6 +18,7 @@ document.getElementById("topButton").onclick = function() {
     document.documentElement.scrollTop = 0; // 크롬, 파이어폭스, IE, 오페라용
 };
 
+<<<<<<< HEAD
 
 //메뉴바 클릭시 보이게 설정
 function toggleMenu() {
@@ -28,3 +29,24 @@ function toggleMenu() {
         menu.style.display = "block";
     }
 }
+=======
+//메뉴 아이콘 js
+document.getElementById('menuIcon').addEventListener('click', function() {
+    const menu = document.getElementById('dropdownMenu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+});
+
+// 클릭 시 메뉴를 닫는 기능 추가 (화면 다른 곳 클릭 시 닫히게 함)
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('dropdownMenu');
+    const icon = document.getElementById('menuIcon');
+    if (!icon.contains(event.target) && !menu.contains(event.target)) {
+        menu.style.display = 'none';
+    }
+});
+
+//div 링크 설정 href X
+function navigateToPage(url) {
+    window.location.href = url;
+}
+>>>>>>> addfrontpage

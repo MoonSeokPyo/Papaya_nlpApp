@@ -20,7 +20,11 @@
     padding: 20px;
     position: absolute;
     top: 0;
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 100%; /*전체비율*/
+>>>>>>> addfrontpage
   }
   
   .page .rectangle-4137 {
@@ -80,6 +84,7 @@
     width: 20px;
   }
 
+<<<<<<< HEAD
   .page .menuicon {
     position: relative;
     width: 48px;
@@ -124,6 +129,49 @@
 }
 
 
+=======
+  .main-page .vector {
+    position: relative;
+    width: 48px;
+    height: 40px;
+    }
+    
+
+    .dropdown-menu {
+      display: none; /* 초기에는 숨김 */
+      position: absolute;
+      top: 50px; /* 아이콘 아래에 위치 */
+      left: 0;
+      background-color: #e7daf9;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      border-color: aqua;
+      border-width: 2px;
+      overflow: hidden;
+      z-index: 1;
+      width: 150px; /* 메뉴의 가로 길이 */
+      flex-direction: column; /* 세로 정렬 */
+    }
+  
+  .menu-item {
+      display: block;
+      padding: 10px 20px;
+      color: #333;
+      text-decoration: none;
+      font-size: 15px;
+      width: 150px;
+      border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .menu-item:hover {
+      background-color: #826fbc;
+  }
+  
+  /* 마지막 메뉴 아이템의 경계선 제거 */
+  .menu-item:last-child {
+      border-bottom: none;
+  }
+>>>>>>> addfrontpage
   
   .page .page-item {
     align-items: center;

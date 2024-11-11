@@ -11,9 +11,10 @@ public class Location {					//user의 현재위치를 저장할때 사용
     private double longitude;
 
     public Location(double latitude, double longitude) {
-        this.latitude = latitude;
+    	this.latitude = latitude;
         this.longitude = longitude;
     }
+    
     public Location(String address, double latitude, double longitude) {
     	this.address = address;
         this.latitude = latitude;

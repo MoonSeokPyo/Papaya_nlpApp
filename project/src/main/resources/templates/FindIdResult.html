@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID 조회 결과</title>
+</head>
+<body>
+    <div class="result-container">
+        <h2>ID 조회 결과</h2>
+
+        <div th:if="${userId}">
+            <p>조회된 ID: <strong th:text="${userId}"></strong></p>
+            <button onclick="window.location.href='/user/login'">로그인하기</button>
+        </div>
+
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+            <button onclick="window.history.back()">다시 검색하기</button>
+        </div>
+    </div>
+</body>
+</html>

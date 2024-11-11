@@ -1,26 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+	<meta charset="utf-8" />
+	<!--<link rel="stylesheet" href="css/globals.css" />
+	<link rel="stylesheet" href="css/styleguide.css" /> -->
+	<link rel="stylesheet" href="/css/loginstyles.css" />
 </head>
 <body>
-    <form th:action="@{/user/login}" method="post">
-        <div th:if="${param.error}">
-            <div>사용자ID 또는 비밀번호를 확인해주세요.</div>
-        </div>
-        <div>
-            <label for="email">사용자ID</label>
-            <input type="email" name="email" id="email" />
-        </div>
-        <div>
-            <label for="password">비밀번호</label>
-            <input type="password" name="password" id="password" />
-        </div>
-        <button type="submit">로그인</button>
-		<a href="/oauth2/authorization/google">Google 로그인</a>
-		<a href="/oauth2/authorization/naver">Naver 로그인</a>
-    </form>
+	<div class="desktop">
+		<div class="div">
+			<div class="overlap-group">
+				<form th:action="@{/user/login}" method="post">
+					<div th:if="${param.error}">
+						<script>
+							alert("사용자ID 또는 비밀번호를 확인해주세요.")
+						</script>
+					</div>
+					<div class="overlap">
+						<!-- 사용자ID 입력란 -->
+						<input type="text" name="email" class="ID" placeholder="아이디를 입력하세요" required style="border:none">
+					</div>
+
+					<div class="PASSWORD-wrapper">
+						<!-- 비밀번호 입력란 -->
+						<input type="password" name="password" class="PASSWORD" placeholder="비밀번호를 입력하세요" required style="border:none">
+						<div></div>
+					</div>
+
+					<!-- 로그인 버튼 -->
+					<button type="submit" class="div-wrapper">
+						<div class="text-wrapper">로그인</div>
+					</button>
+				</form>
+				<div class="img" src="/img/line-2.svg">|</div>
+				<div class="line-2">|</div>
+				<div class="line-3" src="/img/line-6.svg">-</div>
+				<div class="line-4" src="/img/line-3.svg">|</div>
+				<div class="text-wrapper-2" onclick="navigateToPage('/user/findId')">아이디 찾기</div>
+				<div class="text-wrapper-3" onclick="navigateToPage('/user/findPW')">비밀번호 찾기</div>
+				<div class="text-wrapper-4" onclick="navigateToPage('/user/signup')">회원가입</div>
+				<img class="naver-icon" src="/img/naver-icon.png" onclick="navigateToPage('/oauth2/authorization/google')" />
+				<img class="google-icon" src="/img/google-icon.png"	onclick="navigateToPage('/oauth2/authorization/naver')" />
+			</div>
+			<img class="home-fill" src="/img/home-4-fill.svg" onclick="navigateToPage('/')" />
+			<img class="rows-fill" src="/img/rows-3-fill.svg" />
+		</div>
+	</div>
+	<script src="/js/mainscript.js"></script>
 </body>
 </html>

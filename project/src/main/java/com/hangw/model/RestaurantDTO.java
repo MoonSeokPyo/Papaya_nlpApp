@@ -12,12 +12,13 @@ public class RestaurantDTO {
 	private long id;
 	private String name;
 	private String address;
+	private String category;
 	private double score;
 	private double distance;
 	private double lat;
 	private double lng;
 	
-	public RestaurantDTO(long id, String name, String address, double score, double lat, double lng, double distance) {
+	public RestaurantDTO(long id, String name, String address, double score, double lat, double lng, String category, double distance) {
 		this.id = id;
         this.name = name;
         this.address = address;
@@ -25,6 +26,7 @@ public class RestaurantDTO {
         this.lat = lat;
         this.lng = lng;
         this.distance = roundToOneDecimalPlace(distance);
+        this.category = category;
     }
 	
 	private double roundToOneDecimalPlace(double value) {

@@ -27,15 +27,15 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll().anyRequest().authenticated())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))	
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
 				.csrf(csrf -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/**")))
 				.formLogin(formLogin -> formLogin.loginPage("/user/login").usernameParameter("email")
-						.defaultSuccessUrl("/"))												//로컬 로그인 설정 
+						.defaultSuccessUrl("/"))
+
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-						.logoutSuccessUrl("/").invalidateHttpSession(true))				
+						.logoutSuccessUrl("/").invalidateHttpSession(true))
 				.oauth2Login(oauth2 -> oauth2.loginPage("/user/login").defaultSuccessUrl("/")
-						.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService)
-						));																		//소셜 로그인 설정 customOAuth2UserService에서 로그인 플렛폼에 따라 처리함
+						.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))); // 소셜 로그인 설정 customOAuth2UserService에서 로그인 플렛폼에 따라 처리함
 
 		return http.build();
 	}

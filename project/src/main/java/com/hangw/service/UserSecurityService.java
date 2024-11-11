@@ -34,7 +34,7 @@ public class UserSecurityService implements UserDetailsService {
 
         // 권한 설정
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if ("admin".equals(user.getUsername())) {
+        if ("admin".equals(user.getName())) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
