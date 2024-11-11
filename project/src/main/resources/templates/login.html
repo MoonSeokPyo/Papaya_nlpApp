@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="/css/globals.css" />
-	<link rel="stylesheet" href="/css/styleguide.css" />
+	<!--<link rel="stylesheet" href="css/globals.css" />
+	<link rel="stylesheet" href="css/styleguide.css" /> -->
 	<link rel="stylesheet" href="/css/loginstyles.css" />
 </head>
-
 <body>
 	<div class="desktop">
 		<div class="div">
@@ -38,9 +36,9 @@
 				<div class="line-2">|</div>
 				<div class="line-3" src="/img/line-6.svg">-</div>
 				<div class="line-4" src="/img/line-3.svg">|</div>
-				<div class="text-wrapper-2" onclick="navigateToPage('find-id.html')">아이디 찾기</div>
-				<div class="text-wrapper-3" onclick="navigateToPage('find-password.html')">비밀번호 찾기</div>
-				<div class="text-wrapper-4" onclick="navigateToPage('member.html')">회원가입</div>
+				<div class="text-wrapper-2" onclick="navigateToPage('/user/findId')">아이디 찾기</div>
+				<div class="text-wrapper-3" onclick="navigateToPage('/user/findPW')">비밀번호 찾기</div>
+				<div class="text-wrapper-4" onclick="navigateToPage('/user/signup')">회원가입</div>
 				<img class="naver-icon" src="/img/naver-icon.png" onclick="navigateToPage('/oauth2/authorization/google')" />
 				<img class="google-icon" src="/img/google-icon.png"	onclick="navigateToPage('/oauth2/authorization/naver')" />
 			</div>
@@ -50,5 +48,4 @@
 	</div>
 	<script src="/js/mainscript.js"></script>
 </body>
-
 </html>

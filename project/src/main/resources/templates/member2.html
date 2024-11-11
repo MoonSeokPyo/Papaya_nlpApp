@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/globals.css">
+	<link rel="stylesheet" href="/css/styleguide.css">
+	<link rel="stylesheet" href="/css/member-style2.css">
+	<title>회원가입 페이지</title>
+</head>
+
+<body>
+	<div class="desktop">
+		<div class="container">
+			<div class="overlap-group">
+				<form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+					<div th:if="${#fields.hasAnyErrors()}">
+						<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+					</div>
+					<div class="input-group">
+						<label for="email" class="label">email address(ID) :</label>
+						<input type="email" id="email" placeholder="이메일을 입력하세요" class="input-field" th:field="*{email}">
+					</div>
+					<div class="input-group">
+						<label for="username" class="label">name :</label>
+						<input type="text" id="name" placeholder="이름을 입력하세요" class="input-field" th:field="*{userName}">
+					</div>
+					<div class="input-group">
+						<label for="phone" class="label">phone number :</label>
+						<input type="tel" id="phone" placeholder="전화번호를 입력하세요" class="input-field" th:field="*{phone}">
+					</div>
+					<div class="input-group">
+						<label for="password" class="label">password :</label>
+						<input type="password" id="password" placeholder="비밀번호를 입력하세요" class="input-field"
+							th:field="*{password1}">
+					</div>
+					<div class="input-group">
+						<label for="password2" class="label">password check :</label>
+						<input type="password" id="password-check" placeholder="비밀번호 확인" class="input-field"
+							th:field="*{password2}">
+					</div>
+					<button type="submit" class="signup-button">회원가입</button>
+				</form>
+			</div>
+			<img class="home-icon" src="/img/home-4-fill.svg" alt="Home" onclick="navigateToPage('/')">
+			<img class="menu-icon" src="/img/rows-3-fill.svg" alt="Menu">
+		</div>
+	</div>
+	<script src="/js/mainscript.js"></script>
+</body>
+
+</html>

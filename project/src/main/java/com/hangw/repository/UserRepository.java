@@ -8,4 +8,6 @@ import com.hangw.model.PageUser;
 
 public interface UserRepository extends JpaRepository<PageUser, Long>{
 	Optional<PageUser> findByEmail(String email);
+	
+	Optional<PageUser> findByNameAndPhone(String name, String phone);
 }

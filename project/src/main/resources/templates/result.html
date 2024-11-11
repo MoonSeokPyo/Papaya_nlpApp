@@ -134,6 +134,7 @@
 						th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'">
 						<strong th:text="${restaurant.name}"></strong> <br>
 						평점: <span th:text="${restaurant.score}"></span> <br>
+						<span th:text="${restaurant.category}"></span> <br>
 						거리: <span th:text="${restaurant.distance}+km"></span> <br>
 						<hr>
 					</li>

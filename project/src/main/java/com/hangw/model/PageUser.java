@@ -26,6 +26,9 @@ public class PageUser {
 	
 	private String name;
 	
+	@Column(unique = true)
+	private String phone;
+	
 	private String password;
 	
 	private String provider;

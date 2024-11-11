@@ -20,4 +20,7 @@ public class UserCreateForm {				//회원가입 화면에서 입력이 제대로
 	@NotEmpty(message = "email은 필수항목입니다.")
 	@Email
 	private String email;
+	
+	@NotEmpty(message = "전화번호는 필수항목입니다.")
+	private String phone;
 }
