@@ -18,18 +18,6 @@ document.getElementById("topButton").onclick = function() {
     document.documentElement.scrollTop = 0; // 크롬, 파이어폭스, IE, 오페라용
 };
 
-<<<<<<< HEAD
-
-//메뉴바 클릭시 보이게 설정
-function toggleMenu() {
-    var menu = document.getElementById("dropdownMenu");
-    if (menu.style.display === "block") {
-        menu.style.display = "none";
-    } else {
-        menu.style.display = "block";
-    }
-}
-=======
 //메뉴 아이콘 js
 document.getElementById('menuIcon').addEventListener('click', function() {
     const menu = document.getElementById('dropdownMenu');
@@ -49,4 +37,3 @@ document.addEventListener('click', function(event) {
 function navigateToPage(url) {
     window.location.href = url;
 }
->>>>>>> addfrontpage
