@@ -52,3 +52,7 @@ spring.security.oauth2.client.provider.naver.authorization-uri=https://nid.naver
 spring.security.oauth2.client.provider.naver.token-uri=https://nid.naver.com/oauth2.0/token
 spring.security.oauth2.client.provider.naver.user-info-uri=https://openapi.naver.com/v1/nid/me
 spring.security.oauth2.client.provider.naver.user-name-attribute=response
+------------------------------------------------------
+lfs로 올린 대용량 파일은 
+git lfs pull
+로 pull 해야지 다운 된다.
