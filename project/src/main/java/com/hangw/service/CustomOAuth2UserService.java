@@ -18,50 +18,75 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CustomOAuth2UserService extends DefaultOAuth2UserService { // 소셜 로그인 처리 기능
+public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Override
-	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		OAuth2User oAuth2User = super.loadUser(userRequest);
-		String registrationId = userRequest.getClientRegistration().getRegistrationId();
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        OAuth2User oAuth2User = super.loadUser(userRequest);
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
-		if ("naver".equals(registrationId)) {
-			// 네이버 사용자 응답 처리
-			Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+        System.out.println("Registration ID: " + registrationId);  // registrationId 확인
+        System.out.println("OAuth2 User Attributes: " + oAuth2User.getAttributes());  // 전체 attributes 확인
 
-			String email = response.get("email").toString();
-			String name = response.get("name").toString();
+        if ("naver".equals(registrationId)) {
+            // 네이버 사용자 응답 처리
+            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+            System.out.println("Response Attributes: " + response);  // response 객체 확인
 
-			// 사용자 저장 또는 조회
-			PageUser user = userRepository.findByEmail(email)
-					.orElseGet(() -> userRepository.save(new PageUser(name, email, "naver")));
+            String email = (String) response.get("email");
+            String name = (String) response.get("name");
 
-			// 새로운 attributes Map 생성하여 email 필드 포함
-			Map<String, Object> attributes = Map.of("id", response.get("id"), "name", name, "email", email, "response",
-					response // 전체 response 객체를 포함할 수도 있음
-			);
+            System.out.println("Email: " + email);  // 이메일 확인
+            System.out.println("Name: " + name);    // 이름 확인
 
-			// OAuth2User 반환(principal에 사용)
-			return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), attributes, 
-					"email" 
-			);
-		} else if ("google".equals(registrationId)) {
-			// 구글 사용자 응답 처리
-			Map<String, Object> attributes = oAuth2User.getAttributes();
-			String email = (String) attributes.get("email");
-			String name = (String) attributes.get("name");
+            // 사용자가 없으면 DB에 추가
+            PageUser user = userRepository.findByEmail(email)
+                    .orElseGet(() -> {
+                        System.out.println("User not found. Creating new user.");
+                        return userRepository.save(new PageUser(name, email, "naver"));
+                    });
 
-			// 사용자 저장 또는 조회
-			PageUser user = userRepository.findByEmail(email)
-					.orElseGet(() -> userRepository.save(new PageUser(name, email, registrationId)));
+            // OAuth2User 반환 (Principal로 사용됨)
+            Map<String, Object> attributes = Map.of(
+                    "id", response.get("id"),
+                    "name", name,
+                    "email", email,
+                    "response", response
+            );
+            return new DefaultOAuth2User(
+                    Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
+                    attributes,
+                    "email"
+            );
 
-			// OAuth2User를 반환(principal에 사용)
-			return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), attributes,
-					"email");
-		} else {
-			throw new OAuth2AuthenticationException("지원되지 않는 OAuth2 로그인 방식입니다.");
-		}
-	}
+        } else if ("google".equals(registrationId)) {
+            Map<String, Object> attributes = oAuth2User.getAttributes();
+            System.out.println("Google Attributes: " + attributes);  // Google attributes 확인
+
+            String email = (String) attributes.get("email");
+            String name = (String) attributes.get("name");
+
+            System.out.println("Google Email: " + email);
+            System.out.println("Google Name: " + name);
+
+            // 사용자 저장 또는 조회
+            PageUser user = userRepository.findByEmail(email)
+                    .orElseGet(() -> {
+                        System.out.println("User not found. Creating new Google user.");
+                        return userRepository.save(new PageUser(name, email, registrationId));
+                    });
+
+            return new DefaultOAuth2User(
+                    Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
+                    attributes,
+                    "email"
+            );
+
+        } else {
+            throw new OAuth2AuthenticationException("지원되지 않는 OAuth2 로그인 방식입니다.");
+        }
+    }
 }
+

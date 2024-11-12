@@ -28,8 +28,25 @@ public class PageController {
 	private final ReviewService reviewService;
 
 	@GetMapping("/") // 맨 처음 메인 화면 출력
-	public String showHomepage() {
-		return "mainpage";
+	public String showHomepage(Model model) {
+		List<RestaurantDTO> restaurants = restaurantService.getBestRestaurant(3);
+		model.addAttribute("restaurants",restaurants);
+		return "mainpage1";
+	}
+	
+	@GetMapping("/document")
+	public String document() {
+		return "";
+	}
+	
+	@GetMapping("/inquiry")
+	public String inquiry() {
+		return "";
+	}
+	
+	@GetMapping("/notice")
+	public String notice() {
+		return "";
 	}
 
 	@GetMapping("/search/boundary") // 검색결과 처리(현재 사용자 위치와 그 주위 음식점들의 데이터를 페이지에 넘김)
@@ -113,9 +130,4 @@ public class PageController {
 
 	}
 
-	@GetMapping("/ranking") // 평점이 좋은 음식점 랭킹
-	public String ranking(Model model) {
-		List<RestaurantDTO> restaurants = restaurantService.cutTop10(null);
-		return "result";
-	}
 }

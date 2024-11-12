@@ -31,7 +31,6 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/**")))
 				.formLogin(formLogin -> formLogin.loginPage("/user/login").usernameParameter("email")
 						.defaultSuccessUrl("/"))
-
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 						.logoutSuccessUrl("/").invalidateHttpSession(true))
 				.oauth2Login(oauth2 -> oauth2.loginPage("/user/login").defaultSuccessUrl("/")

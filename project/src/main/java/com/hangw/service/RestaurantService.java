@@ -60,8 +60,8 @@ public class RestaurantService {
 		return restaurantRepository.searchRestaurantsByName(name, latitude, longitude, pageable);
 	}
 	
-	public List<RestaurantDTO> cutTop10(List<RestaurantDTO> restaurants){
-		List<RestaurantDTO> topRestaurants = restaurants.size() > 10 ? restaurants.subList(0, 10) : restaurants;
-		return topRestaurants;
+	public List<RestaurantDTO> getBestRestaurant(int num){
+		Pageable pageable = PageRequest.of(0, num);
+		return restaurantRepository.getBestRestaurants(pageable);
 	}
 }

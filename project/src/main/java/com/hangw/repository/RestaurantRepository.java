@@ -28,24 +28,20 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
 	@Query("SELECT new com.hangw.model.RestaurantDTO(r.id, r.name, r.address, r.score, r.latitude, r.longitude, r.category,"
 			+ "(6371 * acos(cos(radians(:latitude)) * cos(radians(r.latitude)) * cos(radians(r.longitude) - radians(:longitude)) + sin(radians(:latitude)) * "
-			+ "sin(radians(r.latitude)))) AS distance) " 
-			+ "FROM Restaurant r " 
-			+ "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL AND "
-			+ " r.address LIKE %:address% ")
+			+ "sin(radians(r.latitude)))) AS distance) " + "FROM Restaurant r "
+			+ "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL AND " + " r.address LIKE %:address% ")
 	List<RestaurantDTO> findRestaurantsByLocation(@Param("address") String address, @Param("latitude") double latitude,
 			@Param("longitude") double longitude, Pageable pageable);
 
 	@Query("SELECT new com.hangw.model.RestaurantDTO(r.id, r.name, r.address, r.score, r.latitude, r.longitude, r.category,"
 			+ "(6371 * acos(cos(radians(:latitude)) * cos(radians(r.latitude)) * cos(radians(r.longitude) - radians(:longitude)) + sin(radians(:latitude)) * "
-			+ "sin(radians(r.latitude)))) AS distance) " + "FROM Restaurant r " 
-			+ "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL AND "
-			+ "r.name LIKE %:name% ")
+			+ "sin(radians(r.latitude)))) AS distance) " + "FROM Restaurant r "
+			+ "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL AND " + "r.name LIKE %:name% ")
 	List<RestaurantDTO> searchRestaurantsByName(@Param("name") String name, @Param("latitude") double latitude,
 			@Param("longitude") double longitude, Pageable pageable);
 
-	@Query("SELECT new com.hangw.model.RestaurantDTO(r.id, r.name, r.address, r.score, r.latitude, r.longitude, r.category,"
-			+ "(6371 * acos(cos(radians(:latitude)) * cos(radians(r.latitude)) * cos(radians(r.longitude) - radians(:longitude)) + sin(radians(:latitude)) * "
-			+ "sin(radians(r.latitude)))) AS distance) " + "FROM Restaurant r " + "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL "
+	@Query("SELECT new com.hangw.model.RestaurantDTO(r.id, r.name, r.address, r.score, r.latitude, r.longitude, r.category)"
+			+ "FROM Restaurant r " + "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL "
 			+ "ORDER BY r.score DESC")
-	List<RestaurantDTO> getBestRestaurants();
+	List<RestaurantDTO> getBestRestaurants(Pageable pageable);
 }
