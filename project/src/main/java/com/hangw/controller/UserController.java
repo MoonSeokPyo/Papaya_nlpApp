@@ -1,8 +1,13 @@
 package com.hangw.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,11 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hangw.model.DataNotFoundException;
 import com.hangw.model.MailDto;
+import com.hangw.model.PageUser;
+import com.hangw.model.Review;
 import com.hangw.model.UserCreateForm;
 import com.hangw.service.MailService;
+import com.hangw.service.ReviewService;
 import com.hangw.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +36,8 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 	private final MailService mailService;
+	private final ReviewService reviewService;
+	private final PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/signup")
 	public String signup(UserCreateForm userCreateForm) {
@@ -105,5 +116,56 @@ public class UserController {
 
 		return new ResponseEntity<>("임시 비밀번호가 발급되었습니다. 이메일을 확인하세요.", HttpStatus.OK);
 	}
+	
+	@GetMapping("/userpage")
+	@PreAuthorize("isAuthenticated")
+	public String userPage(Model model, Principal principal) {
+	    String email = principal.getName();
+	    PageUser user = userService.getUser(email);
+	    List<Review> reviews = reviewService.getReviewsByWriter(user);
 
+	    model.addAttribute("user", user);
+	    model.addAttribute("reviews", reviews);
+	    return "userpage";
+	}
+	
+	@GetMapping("/change-password")
+	public String showChangePasswordPage() {
+	    return "change-password";
+	}
+	
+	@PostMapping("/change-password")
+	public String changePassword(Principal principal,
+	                             @RequestParam() String currentPassword,
+	                             @RequestParam() String newPassword,
+	                             @RequestParam() String confirmPassword,
+	                             Model model,
+	                             RedirectAttributes redirectAttributes) {
+
+	    String email = principal.getName(); // 현재 로그인한 사용자의 이메일
+	    PageUser user = userService.getUser(email);
+
+	    if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+	        model.addAttribute("errorMessage", "현재 비밀번호가 일치하지 않습니다.");
+	        return "change-password";
+	    }
+
+	    if (!newPassword.equals(confirmPassword)) {
+	        model.addAttribute("errorMessage", "새 비밀번호가 일치하지 않습니다.");
+	        return "change-password";
+	    }
+	    
+	    if (passwordEncoder.matches(newPassword, user.getPassword())) {
+	        model.addAttribute("errorMessage", "새 비밀번호는 현재 비밀번호와 다르게 설정해야 합니다.");
+	        return "change-password";
+	    }
+
+	    // 새 비밀번호로 업데이트
+	    userService.updatePassword(newPassword, email);
+	    redirectAttributes.addFlashAttribute("successMessage", "비밀번호가 성공적으로 변경되었습니다.");
+
+	    return "redirect:/user/userpage";
+	}
+
+	
 }

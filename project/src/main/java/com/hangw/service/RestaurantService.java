@@ -64,4 +64,9 @@ public class RestaurantService {
 		Pageable pageable = PageRequest.of(0, num);
 		return restaurantRepository.getBestRestaurants(pageable);
 	}
+	
+	public List<RestaurantDTO> getRestaurantByCategory(String category, double latitude, double longitude){
+		Pageable pageable = PageRequest.of(0, 50);
+		return restaurantRepository.getRestaurantsByCategory(category, latitude, longitude, pageable);
+	}
 }

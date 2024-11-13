@@ -29,7 +29,7 @@ public class PageController {
 
 	@GetMapping("/") // 맨 처음 메인 화면 출력
 	public String showHomepage(Model model) {
-		List<RestaurantDTO> restaurants = restaurantService.getBestRestaurant(3);
+		List<RestaurantDTO> restaurants = restaurantService.getBestRestaurant(4);
 		model.addAttribute("restaurants",restaurants);
 		return "mainpage1";
 	}
@@ -84,6 +84,22 @@ public class PageController {
 		return "result";
 	}
 
+	@GetMapping("/search/category")
+	public String searchRestaurantByCategory(@RequestParam String address, @RequestParam String category, Model model) {
+		try {
+			Location location = geocodingService.getCoordinates(address);
+			List<RestaurantDTO> restaurants = restaurantService.getRestaurantByCategory(category, location.getLatitude(), location.getLongitude());
+			model.addAttribute("restaurants", restaurants);
+			model.addAttribute("location", location);
+
+			if (restaurants.isEmpty())
+				model.addAttribute("errorMessage", "카테고리의 맛집을 찾을 수 없습니다.");
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "카테고리의 맛집을 찾을 수 없습니다.");
+		}
+		return "result";
+	}
+	
 	@GetMapping("/restaurant/detail") // 음식점 상세정보 처리
 	public ModelAndView viewRestaurant(@RequestParam(value = "id") Long restaurantId) {
 		Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
@@ -127,7 +143,13 @@ public class PageController {
 		}
 
 		return mv;
-
 	}
-
+	
+	@GetMapping("restaurant/ranking")
+	public String ranking(Model model) {
+		List<RestaurantDTO>restaurants = restaurantService.getBestRestaurant(20);
+		model.addAttribute("restaurants",restaurants);
+		return "ranking";
+	}
+	
 }

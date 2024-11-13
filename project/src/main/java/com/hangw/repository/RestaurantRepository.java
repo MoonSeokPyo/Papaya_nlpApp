@@ -44,4 +44,11 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 			+ "FROM Restaurant r " + "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL "
 			+ "ORDER BY r.score DESC")
 	List<RestaurantDTO> getBestRestaurants(Pageable pageable);
+	
+	@Query("SELECT new com.hangw.model.RestaurantDTO(r.id, r.name, r.address, r.score, r.latitude, r.longitude, r.category, "
+			+ "(6371 * acos(cos(radians(:latitude)) * cos(radians(r.latitude)) * cos(radians(r.longitude) - radians(:longitude)) + sin(radians(:latitude)) * "
+			+ "sin(radians(r.latitude)))) AS distance) " + "FROM Restaurant r "
+			+ "WHERE r.latitude IS NOT NULL AND r.longitude IS NOT NULL AND r.category = :category "
+			+ "ORDER BY r.score DESC")
+	List<RestaurantDTO> getRestaurantsByCategory(@Param("category") String category, double latitude, double longitude, Pageable pageable);
 }

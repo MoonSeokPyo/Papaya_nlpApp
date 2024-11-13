@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레스토랑 랭킹</title>
+</head>
+<body>
+    <div class="ranking-container">
+        <h2>전국적으로 평가가 좋은 음식점들을 모아봤어요</h2>
+        
+        <table class="ranking-table">
+            <thead>
+                <tr>
+                    <th>순위</th>
+                    <th>이름</th>
+                    <th>주소</th>
+                    <th>카테고리</th>
+                    <th>평점</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="restaurant, iterStat : ${restaurants}" th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${restaurant.name}"></td>
+                    <td th:text="${restaurant.address}"></td>
+                    <td th:text="${restaurant.category}"></td>
+                    <td th:text="${restaurant.score}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button onclick="location.href='/'">홈으로 돌아가기</button>
+    </div>
+</body>
+</html>

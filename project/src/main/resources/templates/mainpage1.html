@@ -30,10 +30,9 @@
 				<div class="menu-container">
 					<img class="vector" src="img/vector.png" alt="Menu Icon" id="menuIcon" />
 					<div class="dropdown-menu" id="dropdownMenu">
-						<div sec:authorize="isAnonymous()" onclick="navigateToPage('/user/login')" class="menu-item">로그인
-						</div>
-						<div sec:authorize="isAuthenticated()" onclick="navigateToPage('/user/logout')"
-							class="menu-item">로그아웃</div>
+						<div sec:authorize="isAnonymous()" onclick="navigateToPage('/user/login')" class="menu-item">로그인</div>
+						<div sec:authorize="isAuthenticated()" onclick="navigateToPage('/user/logout')" class="menu-item">로그아웃</div>
+						<div class="menu-item" onclick="navigateToPage('/user/userpage')">마이페이지</div>
 						<div class="menu-item" onclick="navigateToPage('/document')">앱 소개</div>
 						<div class="menu-item" onclick="navigateToPage('/inquiry')">문의사항</div>
 						<div class="menu-item" onclick="navigateToPage('/notice')">공지사항</div>
@@ -87,7 +86,7 @@
 					<p class="description-2 description-6 roboto-normal-black-16px">
 						전국적으로 평점이 좋은 인기 매장을 확인해보세요!
 					</p>
-					<div class="button">
+					<div class="button" onclick="location.href='/restaurant/ranking'">
 						<div class="primary primary-2">
 							<div class="title-1 roboto-medium-white-16px">상세 보기</div>
 						</div>
@@ -99,7 +98,8 @@
 			</div>
 			<div class="list-1 list-3">
 				<div class="row row-3">
-					<div class="card card-2" th:each="restaurant : ${restaurants}" th:onclick="'location.href=\'/restaurant/detail?id=' + ${restaurant.id} + '\''">
+					<div class="card card-2" th:each="restaurant : ${restaurants}"
+						th:onclick="'location.href=\'/restaurant/detail?id=' + ${restaurant.id} + '\''">
 						<div class="image-container-1 image-container-4">
 							<div class="image">
 								<div class="tag-3">
@@ -108,7 +108,7 @@
 							</div>
 						</div>
 						<div class="text-content">
-							<a class="title-3 roboto-normal-black-16px" th:text="${restaurant.name}" ></a>
+							<a class="title-3 roboto-normal-black-16px" th:text="${restaurant.name}"></a>
 
 							<div class="subtitle subtitle-3 roboto-medium-black-20px"
 								th:text="'평점: ' + ${restaurant.score}"></div>

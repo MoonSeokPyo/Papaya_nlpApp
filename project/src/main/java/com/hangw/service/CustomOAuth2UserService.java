@@ -37,9 +37,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             String email = (String) response.get("email");
             String name = (String) response.get("name");
-
-            System.out.println("Email: " + email);  // 이메일 확인
-            System.out.println("Name: " + name);    // 이름 확인
+            
 
             // 사용자가 없으면 DB에 추가
             PageUser user = userRepository.findByEmail(email)
@@ -68,8 +66,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             String email = (String) attributes.get("email");
             String name = (String) attributes.get("name");
 
-            System.out.println("Google Email: " + email);
-            System.out.println("Google Name: " + name);
 
             // 사용자 저장 또는 조회
             PageUser user = userRepository.findByEmail(email)
