@@ -1,7 +1,9 @@
 package com.hangw.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -101,21 +103,26 @@ public class UserController {
 	}
 
 	@PostMapping("/find-password")
-	public ResponseEntity<?> findPassword(@RequestParam() String email, @RequestParam() String name,
-			@RequestParam() String phone) {
-// 이메일과 사용자 정보 확인
-		if (!userService.isValidUser(email, name, phone)) {
-			return new ResponseEntity<>("일치하는 정보가 없습니다.", HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<Map<String, String>> findPassword(
+	        @RequestParam String email, @RequestParam String name,
+	        @RequestParam String phone) {
 
-// 임시 비밀번호 생성 후 업데이트 및 전송
-		String tmpPassword = userService.getTmpPassword();
-		userService.updatePassword(tmpPassword, email);
-		MailDto mail = mailService.createMail(tmpPassword, email);
-		mailService.sendMail(mail);
+	    Map<String, String> response = new HashMap<>();
 
-		return new ResponseEntity<>("임시 비밀번호가 발급되었습니다. 이메일을 확인하세요.", HttpStatus.OK);
+	    if (!userService.isValidUser(email, name, phone)) {
+	        response.put("message", "일치하는 정보가 없습니다.");
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	    }
+
+	    String tmpPassword = userService.getTmpPassword();
+	    userService.updatePassword(tmpPassword, email);
+	    MailDto mail = mailService.createMail(tmpPassword, email);
+	    mailService.sendMail(mail);
+
+	    response.put("message", "임시 비밀번호가 발급되었습니다. 이메일을 확인하세요.");
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
 	
 	@GetMapping("/userpage")
 	@PreAuthorize("isAuthenticated")
@@ -166,6 +173,5 @@ public class UserController {
 
 	    return "redirect:/user/userpage";
 	}
-
 	
 }
