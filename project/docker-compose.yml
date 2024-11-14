@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  papaya:
+    image: hangw2130/papaya:1.0
+    container_name: papaya_app
+    depends_on:
+      - mysql
+    networks:
+      - papaya-net
+    ports:
+      - "80:8080"
+    environment:
+      DB_HOST: mysql
+      DB_USER: hangw
+      DB_PASSWORD: 1234
+      DB_NAME: project
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    ports:
+      - "3305:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: project
+      MYSQL_USER: hangw
+      MYSQL_PASSWORD: 1234
+    networks:
+      - papaya-net
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+networks:
+  papaya-net:
+    driver: bridge
+
+volumes:
+  mysql_data:
