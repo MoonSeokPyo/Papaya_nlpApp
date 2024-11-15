@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 
-#                       *** path check ***
+################################################################### path check
 csv_path_1 = "07_24_P_CSV/fulldata_07_24_01_P_관광식당.csv"
 csv_path_2 = "07_24_P_CSV/fulldata_07_24_02_P_관광유흥음식점업.csv"
 csv_path_3 = "07_24_P_CSV/fulldata_07_24_03_P_외국인전용유흥음식점업.csv"
@@ -70,36 +70,63 @@ filtered_data = filtered_data.rename(
     }
 )
 ###################################################################
+# data frame test
+print(filtered_data)
+###################################################################
 # sql insert
 from sqlalchemy import create_engine, text, String
+from sqlalchemy.exc import SQLAlchemyError
 
-#                                   *** sql server check ***
-engine = create_engine("mysql+pymysql://root:1234@192.168.112.1:3307/testdb")
+# MySQL 서버 연결
+try:
+    ################################################################### sql server check
+    engine = create_engine("mysql+pymysql://root:1234@mysql:3306/papayadb?charset=utf8mb4")
+    print("Connected to the database successfully.")
+except SQLAlchemyError as e:
+    print("Failed to connect to the database:", e)
+    engine = None
 
-# filtered_data.to_sql("table_name", con=engine, if_exists="append", index=False)
+if engine:
+    # 데이터프레임을 테이블에 저장 (기존 테이블이 있으면 삭제 후 새로 생성)
+    try:
+        filtered_data.to_sql(
+            "restauranttable", 
+            con=engine, 
+            if_exists="replace", 
+            index=False, 
+            dtype={
+                "location_phone": String(255),
+                "location_zipcode": String(255),
+                "location_address": String(255),
+                "road_address": String(255),
+                "road_zipcode": String(255),
+                "business_name": String(255),
+                "business_type": String(255),
+            }
+        )
+        print("Data successfully inserted into the table.")
+    except SQLAlchemyError as e:
+        print("Error occurred while inserting data:", e)
 
-# 데이터프레임을 테이블에 저장 (기존 테이블이 있으면 삭제 후 새로 생성)
-filtered_data.to_sql(
-    "restauranttable", 
-    con=engine, 
-    if_exists="replace", 
-    index=False, 
-    dtype={
-        "location_phone": String(255),
-        "location_zipcode": String(255),
-        "location_address": String(255),
-        "road_address": String(255),
-        "road_zipcode": String(255),
-        "business_name": String(255),
-        "business_type": String(255),
-    }
-)
+    # 테이블에 `id` 열을 추가하여 자동 증가 설정
+    try:
+        with engine.connect() as conn:
+            conn.execute(
+                text("""
+                ALTER TABLE restauranttable 
+                ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY FIRST
+                """)
+            )
+        print("Auto-incrementing 'id' column successfully added.")
+    except SQLAlchemyError as e:
+        print("Error occurred while adding 'id' column:", e)
 
-# 테이블에 `id` 열을 추가하여 자동 증가 설정
-with engine.connect() as conn:
-    conn.execute(
-        text("""
-        ALTER TABLE restauranttable 
-        ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY FIRST
-    """)
-    )
+###################################################################
+# db test
+
+# SQL 쿼리 실행하여 데이터 불러오기 (테이블에서 첫 10줄 가져오기)
+query = "SELECT * FROM restauranttable LIMIT 10;"
+df = pd.read_sql(query, engine)
+
+# 출력
+print(df)
