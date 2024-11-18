@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Component
-@Table(name="restaurant_table")
+@Table(name="restauranttable")
 public class Restaurant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

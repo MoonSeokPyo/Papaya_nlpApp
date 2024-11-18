@@ -1,38 +1,6 @@
 version: '3.8'  # 버전: Docker Compose 파일 형식을 지정
 
 services:
-  papaya:
-    build:
-      context: ./project
-    container_name: papaya
-    depends_on:
-      - mysql
-    # networks:
-    #   - papaya_network
-    ports:
-      - "80:8080"
-    environment:
-      DB_HOST: mysql
-      DB_USER: root
-      DB_PASSWORD: 1234
-      DB_NAME: papayadb
-  
-  restaurant_table_creator:     # 서비스 정의: restaurant_table_creator이라는 이름의 Python 애플리케이션 컨테이너를 정의
-    build:
-      context: ./python/sql  # 디렉토리 경로에 있는 Dockerfile을 이용해 이미지 빌드
-    container_name: restaurant_table_creator    # 컨테이너의 이름을 restaurant_table_creator으로 설정하여 쉽게 참조 (외부에서 참조할 때 사용하는 듯 하다)
-    working_dir: /python/sql  # 작업 디렉토리 설정
-    environment:    # 환경 변수: Python 애플리케이션이 MySQL 컨테이너에 연결할 수 있도록 데이터베이스 설정을 정의합니다. MYSQL_HOST가 mysql로 설정된 것은 두 컨테이너가 같은 네트워크에서 실행되기 때문에 가능
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
-      MYSQL_DB: papayadb
-    depends_on:   # 종속성: app 서비스가 mysql 서비스가 먼저 시작된 후 실행되도록 지정
-      - mysql
-    volumes:    # 볼륨 마운트: 호스트 디렉토리와 컨테이너 디렉토리를 연결합니다. 여기서는 현재 디렉토리를 컨테이너의 /python/sql로 마운트하여 코드나 데이터를 공유할 수 있습니다.
-      - .:/python/sql  # 호스트와 컨테이너 디렉토리 연결
-    # networks:   # 네트워크: 두 컨테이너 간의 통신을 위해 papaya_network 네트워크에 포함시킵니다.
-    #   - papaya_network
 
   mysql:
     image: mysql:9  # MySQL 이미지 버전 설정
@@ -46,6 +14,42 @@ services:
       - db_data:/var/lib/mysql  # MySQL 데이터 영구 저장소 설정
     # networks:   # 네트워크 정의: papaya_network를 정의하여 두 컨테이너가 통신할 수 있도록 합니다.
     #   - papaya_network
+
+  restaurant_table_creator:     # 서비스 정의: restaurant_table_creator이라는 이름의 Python 애플리케이션 컨테이너를 정의
+    build:
+      context: ./python/sql  # 디렉토리 경로에 있는 Dockerfile을 이용해 이미지 빌드
+    container_name: restaurant_table_creator    # 컨테이너의 이름을 restaurant_table_creator으로 설정하여 쉽게 참조 (외부에서 참조할 때 사용하는 듯 하다)
+    working_dir: /python/sql  # 작업 디렉토리 설정
+    environment:    # 환경 변수: Python 애플리케이션이 MySQL 컨테이너에 연결할 수 있도록 데이터베이스 설정을 정의합니다. MYSQL_HOST가 mysql로 설정된 것은 두 컨테이너가 같은 네트워크에서 실행되기 때문에 가능
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+      MYSQL_DB: papayadb
+    depends_on:   # 종속성: app 서비스가 mysql 서비스가 먼저 시작된 후 실행되도록 지정
+      - mysql
+    volumes:    # 볼륨 마운트: 호스트 디렉토리와 컨테이너 디렉토리를 연결합니다. 여기서는 현재 디렉토리를 컨테이너의 /python/sql로 마운트하여 코드나 데이터를 공유할 수 있습니다.
+      # - .:/python/sql  # 호스트와 컨테이너 디렉토리 연결
+      - ./python/sql:/python/sql  # 호스트와 컨테이너 디렉토리 연결
+    # networks:   # 네트워크: 두 컨테이너 간의 통신을 위해 papaya_network 네트워크에 포함시킵니다.
+    #   - papaya_network
+
+  papaya:
+    build:
+      context: ./project
+    container_name: papaya
+    depends_on:
+      - mysql
+      - restaurant_table_creator
+    # networks:
+    #   - papaya_network
+    ports:
+      - "80:8080"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_NAME: papayadb
+  
 
 volumes:
   db_data:
