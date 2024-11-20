@@ -6,8 +6,257 @@
     flex-direction: column;
     padding: 80px 0px 0px;
     position: relative;
-  }
   
+  }
+
+
+/* 사이드바 스타일 */
+.sidebar {
+  top: 80px; /* Topbar 높이만큼 아래로 이동 */
+  left: 0;
+  width: 200px;
+  height: calc(100vh - 100px); /* Topbar를 제외한 높이 */
+  
+  background-color: #f3f4f6;
+  position: fixed;
+  left: 0;
+  padding-top: 20px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-btn {
+  background-color: #826fbc;
+  color: white;
+  padding: 15px;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  position: relative;
+}
+
+.menu-btn:hover {
+  background-color: #6e5a9b;
+}
+
+/* 서브메뉴 스타일 */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 220px; /* 사이드바 너비 */
+  top: 0;
+  background-color: #c975b0;
+  width: 200px;
+  padding: 10px 0;
+  border: 1px solid #c498c5;
+  z-index: 1;
+}
+
+.sidebar-submenu {
+  color: #ddd;
+  padding: 12px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.sidebar-submenu:hover {
+  background-color: #d9c7da;
+  color: #fff;
+}
+
+/* 메인 컨텐츠 오른쪽으로 이동 */
+/*.content {
+  margin-left: 200px;
+  padding: 20px;
+}*/
+
+/*홈 가운데 검색 버튼*//* container-search 전체 스타일 */
+.container-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  margin: 20px auto; /* 중앙 정렬 */
+  padding: 20px;
+  width: 80%; /* 너비 설정 */
+  background-color: #f9f9f9; /* 연한 배경색 */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 텍스트 필드 스타일 */
+.textfield {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background-color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  display: none; /* 기본적으로 숨김 */
+  position: absolute;
+  top: 100%; /* 텍스트 필드 아래에 표시 */
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dropdown-menu.hidden {
+  display: none; /* 숨김 */
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* 버튼 스타일 */
+.button .primary {
+  width: 200px;
+  padding: 10px;
+  background-color: #826fbc;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.button .primary:hover {
+  background-color: #6e5a9b;
+}
+
+
+.container-search {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  z-index: 0;
+}
+.textfield {
+  align-self: stretch;
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 12px;
+}
+.text {
+  flex: 1;
+  position: relative;
+  line-height: 20px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 20px;
+}
+.input {
+  width: 1000px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.title2 {
+  position: relative;
+  line-height: 24px;
+  font-weight: 500;
+}
+.primary {
+  width: 240px;
+  border-radius: 8px;
+  background-color: #826fbc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+.button {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  color: #fff;
+}
+.title1 {
+  width: 520px;
+  position: relative;
+  font-size: 40px;
+  line-height: 48px;
+  display: inline-block;
+}
+.description {
+  width: 520px;
+  position: relative;
+  line-height: 24px;
+  display: inline-block;
+}
+.dropdown-menu2 {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 360px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* 기본적으로 숨김 */
+  z-index: 1000;
+}
+
+.dropdown-menu2.hidden {
+  display: none;
+}
+
+.dropdown-item2 {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item2:hover {
+  background-color: #f5f5f5;
+}
+
+
   .page .top-bar {
     align-items: center;
     background-color: var(--white);
@@ -21,6 +270,7 @@
     position: absolute;
     top: 0;
     width: 100%; /*전체비율*/
+    z-index: 1000; /* Sidebar 위로 보이도록 설정 */
   }
   
   .page .rectangle-4137 {
@@ -86,6 +336,35 @@
     height: 40px;
     }
     
+
+    /* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 360px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* 기본적으로 숨김 */
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* 드롭다운 숨김 클래스 */
+.hidden {
+  display: none;
+}
 
     .dropdown-menu {
       display: none; /* 초기에는 숨김 */
@@ -187,6 +466,7 @@
 .page .primary-2:hover {
     transform: scale(1.05);
     background-color: #d9cff3; /* 호버 시 밝은 보라색 */
+    
 }
   
   .page .title-1 {
@@ -199,19 +479,35 @@
     
   }
   
-  .page .image-container-3 {
-    flex: 1;
-    flex-grow: 1;
-    height: 400px;
-  }
   
-  .page .image {
-    align-self: stretch;
-    background-color: var(--iron);
-    flex: 1;
-    flex-grow: 1;
+.section-banner {
+  position: relative;
+  width: 800px; /* 컨테이너 너비 */
+  height:500px; /* 필요에 따라 높이 조정 */
+}
+
+  /*이미지 슬라이드 적용*/
+  .image-container-3 {
     position: relative;
-  }
+    width: 800px; /* 컨테이너 너비 */
+    height: 400px; /* 필요에 따라 높이 조정 */
+    overflow: hidden;
+}
+
+/*광고 배너*/
+.banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    display: none;
+    transition: display 1s ease-in-out;
+}
+
+.banner.active {
+    display: block;
+}
   
   .page .vector-200 {
     height: 1px;
@@ -909,4 +1205,43 @@
   background: url("/img/ic-search-2.svg") no-repeat;
   width: 18px;
   height: 18px;
+}
+
+/* 부모 컨테이너 */
+.category-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+/* 개별 카테고리 아이템 */
+.category-item {
+    text-align: center;
+    cursor: pointer;
+    width: 120px;
+}
+
+/* 이미지 영역 */
+.category-image {
+    width: 120px;
+    height: 120px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 카테고리 이름 */
+.category-name {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
 }

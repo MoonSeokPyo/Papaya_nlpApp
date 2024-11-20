@@ -30,8 +30,10 @@
 				<div class="menu-container">
 					<img class="vector" src="img/vector.png" alt="Menu Icon" id="menuIcon" />
 					<div class="dropdown-menu" id="dropdownMenu">
-						<div sec:authorize="isAnonymous()" onclick="navigateToPage('/user/login')" class="menu-item">로그인</div>
-						<div sec:authorize="isAuthenticated()" onclick="navigateToPage('/user/logout')" class="menu-item">로그아웃</div>
+						<div sec:authorize="isAnonymous()" onclick="navigateToPage('/user/login')" class="menu-item">로그인
+						</div>
+						<div sec:authorize="isAuthenticated()" onclick="navigateToPage('/user/logout')"
+							class="menu-item">로그아웃</div>
 						<div class="menu-item" onclick="navigateToPage('/user/userpage')">마이페이지</div>
 						<div class="menu-item" onclick="navigateToPage('/document')">앱 소개</div>
 						<div class="menu-item" onclick="navigateToPage('/inquiry')">문의사항</div>
@@ -55,30 +57,97 @@
 					</div>
 				</div>
 			</div>
-			<div class="image-container-3 image-container-4">
-				<img class="image" src="img/banner-jeju.png" alt="banner-jeju" />
-				<img class="image" src="img/banner-seoul.png" alt="banner-seoul" />
+			<div class="section-banner">
+				<div class="image-container-3 image-container-4">
+					<img class="image banner" src="img/banner-jeju.png" alt="banner-jeju" />
+					<img class="image banner" src="img/banner-seoul.png" alt="banner-seoul" />
+
+				</div>
+
 			</div>
 			<img class="vector-200" src="img/vector-200-12.svg" alt="Vector 200" />
 		</div>
 		<div class="section section-2">
-			<div class="avatar-3"></div>
-			<div class="container-2">
-				<div class="title-9">Papaya 음식점</div>
-				<div class="selection-1 selection-3">
-					<div class="label-normal">
-						<div class="label-text roboto-normal-black-12px">내가 작성한 리뷰 뽐내기 🤍</div>
-					</div>
+			<div class="container-search">
+				<b class="title1" style="margin: 0 auto; text-align: center;">전국 지역별 맛집 추천</b>
+				<div class="description" style="margin: 0 auto; text-align: center;">원하는 지역을 선택하여 맛집을 발견해보세요-!</div>
+				<div class="input">
+					<form action="/search/location" method="get" id="searchForm"
+						style="display: flex; align-items: center; width: 100%;">
+						<input type="text" class="textfield" name="address" placeholder="지역을 입력해주세요"
+							style="width: 80%;" />
+						<div class="button primary" onclick="document.getElementById('searchForm').submit();"
+							style="width: 10%;">
+							검색
+						</div>
+					</form>
 				</div>
-				<p class="description-1 description-6">우리 음식점에서 알려드리는 특별한 이벤트에 참여해보세요!</p>
 			</div>
-			<div class="button">
-				<div class="primary-1 primary-2">
-					<div class="title-1 roboto-medium-white-16px">자세히 보기</div>
-				</div>
-			</div>
-			<img class="vector-200-1 vector-200-6" src="img/vector-200-12.svg" alt="Vector 200" />
 		</div>
+		<div class="page-item-1">
+			<div class="title roboto-bold-black-40px">음식종류로 찾아보기</div>
+			<p class="description-2 description-6 roboto-normal-black-16px">
+				원하는 종류의 음식으로 추천을 받아보세요!</p>
+			<div class="category-container">
+				<!-- Category Item -->
+				<div class="category-item" onclick="searchByCategory('한식')">
+					<div class="category-image">
+						<img src="img/korean.png" alt="한식">
+					</div>
+					<div class="category-name">한식</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('중국식')">
+					<div class="category-image">
+						<img src="img/chinese.png" alt="중식">
+					</div>
+					<div class="category-name">중식</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('일식')">
+					<div class="category-image">
+						<img src="img/japanese.png" alt="일식">
+					</div>
+					<div class="category-name">일식</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('경양식')">
+					<div class="category-image">
+						<img src="img/donkatsu.png" alt="경양식">
+					</div>
+					<div class="category-name">경양식</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('분식')">
+					<div class="category-image">
+						<img src="img/bunsik.png" alt="분식">
+					</div>
+					<div class="category-name">분식</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('호프/통닭')">
+					<div class="category-image">
+						<img src="img/chicken.png" alt="치킨">
+					</div>
+					<div class="category-name">치킨</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('식육')">
+					<div class="category-image">
+						<img src="img/meat.png" alt="고기">
+					</div>
+					<div class="category-name">고기</div>
+				</div>
+
+				<div class="category-item" onclick="searchByCategory('까페')">
+					<div class="category-image">
+						<img src="img/cafe.png" alt="카페">
+					</div>
+					<div class="category-name">카페</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="page-item-1">
 			<div class="container-1">
 				<div class="container">
