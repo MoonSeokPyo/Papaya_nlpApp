@@ -133,7 +133,7 @@ public class UserController {
 
 	    model.addAttribute("user", user);
 	    model.addAttribute("reviews", reviews);
-	    return "userpage";
+	    return "userpage1";
 	}
 	
 	@GetMapping("/change-password")

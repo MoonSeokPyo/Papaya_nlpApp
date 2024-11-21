@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>사용자 페이지</title>
+	<link rel="stylesheet" th:href="@{/css/mainstyles.css}">
+	<link rel="stylesheet" th:href="@{/css/user-page.css}">
+</head>
+
+<body>
+	<div class="page">
+
+		<div class="userpage-container">
+			<h2>사용자 정보</h2>
+			<div class="user-info">
+				<p><strong>이메일:</strong> <span th:text="${user.email}">user@example.com</span></p>
+				<p><strong>이름:</strong> <span th:text="${user.name}">홍길동</span></p>
+				<p th:if="${user.provider == null}"><strong>전화번호:</strong> <span
+						th:text="${user.phone}">010-1234-5678</span></p>
+				<p th:if="${user.provider == null}"><strong>비밀번호:</strong><button
+						onclick="location.href='/user/change-password'">비밀번호 변경</button></p>
+			</div>
+
+			<h3>내가 작성한 리뷰</h3>
+			<div th:if="${reviews.isEmpty()}">
+				<p>아직 작성한 리뷰가 없습니다.</p>
+			</div>
+
+			<ul th:if="${!reviews.isEmpty()}">
+				<li th:each="review : ${reviews}"
+					th:onclick="location.href='/restaurant/detail?id=[[${review.restaurant.id}]]'">
+					<strong th:text="${review.restaurant.name}">음식점 이름</strong><br />
+					<span th:text="${review.content}">리뷰 내용</span>
+					<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}">작성 날짜</em></p>
+					<hr>
+				</li>
+			</ul>
+			<img class="home-icon" src="/img/home-4-fill.svg" alt="Home" onclick="navigateToPage('/')">
+		</div>
+
+	</div>
+	<script src="/js/mainscript.js"></script>
+</body>
+
+</html>

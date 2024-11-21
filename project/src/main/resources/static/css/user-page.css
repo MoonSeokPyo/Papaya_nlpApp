@@ -1,0 +1,93 @@
+/* User Page Styles */
+
+.page {
+    align-items: center;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 0px 0px;
+    position: relative;
+}
+
+.userpage-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-icon, .menu-icon {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+
+.home-icon {
+    top: 40px;
+    left: 50px;
+}
+
+.menu-icon {
+    top: 50px;
+    right: 50px;
+}
+.user-info {
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+h2, h3 {
+    color: #826fbc;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+li {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+li:hover {
+    background-color: #f0f0f0;
+}
+
+button {
+    background-color: #826fbc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #6e5a9b;
+}
+
+@media (max-width: 1200px) {
+    .userpage-container {
+        width: 95%;
+    }
+}
