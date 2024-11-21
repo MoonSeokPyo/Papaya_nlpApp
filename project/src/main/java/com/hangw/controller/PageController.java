@@ -106,7 +106,7 @@ public class PageController {
 		List<Review> reviews = reviewService.viewReview(restaurantId);
 
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("restaurantDetail");
+		mv.setViewName("storepage2");
 		mv.addObject("restaurant", restaurant);
 		mv.addObject("reviews", reviews);
 		return mv;
@@ -123,7 +123,7 @@ public class PageController {
 				Restaurant restaurant = restaurantService.getRestaurant(name);
 				List<Review> reviews = reviewService.viewReview(restaurant.getId());
 
-				mv.setViewName("restaurantDetail");
+				mv.setViewName("storepage2");
 				mv.addObject("restaurant", restaurant);
 				mv.addObject("reviews", reviews);
 			} else if (restaurants.isEmpty()) {
