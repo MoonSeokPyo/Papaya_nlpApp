@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>레스토랑 랭킹</title>
+    <link rel="stylesheet" href="user-page.css">
 </head>
+
 <body>
     <div class="ranking-container">
+		<img class="home-icon" src="/img/home-4-fill.svg" alt="Home" onclick="navigateToPage('/')">
         <h2>전국적으로 평가가 좋은 음식점들을 모아봤어요</h2>
-        
-        <table class="ranking-table">
+
+        <table class="ranking-table" style="width: 100%; border-collapse: collapse;">
             <thead>
-                <tr>
-                    <th>순위</th>
-                    <th>이름</th>
-                    <th>주소</th>
-                    <th>카테고리</th>
-                    <th>평점</th>
+                <tr style="background-color: #826fbc; color: #fff;">
+                    <th style="padding: 10px; text-align: left;">순위</th>
+                    <th style="padding: 10px; text-align: left;">이름</th>
+                    <th style="padding: 10px; text-align: left;">주소</th>
+                    <th style="padding: 10px; text-align: left;">카테고리</th>
+                    <th style="padding: 10px; text-align: left;">평점</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="restaurant, iterStat : ${restaurants}" th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'">
-                    <td th:text="${iterStat.count}"></td>
-                    <td th:text="${restaurant.name}"></td>
-                    <td th:text="${restaurant.address}"></td>
-                    <td th:text="${restaurant.category}"></td>
-                    <td th:text="${restaurant.score}"></td>
+                <tr th:each="restaurant, iterStat : ${restaurants}"
+                    th:onclick="location.href='/restaurant/detail?id=[[${restaurant.id}]]'"
+                    style="background-color: #fff; transition: background-color 0.3s ease; cursor: pointer;">
+                    <td th:text="${iterStat.count}" style="padding: 10px; border-bottom: 1px solid #ddd;"></td>
+                    <td th:text="${restaurant.name}" style="padding: 10px; border-bottom: 1px solid #ddd;"></td>
+                    <td th:text="${restaurant.address}" style="padding: 10px; border-bottom: 1px solid #ddd;"></td>
+                    <td th:text="${restaurant.category}" style="padding: 10px; border-bottom: 1px solid #ddd;"></td>
+                    <td th:text="${restaurant.score}" style="padding: 10px; border-bottom: 1px solid #ddd;"></td>
                 </tr>
             </tbody>
         </table>
-        
-        <button onclick="location.href='/'">홈으로 돌아가기</button>
     </div>
+	<script src="/js/mainscript.js"></script>
 </body>
+
 </html>

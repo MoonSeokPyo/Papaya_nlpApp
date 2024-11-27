@@ -14,6 +14,16 @@
 </head>
 
 <body style="margin: 0; background: #ffffff">
+	<div th:if="${errorMessage}" th:id="errorMessage" th:text="${errorMessage}" style="display: none;"></div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const errorMessageElement = document.getElementById("errorMessage");
+			if (errorMessageElement && errorMessageElement.textContent.trim() !== "") {
+				alert(errorMessageElement.textContent); // 에러 메시지 알림
+			}
+		});
+	</script>
 	<input type="hidden" id="anPageName" name="page" value="page" />
 	<div class="page screen">
 		<div class="top-bar">
@@ -74,12 +84,9 @@
 				<div class="input">
 					<form action="/search/location" method="get" id="searchForm"
 						style="display: flex; align-items: center; width: 100%;">
-						<input type="text" class="textfield" name="address" placeholder="지역을 입력해주세요"
-							style="width: 80%;" />
-						<div class="button primary" onclick="document.getElementById('searchForm').submit();"
-							style="width: 10%;">
-							검색
-						</div>
+						<input type="text" class="textfield" name="address" placeholder="지역을 입력해주세요" style="width: 80%;"
+							required />
+						<button type="submit" class="button primary" style="width: 10%;border: none;">검색</button>
 					</form>
 				</div>
 			</div>

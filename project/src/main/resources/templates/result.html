@@ -6,6 +6,10 @@
 	<meta name="viewport" content="width=devicve-width, initial-scale=1.0">
 	<title>주변 음식점</title>
 	<style>
+		.map-container {
+			width: 80%;
+		}
+
 		.container {
 			display: flex;
 			height: 98vh;
@@ -15,11 +19,28 @@
 			width: 20%;
 			display: flex;
 			flex-direction: column;
-			overflow-y: auto;
+			overflow-y: hidden;
+			border-right: 1px solid #ccc;
 		}
 
-		.map-container {
-			width: 80%;
+		.search-result h1 {
+			margin: 20px;
+			text-align: center;
+			font-size: 18px;
+			color: #333;
+		}
+
+		.search-result .home-icon {
+			width: 40px;
+			height: 40px;
+			margin: 10px 20px;
+			cursor: pointer;
+		}
+
+		.restaurant-list {
+			flex-grow: 1;
+			overflow-y: auto;
+			padding: 0 20px 20px;
 		}
 
 		#map {
@@ -30,16 +51,41 @@
 		ul {
 			list-style-type: none;
 			padding-left: 0;
+			margin-top: 0;
 		}
 
 		li {
 			margin-bottom: 10px;
 			cursor: pointer;
 			transition: background-color 0.3s ease;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
 		}
 
 		li.active {
 			background-color: #f0f0f0;
+			border-color: #826fbc;
+		}
+
+		li:hover {
+			background-color: #fafafa;
+		}
+
+		li strong {
+			font-size: 16px;
+			color: #333;
+		}
+
+		li span {
+			font-size: 14px;
+			color: #666;
+		}
+
+		li hr {
+			margin: 10px 0;
+			border: none;
+			border-top: 1px solid #ddd;
 		}
 	</style>
 	<script type="text/javascript"
@@ -123,8 +169,8 @@
 <body>
 	<div class="container">
 		<div class="search-result">
-			<h1><span th:text="${location.address}"></span> 주변 추천 맛집</h1>
-			<button onclick="window.location.href='/'">다시 검색하기</button>
+			<img class="home-icon" src="/img/home-4-fill.svg" alt="Home" onclick="window.location.href='/'">
+			<h1>PAPAYA 추천 맛집</h1>
 			<div class="restaurant-list">
 				<div th:if="${errorMessage}">
 					<p th:text="${errorMessage}"></p>

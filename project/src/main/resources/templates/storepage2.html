@@ -15,7 +15,6 @@
 		<div class="top-bar">
 			<img class="group-icon" alt="" src="/img/home-4-fill.svg" onclick="navigateToPage('/')" />
 			<div class="title" th:text="${restaurant.name}">Restaurant Name</div>
-			<img class="vector-icon" alt="" src="/img/rows-3-fill.svg" />
 		</div>
 		<div class="div">
 			<div class="container">
@@ -45,36 +44,50 @@
 
 			<script type="text/javascript">
 				// Thymeleaf에서 서버의 값을 JavaScript 변수로 전달
-				const latitude = '[[${restaurant.latitude}]]'; 
+				const latitude = '[[${restaurant.latitude}]]';
 				const longitude = '[[${restaurant.longitude}]]';
 			</script>
-			<div class="picture_div">API 사진 가져오는 부분</div>
+			<!--
+				<div class="picture_div">API 사진 가져오는 부분</div>	
+			-->
+
 		</div>
 		<div class="reviews">
-			<div class="div-wrapper">
-				<div class="title-5">리뷰</div>
+			<h3>리뷰</h3>
+			<div th:if="${reviews.isEmpty()}">
+				<p>아직 작성된 리뷰가 없습니다.</p>
 			</div>
-			<div class="row" th:each="review : ${reviews}">
-				<div class="card-2">
-					<div class="user">
-						<div class="avatar">
-							<div class="avatar-2"></div>
+			<div th:if="${!reviews.isEmpty()}">
+				<div class="row" th:each="review : ${reviews}">
+					<div class="card-2">
+						<div class="user">
+							<div class="avatar">
+								<div class="frame">
+									<div class="title-8" th:text="${review.writer.name}" width="50%">User Name</div>
+								</div>
+							</div>
+
 						</div>
-						<div class="frame">
-							<div class="title-8" th:text="${review.writer.name}">User Name</div>
-						</div>
-						<img class="frame-2" src="/img/frame-427318817-3.svg" />
+						<p class="p" th:text="${review.content}">Review Content</p>
+						<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}" style="font-size: 11px; float: right;">작성 날짜</em></p>
 					</div>
-					<p class="p" th:text="${review.content}">Review Content</p>
-					<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}">작성 날짜</em></p>
 				</div>
 			</div>
-
+			<div>
+				<h3>리뷰 작성하기</h3>
+				<form th:action="@{/review/add}" method="post">
+					<input type="hidden" name="restId" th:value="${restaurant.id}">
+					<div>
+						<textarea id="content" name="content" rows="4" cols="50" required></textarea>
+					</div>
+					<button type="submit" class="review-submit-button">등록</button>
+				</form>
+			</div>
 		</div>
 	</div>
 	<div id="image-container" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
 
-	<script>
+	<!--<script>
 		async function fetchImages(keyword) {
 			const response = await fetch(`http://127.0.0.1:5000/images/${encodeURIComponent(keyword)}`);
 			if (response.ok) {
@@ -94,7 +107,7 @@
 
 		// 무너미카페 검색
 		fetchImages("무너미카페");
-	</script>
+	</script>-->
 
 	</div>
 	<script src="/js/mainscript.js"></script>
