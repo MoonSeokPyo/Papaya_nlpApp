@@ -11,6 +11,9 @@
 </head>
 
 <body>
+	<script type="text/javascript" th:if="${errorMessage}">
+	    alert('[[${errorMessage}]]');
+	</script>
 	<div class="page">
 		<div class="top-bar">
 			<img class="group-icon" alt="" src="/img/Papaya.png" onclick="navigateToPage('/')" />

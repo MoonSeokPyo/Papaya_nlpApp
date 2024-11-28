@@ -11,7 +11,7 @@ import java.util.Map;
 public class ReviewScoreService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String FASTAPI_URL = "http://127.0.0.1:8000/analyze-sentiment";
+    private final String FASTAPI_URL = "http://127.0.0.1:8000/analyze_review";
 
     public double getScore(String reviewContent) {
         // 요청 데이터 생성

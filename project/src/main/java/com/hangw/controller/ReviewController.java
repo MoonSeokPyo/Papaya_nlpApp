@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,21 +26,31 @@ public class ReviewController {
 	private final RestaurantService restaurantService;
 	private final ReviewService reviewService;
 	private final ReviewScoreService reviewScoreService;
-	
+
 	@PostMapping("/add")
 	@PreAuthorize("isAuthenticated")
-	public String addReview(@RequestParam long restId, @RequestParam String content, Principal principal, RedirectAttributes redirectAtt) {
+	public String addReview(@RequestParam long restId, @RequestParam String content, Principal principal,
+			RedirectAttributes redirectAtt) {
 		long restaurantId = restId;
-		double score = reviewScoreService.getScore(content);
+		double score;
+		try {
+			score = reviewScoreService.getScore(content);
+		} catch (Exception e) {
+			redirectAtt.addFlashAttribute("errorMessage", "리뷰 점수를 계산할 수 없습니다. 다시 시도해주세요.");
+			redirectAtt.addAttribute("id", restId);
+			return "redirect:/restaurant/detail";
+		}
+
 		Review review = new Review();
 		review.setContent(content);
 		review.setScore(score);
 		review.setWriter(userService.getUser(principal.getName()));
 		review.setRestaurant(restaurantService.getRestaurantById(restaurantId));
-		
+
 		reviewService.addReview(review);
-		
+
 		redirectAtt.addAttribute("id", restId);
-		return"redirect:/restaurant/detail";
+		return "redirect:/restaurant/detail";
 	}
+
 }
