@@ -275,10 +275,9 @@
   
   .page .rectangle-4137 {
     background-color: var(--black);
-    border-radius: 100px;
     height: 40px;
     position: relative;
-    width: 40px;
+    width: auto;
   }
   
   .page .title-8 {

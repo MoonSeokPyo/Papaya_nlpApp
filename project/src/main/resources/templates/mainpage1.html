@@ -27,8 +27,8 @@
 	<input type="hidden" id="anPageName" name="page" value="page" />
 	<div class="page screen">
 		<div class="top-bar">
-			<div class="rectangle-4137"></div>
-			<div class="title-8">Papaya 음식점 추천</div>
+			<img src="/img/papayabanner.png" style="height: 60px; width: auto;" onclick="navigateToPage('/')"></img>
+			<div class="title-8"></div>
 			<div class="navigation">
 				<div class="textfield-1 textfield-2">
 					<form onsubmit="searchByName(document.getElementById('name').value); return false;">
@@ -176,16 +176,23 @@
 				<div class="row row-3">
 					<div class="card card-2" th:each="restaurant : ${restaurants}"
 						th:onclick="'location.href=\'/restaurant/detail?id=' + ${restaurant.id} + '\''">
-						<div class="image-container-1 image-container-4">
-							<div class="image">
-								<div class="tag-3">
-									<div class="text roboto-medium-black-12px" th:text="${restaurant.category}"></div>
-								</div>
+
+						<!-- 이미지 컨테이너 -->
+						<div class="image-container-1 image-container-4"
+							style="display: flex; justify-content: center; align-items: center; width: 100%; height: 200px; margin: 10px auto;">
+							<img th:src="${restaurant.category == '한식' ? '/img/korean.png' :
+			                               restaurant.category == '중식' ? '/img/chinese.png' :
+			                               restaurant.category == '일식' ? '/img/japanese.png' :
+			                               restaurant.category == '경양식' ? '/img/donkatsu.png' :
+			                               '/img/default.png'}" alt="음식점 이미지" style="width: 200px; height: auto;">
+							<div class="tag-3">
+								<div class="text roboto-medium-black-12px" th:text="${restaurant.category}"></div>
 							</div>
 						</div>
-						<div class="text-content">
-							<a class="title-3 roboto-normal-black-16px" th:text="${restaurant.name}"></a>
 
+						<!-- 텍스트 컨텐츠 -->
+						<div class="text-content" style="margin-top: 10px;">
+							<a class="title-3 roboto-normal-black-16px" th:text="${restaurant.name}"></a>
 							<div class="subtitle subtitle-3 roboto-medium-black-20px"
 								th:text="'평점: ' + ${restaurant.score}"></div>
 							<div class="title-3 roboto-normal-black-16px" th:text="'주소: ' + ${restaurant.address}">
@@ -194,6 +201,7 @@
 					</div>
 				</div>
 			</div>
+
 			<img class="vector-200-2 vector-200-6" src="img/vector-200-12.svg" alt="Vector 200" />
 		</div>
 		<div class="section-1 section-2">
