@@ -2,3 +2,4 @@ python/crawling/data/updated_restaurant_list.csv
 # python/sql/RestaurantTableCreate.py
 python/sql/MainSqlCreate.ipynb
 .idea
+python/analyze_review/kcelectra_regression_model.pt
