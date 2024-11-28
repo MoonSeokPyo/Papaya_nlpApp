@@ -56,3 +56,7 @@ spring.security.oauth2.client.provider.naver.user-name-attribute=response
 lfs로 올린 대용량 파일은 
 git lfs pull
 로 pull 해야지 다운 된다.
+------------------------------------------------------
+kcelectra_regression_model.pt
+용량이 커서 올릴 수가 없기 때문에 google drive에서 다운하기
+path: Papaya_nlpApp/python/analyze_review/kcelectra_regression_model.pt
