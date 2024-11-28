@@ -31,6 +31,8 @@ public class Review {
 	@CreationTimestamp				
 	private LocalDateTime write_date;
 	
+	private double score;
+	
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id")
 	private Restaurant restaurant;

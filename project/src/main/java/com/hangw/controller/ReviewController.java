@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hangw.model.Review;
 import com.hangw.service.RestaurantService;
+import com.hangw.service.ReviewScoreService;
 import com.hangw.service.ReviewService;
 import com.hangw.service.UserService;
 
@@ -23,13 +24,16 @@ public class ReviewController {
 	private final UserService userService;
 	private final RestaurantService restaurantService;
 	private final ReviewService reviewService;
+	private final ReviewScoreService reviewScoreService;
 	
 	@PostMapping("/add")
 	@PreAuthorize("isAuthenticated")
 	public String addReview(@RequestParam long restId, @RequestParam String content, Principal principal, RedirectAttributes redirectAtt) {
 		long restaurantId = restId;
+		double score = reviewScoreService.getScore(content);
 		Review review = new Review();
 		review.setContent(content);
+		review.setScore(score);
 		review.setWriter(userService.getUser(principal.getName()));
 		review.setRestaurant(restaurantService.getRestaurantById(restaurantId));
 		
