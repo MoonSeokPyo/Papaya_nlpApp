@@ -1,4 +1,6 @@
-version: '3.8'  # 버전: Docker Compose 파일 형식을 지정
+# 이제 compose에서 version 기입 안한다고 에러난다.
+# the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+# version: '3.8'  # 버전: Docker Compose 파일 형식을 지정
 
 services:
 
@@ -32,14 +34,19 @@ services:
       - ./python/sql:/python/sql  # 호스트와 컨테이너 디렉토리 연결
     # networks:   # 네트워크: 두 컨테이너 간의 통신을 위해 papaya_network 네트워크에 포함시킵니다.
     #   - papaya_network
-
+  
   papaya:
     build:
       context: ./project
     container_name: papaya
     depends_on:
-      - mysql
-      - restaurant_table_creator
+      mysql:
+        condition: service_started
+      restaurant_table_creator:
+        condition: service_completed_successfully
+      # - mysql
+      # - restaurant_table_creator
+
     # networks:
     #   - papaya_network
     ports:
@@ -50,6 +57,18 @@ services:
       DB_PASSWORD: 1234
       DB_NAME: papayadb
   
+  analyze_review:
+    build:
+      context: ./python/analyze_review
+    # network_mode: host
+    container_name: analyze_review
+    ports:
+      - "8000:8000"  # 호스트의 8000 포트를 컨테이너의 8000 포트에 매핑
+    # deploy:
+    #   restart_policy:
+    #     condition: on-failure
+    #     delay: 10s
+    #     max_attempts: 3
 
 volumes:
   db_data:

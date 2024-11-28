@@ -1,0 +1,7 @@
+# .dockerignore 예시
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+requirements.txt
