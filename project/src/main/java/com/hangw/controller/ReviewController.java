@@ -35,7 +35,7 @@ public class ReviewController {
 		double score;
 		try {
 			score = reviewScoreService.getScore(content);
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			redirectAtt.addFlashAttribute("errorMessage", "리뷰 점수를 계산할 수 없습니다. 다시 시도해주세요.");
 			redirectAtt.addAttribute("id", restId);
 			return "redirect:/restaurant/detail";
