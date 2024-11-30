@@ -14,8 +14,12 @@ WORKDIR /python/sql
 # COPY 파일명, 디렉토리 위치
 COPY . .
 
+WORKDIR /python/sql/07_24_P_CSV
+
 # Git LFS 파일 풀기
 RUN git lfs pull
+
+WORKDIR /python/sql
 
 # 필요한 패키지 설치 (requirements.txt가 있을 경우)
 # COPY requirements.txt /app
