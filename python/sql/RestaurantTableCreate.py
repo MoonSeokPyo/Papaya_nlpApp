@@ -10,14 +10,14 @@ csv_path_4 = "07_24_P_CSV/fulldata_07_24_04_P_일반음식점.csv"
 csv_path_5 = "07_24_P_CSV/fulldata_07_24_05_P_휴게음식점.csv"
 ###################################################################
 # 1~3
-csv_data = pd.read_csv(csv_path_1, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'])
+csv_data = pd.read_csv(csv_path_1, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'], encoding='utf-8')
 filtered_data = csv_data[csv_data['영업상태구분코드'] == 1].reset_index(drop=True)
 filtered_data['업태구분명'] = '관광식당업'
 
-# csv_data = pd.read_csv(csv_path_2, usecols=["영업상태구분코드", "사업장명", "소재지전체주소", "소재지우편번호", "도로명전체주소", "도로명우편번호", "소재지전화", "업태구분명", "좌표정보(x)", "좌표정보(y)"])
+# csv_data = pd.read_csv(csv_path_2, usecols=["영업상태구분코드", "사업장명", "소재지전체주소", "소재지우편번호", "도로명전체주소", "도로명우편번호", "소재지전화", "업태구분명", "좌표정보(x)", "좌표정보(y)"], encoding='utf-8')
 # filtered_data = pd.concat([filtered_data, csv_data[csv_data['영업상태구분코드'] == 1]])
 
-# csv_data = pd.read_csv(csv_path_3, usecols=["영업상태구분코드", "사업장명", "소재지전체주소", "소재지우편번호", "도로명전체주소", "도로명우편번호", "소재지전화", "업태구분명", "좌표정보(x)", "좌표정보(y)"])
+# csv_data = pd.read_csv(csv_path_3, usecols=["영업상태구분코드", "사업장명", "소재지전체주소", "소재지우편번호", "도로명전체주소", "도로명우편번호", "소재지전화", "업태구분명", "좌표정보(x)", "좌표정보(y)"], encoding='utf-8')
 # # filtered_data = pd.concat([filtered_data, csv_data[csv_data['영업상태구분코드'] == 1]]).dropna().reset_index(drop=True)
 # filtered_data = pd.concat([filtered_data, csv_data[csv_data['영업상태구분코드'] == 1]]).reset_index(drop=True)
 
@@ -25,7 +25,7 @@ filtered_data['업태구분명'] = '관광식당업'
 # 4, 5
 
 # 필요한 열만 선택하면서 10,000행씩 나누어 읽기
-data_iter = pd.read_csv(csv_path_4, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'], chunksize=10000)
+data_iter = pd.read_csv(csv_path_4, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'], chunksize=10000, encoding='utf-8')
 
 # 영업상태구분코드	소재지전체주소	소재지우편번호	도로명전체주소	도로명우편번호	소재지전화		사업장명    업태구분명	좌표정보(x)	좌표정보(y)
 # 01 영업
@@ -38,7 +38,7 @@ for chunk in data_iter:
     filtered_data = pd.concat([filtered_data, filtered_chunk], ignore_index=True)
 
 
-data_iter = pd.read_csv(csv_path_5, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'], chunksize=10000)
+data_iter = pd.read_csv(csv_path_5, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'], chunksize=10000, encoding='utf-8')
 for chunk in data_iter:
     filtered_chunk = chunk[chunk["영업상태구분코드"] == 1]
     filtered_data = pd.concat([filtered_data, filtered_chunk], ignore_index=True)
