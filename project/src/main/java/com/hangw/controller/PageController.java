@@ -37,7 +37,7 @@ public class PageController {
 
 	@GetMapping("/document")
 	public String document() {
-		return "";
+		return "document";
 	}
 
 	@GetMapping("/inquiry")

@@ -12,7 +12,7 @@
 
 <body>
 	<script type="text/javascript" th:if="${errorMessage}">
-	    alert('[[${errorMessage}]]');
+		alert('[[${errorMessage}]]');
 	</script>
 	<div class="page">
 		<div class="top-bar">
@@ -69,10 +69,16 @@
 									<div class="title-8" th:text="${review.writer.name}" width="50%">User Name</div>
 								</div>
 							</div>
-
+						</div>
+						<div class="stars">
+							<!-- 빈 별 -->
+							<div class="empty-stars">★★★★★</div>
+							<!-- 채워진 별 -->
+							<div class="filled-stars" th:style="'width:' + ((${review.score} / 5) * 100) + '%'">★★★★★</div>
 						</div>
 						<p class="p" th:text="${review.content}">Review Content</p>
-						<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}" style="font-size: 11px; float: right;">작성 날짜</em></p>
+						<p><em th:text="${#temporals.format(review.write_date, 'yyyy/MM/dd HH:mm')}"
+								style="font-size: 11px; float: right;">작성 날짜</em></p>
 					</div>
 				</div>
 			</div>

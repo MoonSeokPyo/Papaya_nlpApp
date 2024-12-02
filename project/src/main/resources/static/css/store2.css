@@ -253,41 +253,82 @@
 }
 
 .review-submit-button {
-    width: 20%;
-    padding: 15px;
-    background-color: #826FBC;
-    color: #ffffff;
-    font-size: 13px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    float: right; /* 버튼을 오른쪽으로 정렬 */
+	width: 20%;
+	padding: 15px;
+	background-color: #826FBC;
+	color: #ffffff;
+	font-size: 13px;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	float: right;
+	/* 버튼을 오른쪽으로 정렬 */
 }
 
 .review-submit-button:hover {
-    transform: scale(1.05);
-    background-color: #6d5aad;
+	transform: scale(1.05);
+	background-color: #6d5aad;
 }
 
 
 #content {
-    width: 100%;
-    max-width: 600px; /* 최대 너비 제한 */
-    min-height: 150px; /* 최소 높이 */
-    padding: 10px; /* 안쪽 여백 */
-    border: 1px solid #ccc; /* 테두리 색상 */
-    border-radius: 5px; /* 둥근 모서리 */
-    font-size: 16px; /* 글자 크기 */
-    line-height: 1.5; /* 줄 간격 */
-    font-family: Arial, sans-serif; /* 폰트 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝 그림자 */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 부드러운 애니메이션 */
-    resize: vertical; /* 세로 크기만 조정 가능 */
+	width: 100%;
+	max-width: 600px;
+	/* 최대 너비 제한 */
+	min-height: 150px;
+	/* 최소 높이 */
+	padding: 10px;
+	/* 안쪽 여백 */
+	border: 1px solid #ccc;
+	/* 테두리 색상 */
+	border-radius: 5px;
+	/* 둥근 모서리 */
+	font-size: 16px;
+	/* 글자 크기 */
+	line-height: 1.5;
+	/* 줄 간격 */
+	font-family: Arial, sans-serif;
+	/* 폰트 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	/* 살짝 그림자 */
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	/* 부드러운 애니메이션 */
+	resize: vertical;
+	/* 세로 크기만 조정 가능 */
 }
 
 #content:focus {
-    border-color: #66afe9; /* 포커스 시 테두리 색 변경 */
-    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* 포커스 시 그림자 */
-    outline: none; /* 기본 포커스 제거 */
+	border-color: #66afe9;
+	/* 포커스 시 테두리 색 변경 */
+	box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+	/* 포커스 시 그림자 */
+	outline: none;
+	/* 기본 포커스 제거 */
+}
+
+.stars {
+	position: relative;
+	display: inline-block;
+	font-size: 16px;
+	/* 별 크기 */
+	line-height: 1;
+}
+
+.stars .empty-stars,
+.stars .filled-stars {
+	color: lightgray;
+	/* 기본 빈 별 색상 */
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.stars .filled-stars {
+	color: gold;
+	/* 채워진 별 색상 */
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	/* 기본적으로 0으로 설정 */
 }
