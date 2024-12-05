@@ -5,3 +5,4 @@ python/sql/MainSqlCreate.ipynb
 python/analyze_review/kcelectra_regression_model.pt
 python/sql/.ipynb_checkpoints
 python/sql/07_24_P_CSV/.ipynb_checkpoints
+python/sql/07_24_P_CSV/restaurant_data.csv
