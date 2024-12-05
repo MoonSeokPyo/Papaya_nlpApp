@@ -8,6 +8,7 @@ csv_path_2 = "07_24_P_CSV/fulldata_07_24_02_P_관광유흥음식점업.csv"
 csv_path_3 = "07_24_P_CSV/fulldata_07_24_03_P_외국인전용유흥음식점업.csv"
 csv_path_4 = "07_24_P_CSV/fulldata_07_24_04_P_일반음식점.csv"
 csv_path_5 = "07_24_P_CSV/fulldata_07_24_05_P_휴게음식점.csv"
+csv_path_6 = "07_24_P_CSV/restaurant_data.csv"
 ###################################################################
 # 1~3
 csv_data = pd.read_csv(csv_path_1, usecols=['영업상태구분코드', '사업장명', '소재지전체주소', '소재지우편번호', '도로명전체주소', '도로명우편번호', '소재지전화', '업태구분명', '좌표정보(x)', '좌표정보(y)'], encoding='utf-8')
@@ -45,6 +46,11 @@ for chunk in data_iter:
 
 filtered_data.drop(columns=['영업상태구분코드'], inplace=True)
 ###################################################################
+# GPS coordinate
+gpsDf = pd.read_csv(csv_path_6, usecols=['latitude', 'longitude'], encoding='utf-8')
+# 비어있는 값 -1로 채우기
+gpsDf.fillna(-1, inplace=True)
+###################################################################
 # 데이터 정제
 filtered_data.loc[367757, '사업장명'] = '블루펄호텔커피'
 filtered_data.loc[367757, '업태구분명'] = '경양식'
@@ -56,7 +62,7 @@ filtered_data.loc[498750, '좌표정보(y)'] = np.nan
 
 filtered_data.drop(columns=['좌표정보(x)'], inplace=True)
 filtered_data.drop(columns=['좌표정보(y)'], inplace=True)
-filtered_data
+# filtered_data
 
 filtered_data = filtered_data.rename(
     columns={
@@ -74,8 +80,8 @@ filtered_data = filtered_data.rename(
 print(filtered_data)
 ###################################################################
 # sql insert
-from sqlalchemy import create_engine, text, String
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import create_engine, MetaData, text, String, DECIMAL, Integer
+from sqlalchemy.exc import SQLAlchemyError, OperationalError
 
 # MySQL 서버 연결
 try:
@@ -87,6 +93,26 @@ except SQLAlchemyError as e:
     engine = None
 
 if engine:
+    # 외래 키(Foreign Key) 제약조건 해결
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+
+    # gpscoordinates 테이블에서 외래 키 제거
+    with engine.connect() as conn:
+        try:
+            conn.execute(text("ALTER TABLE gpscoordinates DROP FOREIGN KEY fk_restaurant"))
+            print("Foreign key 'fk_restaurant' successfully dropped.")
+        except OperationalError as e:
+            print(f"Foreign key not dropped. Reason: {e}")
+
+    # restauranttable 삭제
+    with engine.connect() as conn:
+        try:
+            conn.execute(text("DROP TABLE restauranttable"))
+            print("Table 'restauranttable' successfully dropped.")
+        except OperationalError as e:
+            print(f"Table not dropped. Reason: {e}")
+    
     # 데이터프레임을 테이블에 저장 (기존 테이블이 있으면 삭제 후 새로 생성)
     try:
         filtered_data.to_sql(
@@ -122,10 +148,51 @@ if engine:
         print("Error occurred while adding 'id' column:", e)
 
 ###################################################################
+# restauranttable의 id와 gpsDf 데이터 병합
+# gpscoordinates 테이블 생성 및 데이터 저장
+try:
+    gpsDf['restaurant_id'] = range(1, len(gpsDf) + 1)
+
+    gpsDf.to_sql(
+        "gpscoordinates",
+        con=engine,
+        if_exists="replace",
+        index=False,
+        dtype={
+            "restaurant_id": Integer,
+            "latitude": DECIMAL(10, 6),  # 소수점 이하 6자리 설정
+            "longitude": DECIMAL(10, 6),  # 소수점 이하 6자리 설정
+        }
+    )
+    print("gpscoordinates table created successfully.")
+except SQLAlchemyError as e:
+    print(f"Error occurred while creating gpscoordinates table: {e}")
+
+# gpscoordinates 테이블에 외래 키 설정
+try:
+    with engine.connect() as conn:
+        conn.execute(
+            text("""
+            ALTER TABLE gpscoordinates
+            ADD CONSTRAINT fk_restaurant
+            FOREIGN KEY (restaurant_id) REFERENCES restauranttable(id)
+        """)
+        )
+    print("Foreign key 'fk_restaurant' added successfully.")
+except SQLAlchemyError as e:
+    print(f"Error occurred while adding the foreign key: {e}")
+###################################################################
 # db test
 
-# SQL 쿼리 실행하여 데이터 불러오기 (테이블에서 첫 10줄 가져오기)
+# SQL 쿼리 실행하여 음식점 데이터 불러오기 (테이블에서 첫 10줄 가져오기)
 query = "SELECT * FROM restauranttable LIMIT 10;"
+df = pd.read_sql(query, engine)
+
+# 출력
+print(df)
+
+# SQL 쿼리 실행하여 좌표 데이터 불러오기 (테이블에서 첫 10줄 가져오기)
+query = "SELECT * FROM gpscoordinates LIMIT 10;"
 df = pd.read_sql(query, engine)
 
 # 출력
