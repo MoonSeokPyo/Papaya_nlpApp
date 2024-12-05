@@ -50,7 +50,7 @@ services:
     # networks:
     #   - papaya_network
     ports:
-      - "80:8080"
+      - "8080:8080"
     environment:
       DB_HOST: mysql
       DB_USER: root
