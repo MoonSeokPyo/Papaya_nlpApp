@@ -34,10 +34,11 @@ services:
       - ./python/sql:/python/sql  # 호스트와 컨테이너 디렉토리 연결
     # networks:   # 네트워크: 두 컨테이너 간의 통신을 위해 papaya_network 네트워크에 포함시킵니다.
     #   - papaya_network
+    restart: "no"  # 컨테이너가 종료된 후 자동으로 재시작하지 않도록 설정
   
   papaya:
     build:
-      context: ./project
+      context: ./papaya
     container_name: papaya
     depends_on:
       mysql:
@@ -46,7 +47,6 @@ services:
         condition: service_completed_successfully
       # - mysql
       # - restaurant_table_creator
-
     # networks:
     #   - papaya_network
     ports:
