@@ -5,4 +5,11 @@ python/sql/MainSqlCreate.ipynb
 python/analyze_review/kcelectra_regression_model.pt
 python/sql/.ipynb_checkpoints
 python/sql/07_24_P_CSV/.ipynb_checkpoints
+python/sql/07_24_P_CSV/fulldata_07_24_01_P_관광식당.csv
+python/sql/07_24_P_CSV/fulldata_07_24_02_P_관광유흥음식점업.csv
+python/sql/07_24_P_CSV/fulldata_07_24_03_P_외국인전용유흥음식점업.csv
+python/sql/07_24_P_CSV/fulldata_07_24_04_P_일반음식점.csv
+python/sql/07_24_P_CSV/fulldata_07_24_05_P_휴게음식점.csv
 python/sql/07_24_P_CSV/restaurant_data.csv
+restaurantTable.sql
+.gitattributes
