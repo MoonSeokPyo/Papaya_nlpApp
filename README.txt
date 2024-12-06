@@ -53,10 +53,15 @@ spring.security.oauth2.client.provider.naver.token-uri=https://nid.naver.com/oau
 spring.security.oauth2.client.provider.naver.user-info-uri=https://openapi.naver.com/v1/nid/me
 spring.security.oauth2.client.provider.naver.user-name-attribute=response
 ------------------------------------------------------
-lfs로 올린 대용량 파일은 
-git lfs pull
-로 pull 해야지 다운 된다.
+lfs로 올린 대용량 파일은 'git lfs pull' 로 pull 해야지 다운 된다.
+< 현재 LFS 사용 X >
 ------------------------------------------------------
-kcelectra_regression_model.pt
+Google Drive 링크
+https://drive.google.com/drive/folders/1q4H2f1HI5A0JkM15lDoTadeVe3G0zkyW?usp=drive_link
+------------------------------------------------------
 용량이 커서 올릴 수가 없기 때문에 google drive에서 다운하기
+kcelectra_regression_model.pt
 path: Papaya_nlpApp/python/analyze_review/kcelectra_regression_model.pt
+
+07_24_P_CSV
+path: Papaya_nlpApp/python/sql/07_24_P_CSV
