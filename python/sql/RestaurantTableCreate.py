@@ -77,11 +77,14 @@ filtered_data = filtered_data.rename(
 )
 ###################################################################
 # data frame test
+print('test1')
 print(filtered_data)
+print('test2')
+print(gpsDf)
 ###################################################################
 # sql insert
-from sqlalchemy import create_engine, MetaData, text, String, DECIMAL, Integer
-from sqlalchemy.exc import SQLAlchemyError, OperationalError
+from sqlalchemy import create_engine, text, String, DECIMAL, Integer
+from sqlalchemy.exc import SQLAlchemyError
 
 # MySQL 서버 연결
 try:
@@ -93,25 +96,25 @@ except SQLAlchemyError as e:
     engine = None
 
 if engine:
-    # 외래 키(Foreign Key) 제약조건 해결
-    metadata = MetaData()
-    metadata.reflect(bind=engine)
+    # 외래 키 제약 조건 삭제 (기존 외래 키 제거)
+    try:
+        with engine.connect() as conn:
+            # 외래 키 존재 여부 확인
+            fk_query = """
+            SELECT CONSTRAINT_NAME
+            FROM information_schema.REFERENTIAL_CONSTRAINTS
+            WHERE TABLE_NAME = 'gpscoordinates' AND CONSTRAINT_SCHEMA = 'papayadb';
+            """
+            result = conn.execute(text(fk_query)).fetchone()
 
-    # gpscoordinates 테이블에서 외래 키 제거
-    with engine.connect() as conn:
-        try:
-            conn.execute(text("ALTER TABLE gpscoordinates DROP FOREIGN KEY fk_restaurant"))
-            print("Foreign key 'fk_restaurant' successfully dropped.")
-        except OperationalError as e:
-            print(f"Foreign key not dropped. Reason: {e}")
-
-    # restauranttable 삭제
-    with engine.connect() as conn:
-        try:
-            conn.execute(text("DROP TABLE restauranttable"))
-            print("Table 'restauranttable' successfully dropped.")
-        except OperationalError as e:
-            print(f"Table not dropped. Reason: {e}")
+            if result:
+                # 외래 키가 존재하면 삭제
+                conn.execute(text("ALTER TABLE gpscoordinates DROP FOREIGN KEY fk_restaurant;"))
+                print("Foreign key constraint 'fk_restaurant' dropped successfully.")
+            else:
+                print("Foreign key 'fk_restaurant' does not exist, skipping drop.")
+    except SQLAlchemyError as e:
+        print(f"Error occurred while dropping foreign key 'fk_restaurant': {e}")
     
     # 데이터프레임을 테이블에 저장 (기존 테이블이 있으면 삭제 후 새로 생성)
     try:
@@ -128,6 +131,7 @@ if engine:
                 "road_zipcode": String(255),
                 "business_name": String(255),
                 "business_type": String(255),
+                "id": Integer,  # 명시적으로 지정
             }
         )
         print("Data successfully inserted into the table.")
@@ -146,44 +150,43 @@ if engine:
         print("Auto-incrementing 'id' column successfully added.")
     except SQLAlchemyError as e:
         print("Error occurred while adding 'id' column:", e)
+    ###################################################################
+    # restauranttable의 id와 gpsDf 데이터 병합
+    # gpscoordinates 테이블 생성 및 데이터 저장
+    try:
+        gpsDf['restaurant_id'] = range(1, len(gpsDf) + 1)
 
-###################################################################
-# restauranttable의 id와 gpsDf 데이터 병합
-# gpscoordinates 테이블 생성 및 데이터 저장
-try:
-    gpsDf['restaurant_id'] = range(1, len(gpsDf) + 1)
-
-    gpsDf.to_sql(
-        "gpscoordinates",
-        con=engine,
-        if_exists="replace",
-        index=False,
-        dtype={
-            "restaurant_id": Integer,
-            "latitude": DECIMAL(10, 6),  # 소수점 이하 6자리 설정
-            "longitude": DECIMAL(10, 6),  # 소수점 이하 6자리 설정
-        }
-    )
-    print("gpscoordinates table created successfully.")
-except SQLAlchemyError as e:
-    print(f"Error occurred while creating gpscoordinates table: {e}")
-
-# gpscoordinates 테이블에 외래 키 설정
-try:
-    with engine.connect() as conn:
-        conn.execute(
-            text("""
-            ALTER TABLE gpscoordinates
-            ADD CONSTRAINT fk_restaurant
-            FOREIGN KEY (restaurant_id) REFERENCES restauranttable(id)
-        """)
+        gpsDf.to_sql(
+            "gpscoordinates",
+            con=engine,
+            if_exists="replace",
+            index=False,
+            dtype={
+                "restaurant_id": Integer,
+                "latitude": DECIMAL(10, 6),  # 소수점 이하 6자리 설정
+                "longitude": DECIMAL(10, 6),  # 소수점 이하 6자리 설정
+            }
         )
-    print("Foreign key 'fk_restaurant' added successfully.")
-except SQLAlchemyError as e:
-    print(f"Error occurred while adding the foreign key: {e}")
+        print("gpscoordinates table created successfully.")
+    except SQLAlchemyError as e:
+        print(f"Error occurred while creating gpscoordinates table: {e}")
+
+    # gpscoordinates 테이블에 외래 키 설정
+    try:
+        with engine.connect() as conn:
+            conn.execute(
+                text("""
+                ALTER TABLE gpscoordinates
+                ADD CONSTRAINT fk_restaurant
+                FOREIGN KEY (restaurant_id) REFERENCES restauranttable(id)
+            """)
+            )
+        print("Foreign key 'fk_restaurant' added successfully.")
+    except SQLAlchemyError as e:
+        print(f"Error occurred while adding the foreign key: {e}")
 ###################################################################
 # db test
-
+print('test3')
 # SQL 쿼리 실행하여 음식점 데이터 불러오기 (테이블에서 첫 10줄 가져오기)
 query = "SELECT * FROM restauranttable LIMIT 10;"
 df = pd.read_sql(query, engine)
@@ -191,6 +194,7 @@ df = pd.read_sql(query, engine)
 # 출력
 print(df)
 
+print('test4')
 # SQL 쿼리 실행하여 좌표 데이터 불러오기 (테이블에서 첫 10줄 가져오기)
 query = "SELECT * FROM gpscoordinates LIMIT 10;"
 df = pd.read_sql(query, engine)
