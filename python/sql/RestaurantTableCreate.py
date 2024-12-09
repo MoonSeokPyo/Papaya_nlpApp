@@ -3,11 +3,14 @@ import pandas as pd
 import numpy as np
 
 ################################################################### path check
+# 출처
+# https://www.localdata.go.kr/main.do
 csv_path_1 = "07_24_P_CSV/fulldata_07_24_01_P_관광식당.csv"
 csv_path_2 = "07_24_P_CSV/fulldata_07_24_02_P_관광유흥음식점업.csv"
 csv_path_3 = "07_24_P_CSV/fulldata_07_24_03_P_외국인전용유흥음식점업.csv"
 csv_path_4 = "07_24_P_CSV/fulldata_07_24_04_P_일반음식점.csv"
 csv_path_5 = "07_24_P_CSV/fulldata_07_24_05_P_휴게음식점.csv"
+# kakao api를 이용해 수집한 좌표코드
 csv_path_6 = "07_24_P_CSV/restaurant_data.csv"
 ###################################################################
 # 1~3
