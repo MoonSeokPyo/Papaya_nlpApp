@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<!-- ~{파일경로::템플릿함수(~{::선택자})} -->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#title} )}">
+
+<title id="title">PAPAYA</title>
+<div id="section">
+    <div style="background-color: rgba(255,121,224,0.23); height: 100%;">
+        <h1>Welcome to Papaya!</h1>
+        <p>원하시는 음식점을 검색해보세요.</p>
+        <a href="/search">
+            <button>음식점 검색하기</button>
+        </a>
+
+        <br/>
+        <a th:href="@{/login}">로그인</a> <br/>
+        <a th:href="@{/review}">AI 모델 테스트</a> <br/>
+        <a th:href="@{/map}">지도</a> <br/>
+    </div>
+</div>
+<script>
+    console.log("이 파일에서만 사용");
+</script>
+</html>
+
+
+
+
+<!--<html xmlns:th="http://www.thymeleaf.org" th:fragment="section">-->
+<!--<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/layout.html :: content}">-->
+
+<!--replace가 맞는것 같다. 왜냐?-->
+<!--controller에서 templates/*.html을 return 하는데-->
+<!--layout을 return 하게 할수는 없기 때문이다.-->
+<!--아래와 같이 감싸는 것도 좋은 것 같다.-->
+<!--<th:block th:replace="~{/layout/layout::test( ~{::#index} )}">-->
+<!--content-->
+<!--</th:block>-->
+
+<!--아래 방법은 잘 모르겠다.-->
+<!--<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">-->
+<!--<body>-->
+<!--<div layout:fragment="content">-->
+<!--    content-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

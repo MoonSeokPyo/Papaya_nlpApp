@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(section, title)"  lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title th:replace="${title}">PAPAYA</title>
+</head>
+<body>
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+<!--<header>헤더</header>-->
+
+<!-- 메인 콘텐츠 -->
+<section th:replace="${section}"></section>
+<!--<section th:replace="index.html :: section"></section>-->
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

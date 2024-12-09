@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>검색 결과</title>
+</head>
+<body>
+<h1>검색 결과</h1>
+<p th:if="${results == null || #lists.isEmpty(results)}">
+    <span th:text="'검색어: ' + ${keyword} + ' 에 대한 결과가 없습니다.'"></span>
+</p>
+<ul th:if="${results != null && !#lists.isEmpty(results)}">
+    <li th:each="restaurant : ${results}">
+        <span th:text="'이름: ' + ${restaurant.businessName}"></span><br/>
+        <span th:text="'주소: ' + ${restaurant.locationAddress}"></span><br/>
+        <span th:text="'우편번호: ' + ${restaurant.locationZipcode}"></span><br/>
+        <span th:text="'업종: ' + ${restaurant.businessType}"></span><br/>
+        <span th:text="'전화번호: ' + ${restaurant.locationPhone}"></span><br/>
+        <span th:text="'도로명 주소: ' + ${restaurant.roadAddress}"></span><br/>
+        <span th:text="'도로명 우편번호: ' + ${restaurant.roadZipcode}"></span><br/>
+    </li>
+</ul>
+<a href="/search">다시 검색하기</a>
+</body>
+</html>

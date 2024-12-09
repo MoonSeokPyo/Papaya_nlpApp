@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<!--<meta charset="UTF-8">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<header th:fragment="header">
+    <link rel="stylesheet" href="/css/header.css">
+
+    <!-- 상단 배너 -->
+    <div class="banner">
+        <a href="/" class="logo">
+            <img src="/img/logo.png" alt="Logo">
+        </a>
+        <div class="search-bar">
+            <form th:action="@{/search/results}" method="get">
+                <input type="text" name="keyword" placeholder="검색어를 입력하세요...">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+
+    <!-- 오른쪽 사이드 메뉴 -->
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <span>메뉴</span>
+            <button class="close-btn" onclick="toggleMenu()">×</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">홈</a></li>
+                <li><a href="/search">검색</a></li>
+                <li><a href="/map">지도</a></li>
+                <li><a href="/review">AI 테스트</a></li>
+                <li><a href="/login">로그인</a></li>
+                <li><a href="/error">도움말</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <script src="/js/header.js"></script> <!-- 공통 JavaScript -->
+</header>
+</html>
