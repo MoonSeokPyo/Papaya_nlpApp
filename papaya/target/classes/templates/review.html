@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>리뷰 점수 확인</title>
+</head>
+<body>
+<h1>리뷰 점수 확인</h1>
+
+<!-- 에러 메시지 -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form action="/submitReview" method="post">
+    <label for="review">리뷰를 입력하세요:</label>
+    <textarea id="review" name="review" rows="4" cols="50"></textarea>
+    <br>
+    <button type="submit">점수 확인</button>
+</form>
+</body>
+</html>

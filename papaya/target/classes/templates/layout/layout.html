@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(section, title)"  lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title th:replace="${title}">PAPAYA</title>
+</head>
+<body>
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+<!--<header>헤더</header>-->
+
+<!-- 메인 콘텐츠 -->
+<section th:replace="${section}"></section>
+<!--<section th:replace="index.html :: section"></section>-->
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(section)">-->
+<!--&lt;!&ndash;<th:block  th:fragment="test(section)">&ndash;&gt;-->
+<!--<head>-->
+<!--&lt;!&ndash;  <title th:replace="~{::title}">PAPAYA</title>&ndash;&gt;-->
+<!--&lt;!&ndash;  <link rel="stylesheet" href="/css/styles.css">&ndash;&gt;-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Insert title here</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; 상단 배너 &ndash;&gt;-->
+<!--&lt;!&ndash;<header th:replace="fragments/header :: header"></header>&ndash;&gt;-->
+<!--<header>헤더</header>-->
+
+<!--&lt;!&ndash; 메인 콘텐츠 &ndash;&gt;-->
+<!--&lt;!&ndash;<main>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div th:replace="~{::content}"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;</main>&ndash;&gt;-->
+<!--<section th:replace="${section}">-->
+
+<!--</section>-->
+
+<!--&lt;!&ndash; 하단 배너 &ndash;&gt;-->
+<!--&lt;!&ndash;<footer th:replace="fragments/footer :: footer"></footer>&ndash;&gt;-->
+<!--<footer>푸터</footer>-->
+<!--</body>-->
+<!--&lt;!&ndash;</th:block>&ndash;&gt;-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <title th:replace="~{::title}">PAPAYA</title>-->
+<!--  <link rel="stylesheet" href="/css/styles.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; 상단 배너 &ndash;&gt;-->
+<!--<header th:replace="fragments/header :: header"></header>-->
+
+<!--&lt;!&ndash; 메인 콘텐츠 &ndash;&gt;-->
+<!--<main>-->
+<!--  <div th:replace="~{::content}"></div>-->
+<!--</main>-->
+
+<!--&lt;!&ndash; 하단 배너 &ndash;&gt;-->
+<!--<footer th:replace="fragments/footer :: footer"></footer>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html-->
+<!--        lagn="ko"-->
+<!--        xmlns:th="http://www.thymeleaf.org"-->
+<!--        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--        xmlns="http://www.w3.org/1999/html">-->
+
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--&lt;!&ndash;  <link rel="stylesheet" href="../css/bootstrap.css"/>&ndash;&gt;-->
+<!--&lt;!&ndash;  <link rel="stylesheet" href="../css/square.css"/>&ndash;&gt;-->
+<!--&lt;!&ndash;  <script src="../js/bootstrap.js"></script>&ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="fragments/header :: header"></div>-->
+
+<!--<div layout:fragment="content"></div>-->
+
+<!--<div th:replace="fragments/footer :: footer"></div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <title th:replace="~{::title}">PAPAYA</title>-->
+<!--  <link rel="stylesheet" href="/css/banner.css"> &lt;!&ndash; 공통 CSS &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; 상단 배너 &ndash;&gt;-->
+<!--<header th:fragment="header">-->
+<!--  <div class="banner">-->
+<!--    <a href="/" class="logo">-->
+<!--      <img src="/img/logo.png" alt="Logo">-->
+<!--    </a>-->
+<!--    <form class="search-bar" th:action="@{/search/results}" method="get">-->
+<!--      <input type="text" name="keyword" placeholder="검색어를 입력하세요...">-->
+<!--      <button type="submit">검색</button>-->
+<!--    </form>-->
+<!--    <button class="menu-btn" onclick="toggleMenu()">☰</button>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; 사이드 메뉴 &ndash;&gt;-->
+<!--<div class="side-menu" id="sideMenu" th:fragment="sideMenu">-->
+<!--  <div class="menu-header">-->
+<!--    <span>메뉴</span>-->
+<!--    <button class="close-btn" onclick="toggleMenu()">×</button>-->
+<!--  </div>-->
+<!--  <ul>-->
+<!--    <li><a href="/">홈</a></li>-->
+<!--    <li><a href="/search">검색</a></li>-->
+<!--    <li><a href="/map">지도</a></li>-->
+<!--    <li><a href="/review">AI 테스트</a></li>-->
+<!--    <li><a href="/login">로그인</a></li>-->
+<!--    <li><a href="/error">도움말</a></li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 개별 페이지 콘텐츠 &ndash;&gt;-->
+<!--<main>-->
+<!--  <div th:fragment="content">-->
+<!--    <p>기본 콘텐츠입니다. 개별 페이지에서 이 부분이 대체됩니다.</p>-->
+<!--  </div>-->
+<!--</main>-->
+
+<!--<script src="/js/banner.js"></script> &lt;!&ndash; 공통 JavaScript &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <title th:replace="~{::title}">PAPAYA</title>-->
+<!--  <link rel="stylesheet" href="/css/banner.css"> &lt;!&ndash; 공통 CSS &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; 상단 배너 &ndash;&gt;-->
+<!--<header class="banner">-->
+<!--  <a href="/" class="logo">-->
+<!--    <img src="/images/logo.png" alt="Logo">-->
+<!--  </a>-->
+<!--  <div class="search-bar">-->
+<!--    <form th:action="@{/search/results}" method="get">-->
+<!--      <input type="text" name="keyword" placeholder="검색어를 입력하세요...">-->
+<!--      <button type="submit">검색</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--&lt;!&ndash;  <div class="search-bar">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="text" placeholder="검색어를 입력하세요...">&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--  <button class="menu-btn" onclick="toggleMenu()">☰</button>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; 오른쪽 사이드 메뉴 &ndash;&gt;-->
+<!--<div class="side-menu" id="sideMenu">-->
+<!--  <div class="menu-header">-->
+<!--    <span>메뉴</span>-->
+<!--    <button class="close-btn" onclick="toggleMenu()">×</button>-->
+<!--  </div>-->
+<!--  <ul>-->
+<!--    <li><a href="/">홈</a></li>-->
+<!--    <li><a href="/search">검색</a></li>-->
+<!--    <li><a href="/map">지도</a></li>-->
+<!--    <li><a href="/review">AI 테스트</a></li>-->
+<!--    <li><a href="/login">로그인</a></li>-->
+<!--    <li><a href="/error">도움말</a></li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 개별 페이지 콘텐츠 &ndash;&gt;-->
+<!--&lt;!&ndash;<main>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div th:replace="~{::content}"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;</main>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<main>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div th:fragment="content">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p>기본 콘텐츠입니다. 개별 페이지에서 이 부분이 대체됩니다.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</main>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<main th:fragment="content">&ndash;&gt;-->
+<!--&lt;!&ndash;  &lt;!&ndash; 기본 콘텐츠 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  <div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p>기본 콘텐츠입니다. 개별 페이지에서 이 부분이 대체됩니다.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</main>&ndash;&gt;-->
+
+<!--<script src="/js/banner.js"></script> &lt;!&ndash; 공통 JavaScript &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>상단 배너</title>-->
+<!--  <link rel="stylesheet" href="/css/banner.css"> &lt;!&ndash; 외부 CSS 파일 &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="banner">-->
+<!--  &lt;!&ndash; 왼쪽 로고 &ndash;&gt;-->
+<!--  <a href="/" class="logo">-->
+<!--    <img src="/images/logo.png" alt="Logo">-->
+<!--  </a>-->
+
+<!--  &lt;!&ndash; 중앙 검색창 &ndash;&gt;-->
+<!--  <div class="search-bar">-->
+<!--    <input type="text" placeholder="검색어를 입력하세요...">-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; 오른쪽 메뉴 버튼 &ndash;&gt;-->
+<!--  <button class="menu-btn" onclick="toggleMenu()">-->
+<!--    ☰-->
+<!--  </button>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; 오른쪽에서 열리는 메뉴창 &ndash;&gt;-->
+<!--<div class="side-menu" id="sideMenu">-->
+<!--  <div class="menu-header">-->
+<!--    <span>메뉴</span>-->
+<!--    <button class="close-btn" onclick="toggleMenu()">×</button>-->
+<!--  </div>-->
+<!--  <ul>-->
+<!--    <li><a href="/page1">페이지 1</a></li>-->
+<!--    <li><a href="/page2">페이지 2</a></li>-->
+<!--    <li><a href="/page3">페이지 3</a></li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!--<script src="/js/banner.js"></script>-->
+<!--</body>-->
+<!--</html>-->
