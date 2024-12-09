@@ -92,6 +92,7 @@ def predict_review(review):
 # 리뷰 데이터를 받아 점수를 반환하는 API 엔드포인트 정의 ScoringReviews
 @app.post("/analyze_review/")
 async def analyze_review(request: ReviewRequest):
+    print(f"Received review: {request.review}")  # 로그 추가
     try:
         predicted_score = predict_review(request.review)
         return {"predicted_score": predicted_score}
