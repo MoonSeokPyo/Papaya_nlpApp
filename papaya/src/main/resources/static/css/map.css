@@ -31,6 +31,14 @@
     border-radius: 10px;
 }
 
+#currentloc_btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    z-index: 1;
+}
+
 .bg_white {
     background: #fff;
 }
