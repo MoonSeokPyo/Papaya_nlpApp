@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -43,12 +44,18 @@ public class PageController {
     return "login"; // login.html 템플릿
   }
 
+  @GetMapping("/login/oauth2/code/kakao")
+  public @ResponseBody String kakaoCallback(String code) { // Data 리턴해주는 컨트롤러 함수
+    return "카카오 인증 완료 : 코드값 :" + code;
+    
+  }
+
   @GetMapping("/map")
   public String mapPage(Model model) {
     model.addAttribute("kakaoApiKey", kakaoApiKey);
     return "map"; // map.html 템플릿
   }
-  
+
   @GetMapping("/notice")
   public String noticePage() {
     return "notice"; // notice.html 템플릿으로 이동
@@ -57,6 +64,11 @@ public class PageController {
   @GetMapping("/introduce")
   public String introducePage() {
     return "introduce"; // introduce.html 템플릿으로 이동
+  }
+
+  @GetMapping("/inquiry")
+  public String inquiryPage() {
+    return "inquiry"; // introduce.html 템플릿으로 이동
   }
 
   @GetMapping("/restaurant/{id}")
