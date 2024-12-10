@@ -1,54 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#head} )}">
-<head id="head">
-    <meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의하기</title>
-	<!-- Bootstrap CSS -->
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Custom CSS -->
-	<link rel="stylesheet" href="/css/inquiry.css">
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/inquiry.css">
+    <link rel="icon" href="/img/logo.png"/>
 </head>
 <body>
-<div id="section">
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Contact Us</h1>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form id="contact-form">
-                    <!-- Name Input -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">이름</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
-                    </div>
-                    <!-- Email Input -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-mail </label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                    </div>
-                    <!-- Subject Input -->
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">제목</label>
-                        <input type="text" class="form-control" id="subject" placeholder="Enter subject" required>
-                    </div>
-                    <!-- Message Textarea -->
-                    <div class="mb-3">
-                        <label for="message" class="form-label">내용</label>
-                        <textarea class="form-control" id="message" rows="5" placeholder="Write your message here" required></textarea>
-                    </div>
-                    <!-- Submit Button -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-success">전송</button>
-                    </div>
-                </form>
-                <div id="success-message" class="alert alert-success mt-3 d-none">전송에 성공했습니다.</div>
-            </div>
+
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Contact Us</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="contact-form">
+                <!-- Name Input -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">이름</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                </div>
+                <!-- Email Input -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-mail </label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                <!-- Subject Input -->
+                <div class="mb-3">
+                    <label for="subject" class="form-label">제목</label>
+                    <input type="text" class="form-control" id="subject" placeholder="Enter subject" required>
+                </div>
+                <!-- Message Textarea -->
+                <div class="mb-3">
+                    <label for="message" class="form-label">내용</label>
+                    <textarea class="form-control" id="message" rows="5" placeholder="Write your message here"
+                              required></textarea>
+                </div>
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">전송</button>
+                </div>
+            </form>
+            <div id="success-message" class="alert alert-success mt-3 d-none">전송에 성공했습니다.</div>
         </div>
     </div>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="/js/inquiry.js"></script>
 </div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="/js/inquiry.js"></script>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
 </body>
 </html>

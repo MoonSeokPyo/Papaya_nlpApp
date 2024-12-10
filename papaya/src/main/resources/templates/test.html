@@ -6,10 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Donut Animation</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="icon" href="/img/logo.png"/>
 </head>
 <body>
+
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
 <div id="three-container"></div>
 <script src="/js/donut.js"></script>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
 </body>
 </html>
 

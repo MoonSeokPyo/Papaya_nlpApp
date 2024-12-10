@@ -1,109 +1,223 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout :: layout(~{::section}, ~{::head})">
-<head id="head">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAPAYA</title>
+    <title>PAPAYA - AI 기반 맛집 추천 및 리뷰 분석 플랫폼</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
-<!--    <script src="https://cdn.tailwindcss.com"></script>-->
-<!--    <script src="https://unpkg.com/lucide@latest"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>-->
-
     <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="icon" href="/img/logo.png"/>
 </head>
 <body>
-<div id="section">
-    <div class="bg-gray-100">
-        <div class="flex flex-col min-h-screen">
-            <main class="flex-grow">
-                <!-- Hero Section -->
-                <section class="relative h-[80vh] overflow-hidden">
-                    <div class="parallax absolute inset-0">
-                        <img src="/img/index_background_2.png" alt="Delicious Food"
-                             class="w-full h-full object-cover">
-                    </div>
 
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <div class="text-center text-white">
-                            <h1 class="text-5xl md:text-7xl font-bold mb-4 text-shadow-lg">PAPAYA</h1>
-                            <p class="text-xl md:text-3xl mb-8 text-shadow">AI 기반 맛집 추천 및 리뷰 분석 플랫폼</p>
-                            <button class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 px-8 rounded-full hover:from-orange-600 hover:to-red-600 transition duration-300 shadow-lg">
-                                맛집 찾기
-                            </button>
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<div class="bg-gray-100">
+    <div class="flex flex-col min-h-screen">
+        <main class="flex-grow">
+            <!-- Hero Section -->
+            <section class="relative h-[80vh] overflow-hidden">
+                <div class="parallax absolute inset-0">
+                    <img src="/img/index_background_2.png" alt="Delicious Food"
+                         class="w-full h-full object-cover">
+                </div>
+
+                <div id="three-container" class="absolute inset-0 pointer-events-none"></div>
+
+                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <h1 class="text-5xl md:text-7xl font-bold mb-4 text-shadow-lg">PAPAYA</h1>
+                        <p class="text-xl md:text-3xl mb-8 text-shadow">AI 기반 맛집 추천 및 리뷰 분석 플랫폼</p>
+                        <button class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 px-8 rounded-full hover:from-orange-600 hover:to-red-600 transition duration-300 shadow-lg">
+                            맛집 찾기
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- About Section -->
+            <section class="py-20 bg-gradient-to-b from-gray-100 to-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">PAPAYA 소개</h2>
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="md:w-1/2 mb-8 md:mb-0">
+                            <img src="/img/ai-analysis.png" alt="AI Analysis"
+                                 class="rounded-lg shadow-2xl w-full">
+                        </div>
+                        <div class="md:w-1/2 md:pl-12">
+                            <p class="text-xl mb-6 text-gray-700 leading-relaxed">
+                                PAPAYA는 최첨단 AI 기술을 활용하여 음식점 리뷰를 심층 분석하고, 정확하고 신뢰할 수 있는 맛집 정보를 제공합니다.
+                            </p>
+                            <p class="text-xl mb-6 text-gray-700 leading-relaxed">
+                                사용자 리뷰를 바탕으로 한 객관적인 평가와 개인화된 추천 시스템으로 여러분에게 최적의 맛집을 소개합니다.
+                                PAPAYA와 함께라면, 더 이상 실패 없는 맛집 탐방이 가능해집니다!
+                            </p>
                         </div>
                     </div>
-                    <div id="three-container" class="absolute inset-0 pointer-events-none"></div>
-                </section>
+                </div>
+            </section>
 
-                <!-- About Section -->
-                <section class="py-20 bg-gradient-to-b from-gray-100 to-white">
-                    <div class="container mx-auto px-4">
-                        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">PAPAYA 소개</h2>
-                        <div class="flex flex-col md:flex-row items-center justify-between">
-                            <div class="md:w-1/2 mb-8 md:mb-0">
-                                <img src="img/ai-analysis.jpg" alt="AI Analysis"
-                                     class="rounded-lg shadow-2xl w-full">
+            <!-- Top Ranked Restaurants -->
+            <section id="topRankedRestaurants" class="py-20 bg-gradient-to-b from-white to-gray-100">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">인기 맛집 순위</h2>
+                    <div class="relative">
+                        <div class="overflow-hidden">
+                            <div id="topRestaurantsSlider"
+                                 class="flex transition-transform duration-300 ease-in-out">
+                                <!-- Top restaurants will be dynamically inserted here -->
                             </div>
-                            <div class="md:w-1/2 md:pl-12">
-                                <p class="text-xl mb-6 text-gray-700 leading-relaxed">
-                                    PAPAYA는 최첨단 AI 기술을 활용하여 음식점 리뷰를 심층 분석하고, 정확하고 신뢰할 수 있는 맛집 정보를 제공합니다.
-                                </p>
-                                <p class="text-xl mb-6 text-gray-700 leading-relaxed">
-                                    사용자 리뷰를 바탕으로 한 객관적인 평가와 개인화된 추천 시스템으로 여러분에게 최적의 맛집을 소개합니다.
-                                    PAPAYA와 함께라면, 더 이상 실패 없는 맛집 탐방이 가능해집니다!
-                                </p>
-                            </div>
                         </div>
+                        <button id="prevSlide"
+                                class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
+                            <i data-lucide="chevron-left" class="text-gray-800"></i>
+                        </button>
+                        <button id="nextSlide"
+                                class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
+                            <i data-lucide="chevron-right" class="text-gray-800"></i>
+                        </button>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Top Ranked Restaurants -->
-                <section id="topRankedRestaurants" class="py-20 bg-gradient-to-b from-white to-gray-100">
-                    <div class="container mx-auto px-4">
-                        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">인기 맛집 순위</h2>
-                        <div class="relative">
-                            <div class="overflow-hidden">
-                                <div id="topRestaurantsSlider"
-                                     class="flex transition-transform duration-300 ease-in-out">
-                                    <!-- Top restaurants will be dynamically inserted here -->
-                                </div>
-                            </div>
-                            <button id="prevSlide"
-                                    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
-                                <i data-lucide="chevron-left" class="text-gray-800"></i>
-                            </button>
-                            <button id="nextSlide"
-                                    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
-                                <i data-lucide="chevron-right" class="text-gray-800"></i>
-                            </button>
-                        </div>
+            <!-- Recommended Restaurants -->
+            <section id="recommendedRestaurants" class="py-20 bg-gradient-to-b from-gray-100 to-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">맞춤 추천 맛집</h2>
+                    <div id="categoryButtons" class="flex justify-center mb-8">
+                        <!-- Category buttons will be dynamically inserted here -->
                     </div>
-                </section>
-
-                <!-- Recommended Restaurants -->
-                <section id="recommendedRestaurants" class="py-20 bg-gradient-to-b from-gray-100 to-white">
-                    <div class="container mx-auto px-4">
-                        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">맞춤 추천 맛집</h2>
-                        <div id="categoryButtons" class="flex justify-center mb-8">
-                            <!-- Category buttons will be dynamically inserted here -->
-                        </div>
-                        <div id="restaurantGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <!-- Recommended restaurants will be dynamically inserted here -->
-                        </div>
+                    <div id="restaurantGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Recommended restaurants will be dynamically inserted here -->
                     </div>
-                </section>
-            </main>
-        </div>
-        <script src="/js/index.js"></script>
-        <script src="/js/donut.js"></script>
+                </div>
+            </section>
+        </main>
     </div>
+    <script src="/js/donut.js"></script>
+    <script src="/js/index.js"></script>
 </div>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout :: layout(~{::section}, ~{::head})">-->
+<!--<head id="head">-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>PAPAYA - AI 기반 맛집 추천 및 리뷰 분석 플랫폼</title>-->
+
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>-->
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
+<!--    <script src="https://unpkg.com/lucide@latest"></script>-->
+
+<!--&lt;!&ndash;    <script src="https://cdn.tailwindcss.com"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="https://unpkg.com/lucide@latest"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>&ndash;&gt;-->
+
+<!--    <link rel="stylesheet" href="/static/css/index.css">-->
+<!--    <link rel="icon" href="/img/logo.png"/>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="section">-->
+<!--    <div class="bg-gray-100">-->
+<!--        <div class="flex flex-col min-h-screen">-->
+<!--            <main class="flex-grow">-->
+<!--                &lt;!&ndash; Hero Section &ndash;&gt;-->
+<!--                <section class="relative h-[80vh] overflow-hidden">-->
+<!--                    <div class="parallax absolute inset-0">-->
+<!--                        <img src="/img/index_background_2.png" alt="Delicious Food"-->
+<!--                             class="w-full h-full object-cover">-->
+<!--                    </div>-->
+
+<!--                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">-->
+<!--                        <div class="text-center text-white">-->
+<!--                            <h1 class="text-5xl md:text-7xl font-bold mb-4 text-shadow-lg">PAPAYA</h1>-->
+<!--                            <p class="text-xl md:text-3xl mb-8 text-shadow">AI 기반 맛집 추천 및 리뷰 분석 플랫폼</p>-->
+<!--                            <button class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 px-8 rounded-full hover:from-orange-600 hover:to-red-600 transition duration-300 shadow-lg">-->
+<!--                                맛집 찾기-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div id="three-container" class="absolute inset-0 pointer-events-none"></div>-->
+<!--                </section>-->
+
+<!--                &lt;!&ndash; About Section &ndash;&gt;-->
+<!--                <section class="py-20 bg-gradient-to-b from-gray-100 to-white">-->
+<!--                    <div class="container mx-auto px-4">-->
+<!--                        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">PAPAYA 소개</h2>-->
+<!--                        <div class="flex flex-col md:flex-row items-center justify-between">-->
+<!--                            <div class="md:w-1/2 mb-8 md:mb-0">-->
+<!--                                <img src="/img/ai-analysis.png" alt="AI Analysis"-->
+<!--                                     class="rounded-lg shadow-2xl w-full">-->
+<!--                            </div>-->
+<!--                            <div class="md:w-1/2 md:pl-12">-->
+<!--                                <p class="text-xl mb-6 text-gray-700 leading-relaxed">-->
+<!--                                    PAPAYA는 최첨단 AI 기술을 활용하여 음식점 리뷰를 심층 분석하고, 정확하고 신뢰할 수 있는 맛집 정보를 제공합니다.-->
+<!--                                </p>-->
+<!--                                <p class="text-xl mb-6 text-gray-700 leading-relaxed">-->
+<!--                                    사용자 리뷰를 바탕으로 한 객관적인 평가와 개인화된 추천 시스템으로 여러분에게 최적의 맛집을 소개합니다.-->
+<!--                                    PAPAYA와 함께라면, 더 이상 실패 없는 맛집 탐방이 가능해집니다!-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </section>-->
+
+<!--                &lt;!&ndash; Top Ranked Restaurants &ndash;&gt;-->
+<!--                <section id="topRankedRestaurants" class="py-20 bg-gradient-to-b from-white to-gray-100">-->
+<!--                    <div class="container mx-auto px-4">-->
+<!--                        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">인기 맛집 순위</h2>-->
+<!--                        <div class="relative">-->
+<!--                            <div class="overflow-hidden">-->
+<!--                                <div id="topRestaurantsSlider"-->
+<!--                                     class="flex transition-transform duration-300 ease-in-out">-->
+<!--                                    &lt;!&ndash; Top restaurants will be dynamically inserted here &ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <button id="prevSlide"-->
+<!--                                    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">-->
+<!--                                <i data-lucide="chevron-left" class="text-gray-800"></i>-->
+<!--                            </button>-->
+<!--                            <button id="nextSlide"-->
+<!--                                    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">-->
+<!--                                <i data-lucide="chevron-right" class="text-gray-800"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </section>-->
+
+<!--                &lt;!&ndash; Recommended Restaurants &ndash;&gt;-->
+<!--                <section id="recommendedRestaurants" class="py-20 bg-gradient-to-b from-gray-100 to-white">-->
+<!--                    <div class="container mx-auto px-4">-->
+<!--                        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">맞춤 추천 맛집</h2>-->
+<!--                        <div id="categoryButtons" class="flex justify-center mb-8">-->
+<!--                            &lt;!&ndash; Category buttons will be dynamically inserted here &ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div id="restaurantGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">-->
+<!--                            &lt;!&ndash; Recommended restaurants will be dynamically inserted here &ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </section>-->
+<!--            </main>-->
+<!--        </div>-->
+<!--        <script src="/js/donut.js"></script>-->
+<!--        <script src="/js/index.js"></script>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 
 
 <!--<!DOCTYPE html>-->

@@ -11,5 +11,6 @@ python/sql/07_24_P_CSV/fulldata_07_24_03_P_외국인전용유흥음식점업.csv
 python/sql/07_24_P_CSV/fulldata_07_24_04_P_일반음식점.csv
 python/sql/07_24_P_CSV/fulldata_07_24_05_P_휴게음식점.csv
 python/sql/07_24_P_CSV/restaurant_data.csv
+python/sql/07_24_P_CSV/predict_review.csv
 restaurantTable.sql
 .gitattributes

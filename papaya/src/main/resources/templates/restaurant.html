@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#head} )}">
-<head id="head">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>음식점 페이지</title>
+    <link rel="icon" href="/img/logo.png"/>
 </head>
 <body>
-<div id="section">
 
-</div>
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
 </body>
 </html>

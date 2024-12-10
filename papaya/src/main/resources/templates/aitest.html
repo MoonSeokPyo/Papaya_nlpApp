@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/logo.png"/>
+    <title>AI Review Tester</title>
+    <style>
+        :root {
+            --lime-50: #f7fee7;
+            --lime-100: #ecfccb;
+            --lime-300: #bef264; /* 추가 */
+            --lime-400: #a3e635; /* 추가 */
+            --lime-500: #84cc16;
+            --lime-600: #65a30d;
+            --lime-700: #4d7c0f;
+            --lime-800: #3f6212;
+            --lime-900: #365314;
+            --lime-950: #1a2e05;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--lime-50);
+            color: #333;
+        }
+
+        .container {
+            flex-grow: 1;
+            /*display: flex;*/
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            width: 100%;
+            max-width: 1200px; /* 최대 크기 제한 */
+            margin: 0 auto;    /* 가운데 정렬 */
+        }
+
+        .content {
+            width: 100%;
+            max-width: 800px; /* 최대 크기 설정 */
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 0 auto; /* 가로 중앙 정렬 */
+        }
+
+        .header {
+            background-color: var(--lime-500);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .description {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .form {
+            padding: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 0.5rem;
+            border: 1px solid var(--lime-300);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--lime-500);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        button {
+            background-color: var(--lime-500);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--lime-600);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result {
+            background-color: var(--lime-100);
+            padding: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .result h2 {
+            color: var(--lime-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--lime-600);
+        }
+
+        body.dark-mode {
+            background-color: var(--lime-950);
+            color: white;
+        }
+
+        body.dark-mode .content {
+            background-color: var(--lime-900);
+        }
+
+        body.dark-mode .header {
+            background-color: var(--lime-700);
+        }
+
+        body.dark-mode textarea {
+            background-color: var(--lime-800);
+            color: white;
+            border-color: var(--lime-700);
+        }
+
+        body.dark-mode .result {
+            background-color: var(--lime-800);
+        }
+
+        body.dark-mode .result h2 {
+            color: var(--lime-300);
+        }
+
+        body.dark-mode .score {
+            color: var(--lime-400);
+        }
+    </style>
+</head>
+<body>
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+<div class="container">
+    <div class="content">
+        <div class="header">
+            <h1>AI Review Tester</h1>
+            <p class="description">리뷰를 입력하고 AI 생성 점수를 받아보세요</p>
+        </div>
+        <div class="form">
+            <label for="review">당신의 리뷰:</label>
+            <textarea id="review" placeholder="여기에 리뷰를 입력하세요..."></textarea>
+            <div class="controls">
+                <div class="dark-mode-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span style="margin-left: 10px;">다크 모드</span>
+                </div>
+                <button id="submitButton" disabled>점수 받기</button>
+            </div>
+        </div>
+        <div class="result" id="result">
+            <h2>AI 점수</h2>
+            <div class="score" id="score"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const reviewTextarea = document.getElementById('review');
+    const submitButton = document.getElementById('submitButton');
+    const resultDiv = document.getElementById('result');
+    const scoreDiv = document.getElementById('score');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    reviewTextarea.addEventListener('input', () => {
+        submitButton.disabled = reviewTextarea.value.trim() === '';
+    });
+
+    submitButton.addEventListener('click', async () => {
+        const review = reviewTextarea.value.trim();
+        if (review === '') return;
+
+        submitButton.disabled = true;
+        submitButton.textContent = '처리 중...';
+
+        try {
+            const response = await fetch('/submitReview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ review }),
+            });
+
+            if (!response.ok) {
+                throw new Error('서버 오류 발생');
+            }
+
+            const data = await response.json();
+            scoreDiv.textContent = data.score;
+            resultDiv.style.display = 'block';
+        } catch (error) {
+            alert(error.message || '예상치 못한 오류가 발생했습니다.');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = '점수 받기';
+        }
+    });
+
+    darkModeToggle.addEventListener('change', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

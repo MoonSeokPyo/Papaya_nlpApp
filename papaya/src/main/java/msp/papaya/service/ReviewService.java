@@ -1,5 +1,7 @@
 package msp.papaya.service;
 
+import msp.papaya.model.Review;
+import msp.papaya.repository.ReviewRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -63,4 +67,17 @@ public class ReviewService {
 //      return "서버와의 통신 중 오류가 발생했습니다.";
 //    }
   }
+
+  @Autowired
+  private ReviewRepository reviewRepository;
+
+  public List<Review> getAllReviews() {
+    return reviewRepository.findAll();
+  }
+
+  public Review saveReview(Review review) {
+    return reviewRepository.save(review);
+  }
+
+  // 추가적인 메서드 구현
 }

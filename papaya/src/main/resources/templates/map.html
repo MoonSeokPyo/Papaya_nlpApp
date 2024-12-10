@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#head} )}">
-<head id="head">
-    <meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/map.css">
     <script th:src="'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'"></script>
     <title>지도</title>
+    <link rel="icon" href="/img/logo.png"/>
 </head>
 <body>
-<div id="section">
-    <div class="map_wrap">
-        <div id="map" style="width:100%;height:100%;"></div>
-        <div id="menu_wrap" class="bg_white">
-            <div class="option">
-                <div>
-                    <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" value="서경대 맛집" id="keyword" size="15">
-                        <button type="submit">검색하기</button>
-                    </form>
-                </div>
+
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;"></div>
+    <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <div>
+                <form onsubmit="searchPlaces(); return false;">
+                    키워드 : <input type="text" value="서경대 맛집" id="keyword" size="15">
+                    <button type="submit">검색하기</button>
+                </form>
             </div>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
         </div>
-        <!--현재위치로 이동하는 버튼-->
-        <span id="currentloc_btn" onclick="currentLocation()">
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+    <!--현재위치로 이동하는 버튼-->
+    <span id="currentloc_btn" onclick="currentLocation()">
             <img src="/img/currentloc.png" alt="Current Location">
         </span>
-    </div>
-    <!-- JavaScript 파일 연결 -->
-    <script src="/js/map.js"></script>
 </div>
+<!-- JavaScript 파일 연결 -->
+<script src="/js/map.js"></script>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
 </body>
 </html>

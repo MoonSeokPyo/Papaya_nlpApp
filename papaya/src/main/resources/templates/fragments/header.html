@@ -1,10 +1,12 @@
 <header th:fragment="header">
     <!--    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <div class="container">
         <div class="header-content">
             <div class="logo">
                 <a href="/" class="logo-link">
-                    <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40">
+                    <img src="/img/logo.png" alt="PAPAYA Logo" width="60" height="60">
                     <span class="logo-text">PAPAYA</span>
                 </a>
             </div>
@@ -22,12 +24,12 @@
     <nav class="nav-menu">
         <div class="container">
             <ul>
-                <li><a href="#"><i class="fas fa-bell"></i> 공지사항</a></li>
-                <li><a href="/search"><i class="fas fa-utensils"></i> 음식점 검색</a></li>
+                <li><a href="/notice"><i class="fas fa-bell"></i> 공지사항</a></li>
+<!--                <li><a href="/search"><i class="fas fa-utensils"></i> 음식점 검색</a></li>-->
                 <li><a href="/map"><i class="fas fa-map-marker-alt"></i> 지도</a></li>
-                <li><a href="/review"><i class="fas fa-magic"></i> AI 테스트</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> 문의하기</a></li>
-                <li><a href="#"><i class="fas fa-info-circle"></i> PAPAYA 소개</a></li>
+                <li><a href="/aitest"><i class="fas fa-magic"></i> AI 테스트</a></li>
+                <li><a href="/inquiry"><i class="fas fa-question-circle"></i> 문의하기</a></li>
+                <li><a href="/introduce"><i class="fas fa-info-circle"></i> PAPAYA 소개</a></li>
             </ul>
         </div>
     </nav>
@@ -50,6 +52,7 @@
             </div>
         </div>
     </div>
+    <script th:src="@{/js/header.js}"></script>
 </header>
 
 

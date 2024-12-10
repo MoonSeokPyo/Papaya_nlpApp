@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#head} )}">
-<head id="head">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
+    <link rel="icon" href="/img/logo.png"/>
 </head>
 <body>
-<div id="section">
-    <h1>로그인</h1>
-    <a href="/oauth2/authorization/google">Google 로그인</a>
-    <a href="/oauth2/authorization/kakao">Kakao 로그인</a>
-</div>
+
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<h1>로그인</h1>
+<a href="/oauth2/authorization/google">Google 로그인</a>
+<a href="/oauth2/authorization/kakao">Kakao 로그인</a>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
 </body>
 </html>

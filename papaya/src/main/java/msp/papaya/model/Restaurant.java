@@ -35,6 +35,10 @@ public class Restaurant {
   @Column(name = "business_type")
   private String businessType;
 
+  @OneToOne
+  @JoinColumn(name = "id", referencedColumnName = "restaurant_id")
+  private GPS gps; // GPS 좌표 연결
+
   // Getters and Setters
 //  public String getLocationPhone() {
 //    return locationPhone;

@@ -1,36 +1,32 @@
 <!DOCTYPE html>
+<!--<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(section, head)"  lang="ko">-->
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(section, head)"  lang="ko">
-
+<!--<head>-->
+<!--&lt;!&ndash;  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">&ndash;&gt;-->
+<!--&lt;!&ndash;  <link rel="stylesheet" href="/css/all.min.css">&ndash;&gt;-->
+<!--&lt;!&ndash;  <link rel="stylesheet" th:href="@{/css/header.css}">&ndash;&gt;-->
+<!--&lt;!&ndash;  <link rel="stylesheet" th:href="@{/css/footer.css}">&ndash;&gt;-->
+<!--  <link rel="icon" href="/img/logo.png"/>-->
+<!--  <title>PAPAYA</title>-->
+<!--</head>-->
 <head th:replace="${head}">
   <title>PAPAYA</title>
 </head>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
-  <link rel="stylesheet" href="/css/all.min.css">
-  <link rel="stylesheet" th:href="@{/css/header.css}">
-  <link rel="stylesheet" th:href="@{/css/footer.css}">
-
-  <title>PAPAYA</title>
-</head>
-
 <body>
 <!-- 상단 배너 -->
 <header th:replace="fragments/header.html :: header"></header>
-<!--<header>헤더</header>-->
 
 <!-- 메인 콘텐츠 -->
-<section th:replace="${section}"></section>
-<!--<section th:replace="index.html :: section"></section>-->
+<main>
+<!--  <div th:replace="${section}"></div>-->
+  <div th:replace="${section}"></div>
+</main>
 
 <!-- 하단 배너 -->
 <footer th:replace="fragments/footer.html :: footer"></footer>
 
-<script th:src="@{/js/header.js}"></script>
-<script th:src="@{/js/footer.js}"></script>
+<!--<script th:src="@{/js/header.js}"></script>-->
+<!--<script th:src="@{/js/footer.js}"></script>-->
 
 </body>
 </html>
