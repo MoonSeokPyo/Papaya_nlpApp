@@ -1,14 +1,64 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--<header th:fragment="header" class="bg-white shadow-md">-->
+<!--    <div class="container mx-auto px-4">-->
+<!--        <div class="flex items-center justify-between h-16">-->
+<!--            <div class="flex items-center">-->
+<!--                <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40" class="mr-2">-->
+<!--                <span class="text-2xl font-semibold text-green-600 papaya-font">PAPAYA</span>-->
+<!--            </div>-->
+<!--            <div class="flex-1 max-w-xl mx-4">-->
+<!--                <div class="relative">-->
+<!--                    <input type="text" placeholder="음식점 검색..." class="search-input">-->
+<!--                    <button class="search-button">-->
+<!--                        <i class="fas fa-search"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <button id="sidebar-toggle" class="p-2 rounded-full hover:bg-gray-100">-->
+<!--                <i class="fas fa-bars"></i>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <nav class="bg-green-100">-->
+<!--        <div class="container mx-auto px-4">-->
+<!--            <ul class="flex space-x-4 py-2">-->
+<!--                <li><a href="#" class="nav-link"><i class="fas fa-bell"></i> 공지사항</a></li>-->
+<!--                <li><a href="#" class="nav-link"><i class="fas fa-utensils"></i> 음식점 검색</a></li>-->
+<!--                <li><a href="#" class="nav-link"><i class="fas fa-map-pin"></i> 지도</a></li>-->
+<!--                <li><a href="#" class="nav-link"><i class="fas fa-magic"></i> AI 테스트</a></li>-->
+<!--                <li><a href="#" class="nav-link"><i class="fas fa-question-circle"></i> 문의하기</a></li>-->
+<!--                <li><a href="#" class="nav-link"><i class="fas fa-info-circle"></i> PAPAYA 소개</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--    <div id="sidebar" class="sidebar">-->
+<!--        <div class="sidebar-content">-->
+<!--            <button id="sidebar-close" class="mb-4">Close</button>-->
+<!--            <div id="login-area">-->
+<!--                <button id="login-button" class="login-button">로그인</button>-->
+<!--            </div>-->
+<!--            <ul id="user-menu" class="hidden space-y-2">-->
+<!--                <li><a href="#" class="sidebar-link"><i class="fas fa-user"></i> 프로필</a></li>-->
+<!--                <li><a href="#" class="sidebar-link"><i class="fas fa-bell"></i> 알림</a></li>-->
+<!--                <li><a href="#" class="sidebar-link"><i class="fas fa-utensils"></i> 나의 리뷰</a></li>-->
+<!--                <li><a href="#" class="sidebar-link"><i class="fas fa-map-pin"></i> 즐겨찾기</a></li>-->
+<!--                <li><button id="logout-button" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> 로그아웃</button></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+
+
 <header th:fragment="header">
-    <link rel="stylesheet" th:href="@{/css/header.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/header.css}">-->
+<!--    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>-->
     <div class="container">
         <div class="header-content">
             <div class="logo">
-                <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40">
-                <span class="logo-text">PAPAYA</span>
+                <a href="/" class="logo-link">
+                    <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40">
+                    <span class="logo-text">PAPAYA</span>
+                </a>
             </div>
             <div class="search-bar">
                 <input type="text" placeholder="음식점 검색...">
@@ -52,9 +102,19 @@
             </div>
         </div>
     </div>
-    <script th:src="@{/js/header.js}"></script>
+<!--    <script th:src="@{/js/header.js}"></script>-->
 </header>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 <!--<!DOCTYPE html>-->

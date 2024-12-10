@@ -1,3 +1,51 @@
+// document.addEventListener('DOMContentLoaded', function() {
+//     const sidebarToggle = document.getElementById('sidebar-toggle');
+//     const sidebar = document.getElementById('sidebar');
+//     const sidebarClose = document.getElementById('sidebar-close');
+//     const loginButton = document.getElementById('login-button');
+//     const logoutButton = document.getElementById('logout-button');
+//     const loginArea = document.getElementById('login-area');
+//     const userMenu = document.getElementById('user-menu');
+//
+//     let isLoggedIn = false;
+//
+//     sidebarToggle.addEventListener('click', function() {
+//         sidebar.style.display = 'block';
+//     });
+//
+//     sidebarClose.addEventListener('click', function() {
+//         sidebar.style.display = 'none';
+//     });
+//
+//     loginButton.addEventListener('click', function() {
+//         isLoggedIn = true;
+//         updateLoginState();
+//     });
+//
+//     logoutButton.addEventListener('click', function() {
+//         isLoggedIn = false;
+//         updateLoginState();
+//     });
+//
+//     function updateLoginState() {
+//         if (isLoggedIn) {
+//             loginArea.style.display = 'none';
+//             userMenu.style.display = 'block';
+//         } else {
+//             loginArea.style.display = 'block';
+//             userMenu.style.display = 'none';
+//         }
+//     }
+//
+//     // Initial state
+//     updateLoginState();
+// });
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebar = document.getElementById('sidebar');
@@ -28,7 +76,16 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebarLoginContent.style.display = 'block';
         sidebarUserContent.style.display = 'none';
     });
+
+    // 사이드바 외부 클릭 시 닫기
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
 });
+
+
 
 
 
