@@ -1,0 +1,30 @@
+
+notice-item {
+	padding: 15px;
+	border-bottom: 1px solid #ddd;
+	cursor: pointer;
+}
+.notice-item:last-child {
+	border-bottom: none;
+}
+.notice-item:hover {
+	background-color: #f8f9fa;
+}
+.notice-date {
+	font-size: 0.9rem;
+	color: #888;
+}
+
+/* Hover 효과 (Bootstrap list-group-item 스타일 확장) */
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 날짜 스타일 */
+.notice-date {
+    font-size: 0.9rem;
+    color: #6c757d; /* Bootstrap 텍스트 muted 컬러 */
+}
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#head} )}">
+
+<head id="head">
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/notice.css">
+</head>
+<body>
+<div id="section">
+	<div class="container">
+		<div class="container my-5">
+			<h2 class="mb-4">공지사항</h2>
+			<div id="notice-list" class="list-group">
+				<!-- JavaScript로 공지사항 추가 -->
+			</div>
+		</div>
+
+	</div>
+	<!-- 모달 -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noticeModalLabel">공지사항</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 공지사항 내용이 동적으로 추가됩니다 -->
+                    <p id="modal-content"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+			<!-- Bootstrap JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+			<!-- JavaScript -->
+	<script src="/js/notice.js"></script>
+</div>
+</body>
+</html>
