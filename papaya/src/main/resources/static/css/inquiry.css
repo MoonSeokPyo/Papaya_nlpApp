@@ -1,0 +1,30 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #333;
+}
+
+#contact-form input, 
+#contact-form textarea {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#contact-form input:focus, 
+#contact-form textarea:focus {
+    border-color: #85cf85;
+    box-shadow: 0 0 5px rgba(160, 240, 173, 0.5);
+}
+
+button {
+    border-radius: 10px;
+}
+
+#success-message {
+    font-size: 16px;
+    text-align: center;
+}
