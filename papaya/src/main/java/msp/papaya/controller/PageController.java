@@ -48,6 +48,16 @@ public class PageController {
     model.addAttribute("kakaoApiKey", kakaoApiKey);
     return "map"; // map.html 템플릿
   }
+  
+  @GetMapping("/notice")
+  public String noticePage() {
+    return "notice"; // notice.html 템플릿으로 이동
+  }
+
+  @GetMapping("/introduce")
+  public String introducePage() {
+    return "introduce"; // introduce.html 템플릿으로 이동
+  }
 
   @GetMapping("/restaurant/{id}")
   public String restaurantPage(@PathVariable Long id, Model model) {
