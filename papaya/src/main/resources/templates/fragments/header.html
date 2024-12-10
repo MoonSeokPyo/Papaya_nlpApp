@@ -1,42 +1,184 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
-<!--<meta charset="UTF-8">-->
-<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <header th:fragment="header">
-    <link rel="stylesheet" href="/css/header.css">
-
-    <!-- 상단 배너 -->
-    <div class="banner">
-        <a href="/" class="logo">
-            <img src="/img/logo.png" alt="Logo">
-        </a>
-        <div class="search-bar">
-            <form th:action="@{/search/results}" method="get">
-                <input type="text" name="keyword" placeholder="검색어를 입력하세요...">
-                <button type="submit">검색</button>
-            </form>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40">
+                <span class="logo-text">PAPAYA</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="음식점 검색...">
+                <button type="button" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <button id="sidebarToggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </div>
-
-    <!-- 오른쪽 사이드 메뉴 -->
-    <div class="side-menu" id="sideMenu">
-        <div class="menu-header">
-            <span>메뉴</span>
-            <button class="close-btn" onclick="toggleMenu()">×</button>
-        </div>
-        <nav>
+    <nav class="nav-menu">
+        <div class="container">
             <ul>
-                <li><a href="/">홈</a></li>
-                <li><a href="/search">검색</a></li>
-                <li><a href="/map">지도</a></li>
-                <li><a href="/review">AI 테스트</a></li>
-                <li><a href="/login">로그인</a></li>
-                <li><a href="/error">도움말</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> 공지사항</a></li>
+                <li><a href="/search"><i class="fas fa-utensils"></i> 음식점 검색</a></li>
+                <li><a href="/map"><i class="fas fa-map-marker-alt"></i> 지도</a></li>
+                <li><a href="/review"><i class="fas fa-magic"></i> AI 테스트</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> 문의하기</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> PAPAYA 소개</a></li>
             </ul>
-        </nav>
-
+        </div>
+    </nav>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <button id="sidebarClose" class="sidebar-close">&times;</button>
+            <div id="sidebarLoginContent">
+                <button id="loginButton" class="login-button">로그인</button>
+            </div>
+            <div id="sidebarUserContent" style="display:none;">
+                <ul>
+                    <li><a href="#"><i class="fas fa-user"></i> 프로필</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> 알림</a></li>
+                    <li><a href="#"><i class="fas fa-utensils"></i> 나의 리뷰</a></li>
+                    <li><a href="#"><i class="fas fa-bookmark"></i> 즐겨찾기</a></li>
+                    <li>
+                        <button id="logoutButton"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <script src="/js/header.js"></script> <!-- 공통 JavaScript -->
+    <script th:src="@{/js/header.js}"></script>
 </header>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="ko">-->
+<!--&lt;!&ndash;<meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;<meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--<header th:fragment="header">-->
+<!--    <link rel="stylesheet" href="/css/header.css">-->
+
+<!--    &lt;!&ndash; 상단 배너 &ndash;&gt;-->
+<!--    <div class="banner">-->
+<!--        <a href="/" class="logo">-->
+<!--            <img src="/img/logo.png" alt="Logo">-->
+<!--        </a>-->
+<!--        <div class="search-bar">-->
+<!--            <form th:action="@{/search/results}" method="get">-->
+<!--                <input type="text" name="keyword" placeholder="검색어를 입력하세요...">-->
+<!--                <button type="submit">검색</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--        <button class="menu-btn" onclick="toggleMenu()">☰</button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; 오른쪽 사이드 메뉴 &ndash;&gt;-->
+<!--    <div class="side-menu" id="sideMenu">-->
+<!--        <div class="menu-header">-->
+<!--            <span>메뉴</span>-->
+<!--            <button class="close-btn" onclick="toggleMenu()">×</button>-->
+<!--        </div>-->
+<!--        <nav>-->
+<!--            <ul>-->
+<!--                <li><a href="/">홈</a></li>-->
+<!--                <li><a href="/search">검색</a></li>-->
+<!--                <li><a href="/map">지도</a></li>-->
+<!--                <li><a href="/review">AI 테스트</a></li>-->
+<!--                <li><a href="/login">로그인</a></li>-->
+<!--                <li><a href="/error">도움말</a></li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+
+<!--    </div>-->
+<!--    <script src="/js/header.js"></script> &lt;!&ndash; 공통 JavaScript &ndash;&gt;-->
+<!--</header>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="ko">-->
+<!--<header th:fragment="header">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Header Example</title>-->
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        .header {-->
+<!--            background-color: #a3a3a3;-->
+<!--            color: white;-->
+<!--            padding: 10px 30px;-->
+<!--        }-->
+<!--        .logo img {-->
+<!--            height: 40px;-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+<!--        .search-bar input {-->
+<!--            border-radius: 20px;-->
+<!--            padding: 5px 15px;-->
+<!--        }-->
+<!--        .search-bar button {-->
+<!--            border: none;-->
+<!--            background-color: #6c757d;-->
+<!--            color: white;-->
+<!--            padding: 5px 10px;-->
+<!--            border-radius: 20px;-->
+<!--        }-->
+<!--        .search-bar button:hover {-->
+<!--            background-color: #5a6268;-->
+<!--        }-->
+<!--        .sidebar-btn {-->
+<!--            border: none;-->
+<!--            background-color: #6c757d;-->
+<!--            color: white;-->
+<!--            padding: 8px 12px;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .sidebar-btn:hover {-->
+<!--            background-color: #5a6268;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="header d-flex align-items-center justify-content-between">-->
+<!--    &lt;!&ndash; Logo and Links Section &ndash;&gt;-->
+<!--    <div class="logo d-flex align-items-center">-->
+<!--        <img src="/img/logo.png" alt="Logo">-->
+<!--        <span class="ms-2 fw-bold">MyApp</span>-->
+<!--        <a href="#" class="text-white ms-4">공지사항</a>-->
+<!--        <a href="#" class="text-white ms-3">도움말</a>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Search Bar Section &ndash;&gt;-->
+<!--    <div class="search-bar w-50">-->
+<!--        <div class="input-group">-->
+<!--            <input type="text" class="form-control" placeholder="Search...">-->
+<!--            <button class="btn btn-secondary">🔍</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Sidebar Button Section &ndash;&gt;-->
+<!--    <div class="dropdown">-->
+<!--        <button class="sidebar-btn btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--            ☰-->
+<!--        </button>-->
+<!--        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">-->
+<!--            <li><a class="dropdown-item" href="#">내 정보</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">도움말</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">로그아웃</a></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; Bootstrap JS and dependencies &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</header>-->
+<!--</html>-->

@@ -1,8 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
-<div th:fragment="footer">
-    <div style="background-color: rgba(61,255,37,0.41)">
-        <p>© 2024 PAPAYA. All rights reserved.</p>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<footer th:fragment="footer"  class="footer">
+    <!--    <link rel="stylesheet" th:href="@{/css/common.css}">-->
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">PAPAYA</h3>
+                <p>맛있는 경험을 선사합니다</p>
+                <p>빅데이터 리뷰 기반의 최고의 음식점을 찾아보세요</p>
+                <p>연락처: moonseokpyo@gmail.com</p>
+                <p>전화: 010-7233-7134</p>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">빠른 링크</h3>
+                <ul>
+                    <li><a href="/">홈</a></li>
+                    <li><a href="/map">지도</a></li>
+                    <li><a href="/search">음식점 검색</a></li>
+                    <li><a href="/review">AI 테스트</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">뉴스레터 구독</h3>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="이메일 주소" required>
+                    <button type="submit">구독하기</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PAPAYA. All rights reserved.</p>
+        </div>
     </div>
-</div>
+    <script th:src="@{/js/footer.js}"></script>
+</footer>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="ko">-->
+<!--<div th:fragment="footer">-->
+<!--    <div style="background-color: rgba(61,255,37,0.41)">-->
+<!--        <p>© 2024 PAPAYA. All rights reserved.</p>-->
+<!--        <p>&copy; 2024 PAPAYA. All rights reserved.</p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</html>-->

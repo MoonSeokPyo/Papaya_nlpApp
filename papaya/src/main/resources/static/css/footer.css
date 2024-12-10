@@ -1,0 +1,127 @@
+/*!* 푸터 스타일 *!*/
+/*.footer {*/
+/*    background-color: #333;*/
+/*    color: #fff;*/
+/*    padding: 3rem 0;*/
+/*}*/
+
+/*.footer-content {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.footer-section {*/
+/*    flex: 1;*/
+/*    margin-bottom: 2rem;*/
+/*}*/
+
+/*.footer-title {*/
+/*    font-size: 1.2rem;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*.footer-section ul {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.footer-section ul li {*/
+/*    margin-bottom: 0.5rem;*/
+/*}*/
+
+/*.footer-section a {*/
+/*    color: #fff;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*.footer-bottom {*/
+/*    text-align: center;*/
+/*    margin-top: 2rem;*/
+/*    padding-top: 2rem;*/
+/*    border-top: 1px solid #555;*/
+/*}*/
+
+/*!* 뉴스레터 폼 *!*/
+/*#newsletterForm input[type="email"] {*/
+/*    width: 100%;*/
+/*    padding: 0.5rem;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*#newsletterForm button {*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    padding: 0.5rem 1rem;*/
+/*    cursor: pointer;*/
+/*}*/
+
+footer {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    padding: 3rem 0;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1;
+    margin-bottom: 2rem;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: #2E7D32;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #1B5E20;
+}
+
+#newsletterForm input[type="email"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#newsletterForm button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#newsletterForm button:hover {
+    background-color: #45a049;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #81C784;
+}

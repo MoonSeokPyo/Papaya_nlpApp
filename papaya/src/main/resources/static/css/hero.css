@@ -1,0 +1,69 @@
+/* 히어로 섹션 */
+.hero {
+    background-color: #f8f9fa;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.hero-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* 음식점 그리드 */
+.restaurant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.restaurant-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+}
+
+.restaurant-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.restaurant-cuisine {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.restaurant-rating {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+/* 추천 음식점 섹션 */
+.cuisine-select {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cuisine-select select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+}

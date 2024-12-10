@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout.html::layout( ~{::#section}, ~{::#head} )}">
+<head id="head">
+    <meta charset="UTF-8">
     <title>리뷰 결과</title>
 </head>
 <body>
+<div id="section">
     <h1>리뷰 결과</h1>
     <p>입력한 리뷰: <span th:text="${review}"></span></p>
     <p>리뷰 점수: <span th:text="${score}"></span></p>
     <a href="/review">다시 시도</a>
+</div>
 </body>
 </html>
