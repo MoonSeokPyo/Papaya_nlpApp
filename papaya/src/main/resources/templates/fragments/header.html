@@ -1,3 +1,62 @@
+<header th:fragment="header">
+    <!--    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>-->
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="/" class="logo-link">
+                    <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40">
+                    <span class="logo-text">PAPAYA</span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="음식점 검색...">
+                <button type="button" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <button id="sidebarToggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <nav class="nav-menu">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fas fa-bell"></i> 공지사항</a></li>
+                <li><a href="/search"><i class="fas fa-utensils"></i> 음식점 검색</a></li>
+                <li><a href="/map"><i class="fas fa-map-marker-alt"></i> 지도</a></li>
+                <li><a href="/review"><i class="fas fa-magic"></i> AI 테스트</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> 문의하기</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> PAPAYA 소개</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <button id="sidebarClose" class="sidebar-close">&times;</button>
+            <div id="sidebarLoginContent">
+                <button id="loginButton" class="login-button">로그인</button>
+            </div>
+            <div id="sidebarUserContent" style="display:none;">
+                <ul>
+                    <li><a href="#"><i class="fas fa-user"></i> 프로필</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> 알림</a></li>
+                    <li><a href="#"><i class="fas fa-utensils"></i> 나의 리뷰</a></li>
+                    <li><a href="#"><i class="fas fa-bookmark"></i> 즐겨찾기</a></li>
+                    <li>
+                        <button id="logoutButton"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
 <!--<header th:fragment="header" class="bg-white shadow-md">-->
 <!--    <div class="container mx-auto px-4">-->
 <!--        <div class="flex items-center justify-between h-16">-->
@@ -49,62 +108,7 @@
 
 
 
-<header th:fragment="header">
-<!--    <link rel="stylesheet" th:href="@{/css/header.css}">-->
-<!--    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>-->
-    <div class="container">
-        <div class="header-content">
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/img/logo.png" alt="PAPAYA Logo" width="40" height="40">
-                    <span class="logo-text">PAPAYA</span>
-                </a>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="음식점 검색...">
-                <button type="button" class="search-button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <button id="sidebarToggle" class="sidebar-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </div>
-    <nav class="nav-menu">
-        <div class="container">
-            <ul>
-                <li><a href="#"><i class="fas fa-bell"></i> 공지사항</a></li>
-                <li><a href="/search"><i class="fas fa-utensils"></i> 음식점 검색</a></li>
-                <li><a href="/map"><i class="fas fa-map-marker-alt"></i> 지도</a></li>
-                <li><a href="/review"><i class="fas fa-magic"></i> AI 테스트</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> 문의하기</a></li>
-                <li><a href="#"><i class="fas fa-info-circle"></i> PAPAYA 소개</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div id="sidebar" class="sidebar">
-        <div class="sidebar-content">
-            <button id="sidebarClose" class="sidebar-close">&times;</button>
-            <div id="sidebarLoginContent">
-                <button id="loginButton" class="login-button">로그인</button>
-            </div>
-            <div id="sidebarUserContent" style="display:none;">
-                <ul>
-                    <li><a href="#"><i class="fas fa-user"></i> 프로필</a></li>
-                    <li><a href="#"><i class="fas fa-bell"></i> 알림</a></li>
-                    <li><a href="#"><i class="fas fa-utensils"></i> 나의 리뷰</a></li>
-                    <li><a href="#"><i class="fas fa-bookmark"></i> 즐겨찾기</a></li>
-                    <li>
-                        <button id="logoutButton"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-<!--    <script th:src="@{/js/header.js}"></script>-->
-</header>
-</html>
+
 
 
 

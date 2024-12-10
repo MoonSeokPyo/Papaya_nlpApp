@@ -69,7 +69,7 @@ public class PageController {
     return "search_results";
   }
 
-//  @GetMapping("/restaurants")
+  //  @GetMapping("/restaurants")
 //  public List<RestaurantTable> getAllRestaurants() {
 //    return restaurantService.getAllRestaurants();
 //  }
@@ -83,4 +83,8 @@ public class PageController {
 //  public GpsCoordinates getCoordinatesByRestaurantId(@PathVariable Long id) {
 //    return restaurantService.getCoordinatesByRestaurantId(id);
 //  }
+  @GetMapping("/test")
+  public String test() {
+    return "test"; // search.html 템플릿으로 이동
+  }
 }

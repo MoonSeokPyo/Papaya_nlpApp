@@ -1,0 +1,357 @@
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-lg {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.parallax {
+    will-change: transform;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+
+
+
+
+
+
+/*!* 기본 스타일 *!*/
+/*body {*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    line-height: 1.6;*/
+/*    color: #333;*/
+/*}*/
+
+/*.container {*/
+/*    width: 100%;*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*    padding: 0 15px;*/
+/*}*/
+
+/*!* 텍스트 스타일 *!*/
+/*.text-shadow {*/
+/*    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+/*.text-shadow-lg {*/
+/*    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+/*!* 애니메이션 *!*/
+/*@keyframes float {*/
+/*    0% { transform: translateY(0px); }*/
+/*    50% { transform: translateY(-10px); }*/
+/*    100% { transform: translateY(0px); }*/
+/*}*/
+
+/*.float-animation {*/
+/*    animation: float 3s ease-in-out infinite;*/
+/*}*/
+
+/*!* 히어로 섹션 *!*/
+/*.hero {*/
+/*    position: relative;*/
+/*    height: 100vh;*/
+/*    overflow: hidden;*/
+/*    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);*/
+/*}*/
+
+/*.hero-content {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
+
+/*!* 버튼 스타일 *!*/
+/*.btn {*/
+/*    display: inline-block;*/
+/*    padding: 10px 20px;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*    text-align: center;*/
+/*    text-decoration: none;*/
+/*    border-radius: 5px;*/
+/*    transition: background-color 0.3s;*/
+/*}*/
+
+/*.btn-primary {*/
+/*    background-color: #ff6b6b;*/
+/*    color: white;*/
+/*}*/
+
+/*.btn-primary:hover {*/
+/*    background-color: #ff5252;*/
+/*}*/
+
+/*!* 섹션 스타일 *!*/
+/*.section {*/
+/*    padding: 60px 0;*/
+/*}*/
+
+/*.section-title {*/
+/*    font-size: 2.5rem;*/
+/*    font-weight: bold;*/
+/*    text-align: center;*/
+/*    margin-bottom: 30px;*/
+/*}*/
+
+/*!* 레스토랑 카드 스타일 *!*/
+/*.restaurant-card {*/
+/*    background-color: white;*/
+/*    border-radius: 8px;*/
+/*    overflow: hidden;*/
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+/*    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;*/
+/*}*/
+
+/*.restaurant-card:hover {*/
+/*    transform: scale(1.05);*/
+/*    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.restaurant-card img {*/
+/*    width: 100%;*/
+/*    height: 200px;*/
+/*    object-fit: cover;*/
+/*}*/
+
+/*.restaurant-card-content {*/
+/*    padding: 15px;*/
+/*}*/
+
+/*!* 그리드 레이아웃 *!*/
+/*.grid {*/
+/*    display: grid;*/
+/*    gap: 20px;*/
+/*}*/
+
+/*@media (min-width: 768px) {*/
+/*    .grid-cols-2 {*/
+/*        grid-template-columns: repeat(2, 1fr);*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 1024px) {*/
+/*    .grid-cols-4 {*/
+/*        grid-template-columns: repeat(4, 1fr);*/
+/*    }*/
+/*}*/
+
+/*!* 카테고리 버튼 스타일 *!*/
+/*.category-btn {*/
+/*    padding: 8px 16px;*/
+/*    margin: 0 5px;*/
+/*    font-size: 14px;*/
+/*    border-radius: 20px;*/
+/*    background-color: #f0f0f0;*/
+/*    color: #333;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s, color 0.3s;*/
+/*}*/
+
+/*.category-btn.active {*/
+/*    background-color: #ff6b6b;*/
+/*    color: white;*/
+/*}*/
+
+/*!* 슬라이더 스타일 *!*/
+/*.slider-container {*/
+/*    position: relative;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.slider {*/
+/*    display: flex;*/
+/*    transition: transform 0.3s ease-in-out;*/
+/*}*/
+
+/*.slider-btn {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    background-color: white;*/
+/*    border: none;*/
+/*    border-radius: 50%;*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*    font-size: 20px;*/
+/*    cursor: pointer;*/
+/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.slider-btn.prev {*/
+/*    left: 10px;*/
+/*}*/
+
+/*.slider-btn.next {*/
+/*    right: 10px;*/
+/*}*/
+
+
+
+
+
+
+/*@import 'tailwindcss/base';*/
+/*@import 'tailwindcss/components';*/
+/*@import 'tailwindcss/utilities';*/
+
+/*.text-shadow {*/
+/*    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+/*.text-shadow-lg {*/
+/*    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+/*.parallax {*/
+/*    will-change: transform;*/
+/*}*/
+
+/*@keyframes float {*/
+/*    0% {*/
+/*        transform: translateY(0px);*/
+/*    }*/
+/*    50% {*/
+/*        transform: translateY(-10px);*/
+/*    }*/
+/*    100% {*/
+/*        transform: translateY(0px);*/
+/*    }*/
+/*}*/
+
+/*.float-animation {*/
+/*    animation: float 3s ease-in-out infinite;*/
+/*}*/
+
+/*.hero {*/
+/*    background-image: url('/images/hero-background.jpg');*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*}*/
+
+/*.restaurant-card {*/
+/*    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;*/
+/*}*/
+
+/*.restaurant-card:hover {*/
+/*    transform: scale(1.05);*/
+/*    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);*/
+/*}*/
+
+
+
+
+
+
+/*@import 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';*/
+
+/*:root {*/
+/*    --color-primary: #FF5252;*/
+/*    --color-primary-dark: #FF3838;*/
+/*    --color-secondary: #45B7AA;*/
+/*    --color-background: #FFFFFF;*/
+/*    --color-background-dark: #1A1A1A;*/
+/*    --color-text: #1A1A1A;*/
+/*    --color-text-dark: #F7F7F7;*/
+/*}*/
+
+/*body {*/
+/*    font-family: 'Inter', sans-serif;*/
+/*    transition: background-color 0.3s, color 0.3s;*/
+/*}*/
+
+/*.dark {*/
+/*    background-color: var(--color-background-dark);*/
+/*    color: var(--color-text-dark);*/
+/*}*/
+
+/*.bg-primary {*/
+/*    background-color: var(--color-primary);*/
+/*}*/
+
+/*.bg-primary-dark {*/
+/*    background-color: var(--color-primary-dark);*/
+/*}*/
+
+/*.text-primary {*/
+/*    color: var(--color-primary);*/
+/*}*/
+
+/*.shadow-neumorphism-light {*/
+/*    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;*/
+/*}*/
+
+/*.shadow-neumorphism-dark {*/
+/*    box-shadow: 20px 20px 60px #151515, -20px -20px 60px #1f1f1f;*/
+/*}*/
+
+/*.transition-transform {*/
+/*    transition: transform 0.3s ease-in-out;*/
+/*}*/
+
+/*@keyframes fadeIn {*/
+/*    from { opacity: 0; }*/
+/*    to { opacity: 1; }*/
+/*}*/
+
+/*@keyframes slideUp {*/
+/*    from { transform: translateY(20px); opacity: 0; }*/
+/*    to { transform: translateY(0); opacity: 1; }*/
+/*}*/
+
+/*.animate-fade-in {*/
+/*    animation: fadeIn 0.5s ease-out;*/
+/*}*/
+
+/*.animate-slide-up {*/
+/*    animation: slideUp 0.5s ease-out;*/
+/*}*/
+
+/*#three-container {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    pointer-events: none;*/
+/*}*/
+
+/*.restaurant-card {*/
+/*    transition: transform 0.3s ease-in-out;*/
+/*}*/
+
+/*.restaurant-card:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+/*.category-button {*/
+/*    transition: background-color 0.3s, color 0.3s;*/
+/*}*/
+
+/*.category-button.active {*/
+/*    background-color: var(--color-primary);*/
+/*    color: white;*/
+/*}*/

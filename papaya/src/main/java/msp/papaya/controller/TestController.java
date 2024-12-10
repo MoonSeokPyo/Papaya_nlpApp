@@ -11,9 +11,9 @@ public class TestController {
     return "Hello, World!";
   }
 
-  @GetMapping("/springtest")
-  public String home(Model model) {
-    model.addAttribute("message", "Spring Boot에서 안녕하세요!");
-    return "springtest";
-  }
+//  @GetMapping("/springtest")
+//  public String home(Model model) {
+//    model.addAttribute("message", "Spring Boot에서 안녕하세요!");
+//    return "springtest";
+//  }
 }

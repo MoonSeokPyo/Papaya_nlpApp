@@ -1,3 +1,52 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+    const sidebarLoginContent = document.getElementById('sidebarLoginContent');
+    const sidebarUserContent = document.getElementById('sidebarUserContent');
+
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.add('active');
+    });
+
+    sidebarClose.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+    });
+
+    loginButton.addEventListener('click', function() {
+        // 로그인 로직을 여기에 구현하세요
+        console.log('로그인 버튼이 클릭되었습니다.');
+        sidebarLoginContent.style.display = 'none';
+        sidebarUserContent.style.display = 'block';
+    });
+
+    logoutButton.addEventListener('click', function() {
+        // 로그아웃 로직을 여기에 구현하세요
+        console.log('로그아웃 버튼이 클릭되었습니다.');
+        sidebarLoginContent.style.display = 'block';
+        sidebarUserContent.style.display = 'none';
+    });
+
+    // 사이드바 외부 클릭 시 닫기
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
 // document.addEventListener('DOMContentLoaded', function() {
 //     const sidebarToggle = document.getElementById('sidebar-toggle');
 //     const sidebar = document.getElementById('sidebar');
@@ -46,44 +95,7 @@
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarClose = document.getElementById('sidebarClose');
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-    const sidebarLoginContent = document.getElementById('sidebarLoginContent');
-    const sidebarUserContent = document.getElementById('sidebarUserContent');
 
-    sidebarToggle.addEventListener('click', function() {
-        sidebar.classList.add('active');
-    });
-
-    sidebarClose.addEventListener('click', function() {
-        sidebar.classList.remove('active');
-    });
-
-    loginButton.addEventListener('click', function() {
-        // 로그인 로직을 여기에 구현하세요
-        console.log('로그인 버튼이 클릭되었습니다.');
-        sidebarLoginContent.style.display = 'none';
-        sidebarUserContent.style.display = 'block';
-    });
-
-    logoutButton.addEventListener('click', function() {
-        // 로그아웃 로직을 여기에 구현하세요
-        console.log('로그아웃 버튼이 클릭되었습니다.');
-        sidebarLoginContent.style.display = 'block';
-        sidebarUserContent.style.display = 'none';
-    });
-
-    // 사이드바 외부 클릭 시 닫기
-    document.addEventListener('click', function(event) {
-        if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
-            sidebar.classList.remove('active');
-        }
-    });
-});
 
 
 
