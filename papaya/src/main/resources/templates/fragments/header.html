@@ -36,17 +36,20 @@
     <div id="sidebar" class="sidebar">
         <div class="sidebar-content">
             <button id="sidebarClose" class="sidebar-close">&times;</button>
-            <div id="sidebarLoginContent">
-                <button id="loginButton" class="login-button">로그인</button>
+            <div sec:authorize="isAnonymous()" id="sidebarLoginContent">
+                <button onclick="location.href='/login';"id="loginButton" class="login-button">로그인</button>
             </div>
-            <div id="sidebarUserContent" style="display:none;">
+            <!--<div sec:authorize="isAuthenticated()" id="sidebarUserContent" style="display:none;">-->
+			<div sec:authorize="isAuthenticated()" id="sidebarUserContent">
                 <ul>
-                    <li><a href="#"><i class="fas fa-user"></i> 프로필</a></li>
+                    <li><a href="/userinfo"><i class="fas fa-user"></i> 내 정보</a></li>
+					<!--
                     <li><a href="#"><i class="fas fa-bell"></i> 알림</a></li>
                     <li><a href="#"><i class="fas fa-utensils"></i> 나의 리뷰</a></li>
                     <li><a href="#"><i class="fas fa-bookmark"></i> 즐겨찾기</a></li>
+					-->
                     <li>
-                        <button id="logoutButton"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                        <button onclick="window.location.href='/logout'" id="logoutButton"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
                     </li>
                 </ul>
             </div>

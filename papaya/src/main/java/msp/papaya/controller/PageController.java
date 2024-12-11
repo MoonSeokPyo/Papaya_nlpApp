@@ -1,18 +1,21 @@
 package msp.papaya.controller;
 
-import msp.papaya.model.Restaurant;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.security.Principal;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import msp.papaya.model.PageUser;
+import msp.papaya.model.Restaurant;
+import msp.papaya.repository.UserRepository;
 
+@RequiredArgsConstructor
 @Controller
 public class PageController {
 
@@ -20,11 +23,12 @@ public class PageController {
 //  private final String API_URL = "https://papaya.re.kr/api/restaurants/";
 
   private final RestTemplate restTemplate;
-
-  @Autowired
-  public PageController(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
-  }
+  private final UserRepository userRepository;
+  
+//  @Autowired
+//  public PageController(RestTemplate restTemplate) {
+//    this.restTemplate = restTemplate;
+//  }
 
   @Value("${kakao.api.key}")
   private String kakaoApiKey;
@@ -42,10 +46,6 @@ public class PageController {
     return "index"; // index.html 템플릿으로 이동
   }
 
-  @GetMapping("/login")
-  public String loginPage() {
-    return "login"; // login.html 템플릿
-  }
 
   @GetMapping("/map")
   public String mapPage(Model model) {
@@ -71,6 +71,17 @@ public class PageController {
   @GetMapping("/aitest")
   public String aitestPage() {
     return "aitest";
+  }
+  
+  @GetMapping("/userinfo")
+  public String userinfoPage(Model model, Principal principal) {
+	  String email = principal.getName();
+	  Optional<PageUser> user = userRepository.findByEmail(email);
+	  PageUser user1 = user.get();
+	  String name = user1.getName();
+	  model.addAttribute("name", name);
+	  model.addAttribute("email", email);
+    return "userinfo";
   }
 
   // HTML 페이지 반환

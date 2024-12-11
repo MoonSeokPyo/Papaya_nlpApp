@@ -5,15 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
     <link rel="icon" href="/img/logo.png"/>
+	<style>
+	        .card-header {
+	            background-color: #d4edda; /* 연한 녹색 배경 */
+	            color: #155724; /* 짙은 녹색 텍스트 */
+	        }
+
+	        .btn-naver {
+	            background-color: #03c75a; /* 네이버 초록색 */
+	            color: white;
+	            border: none;
+	        }
+
+	        .btn-naver:hover {
+	            background-color: #029d49; /* hover 시 더 짙은 초록색 */
+	        }
+
+	        .btn-google {
+	            background-color: white; /* 구글 흰색 */
+	            color: #555; /* 텍스트 색상 */
+	            border: 1px solid #ddd;
+	        }
+
+	        .btn-google:hover {
+	            background-color: #f7f7f7; /* hover 시 약간 어두운 흰색 */
+	        }
+
+	        .text-social {
+	            color: #155724; /* 짙은 녹색 텍스트 */
+	        }
+	    </style>
 </head>
 <body>
 
 <!-- 상단 배너 -->
 <header th:replace="fragments/header.html :: header"></header>
 
-<h1>로그인</h1>
-<a href="/oauth2/authorization/google">Google 로그인</a>
-<a href="/oauth2/authorization/kakao">Kakao 로그인</a>
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <!--<h1>로그인</h1>-->
+    <!--<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=412de0f781e77caf8f94d07656c01023&redirect_uri=http://localhost:8080/login/oauth2/code/kakao">
+        <img src="/img/kakao_login.png" alt="Kakao Icon">
+        
+    </a>
+-->
+<div class="container mt-5" style="height: 500px;">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h2>소셜 로그인</h2>
+            </div>
+            <div class="card-body">
+                <p class="text-center text-social mb-4">소셜 계정으로 로그인하세요</p>
+                <div class="d-grid gap-3">
+                    <!-- 네이버 로그인 버튼 -->
+                    <a href="/oauth2/authorization/naver" class="btn btn-naver btn-lg">
+                        
+                        네이버로 로그인
+                    </a>
+                    <!-- 구글 로그인 버튼 -->
+                    <a href="/oauth2/authorization/google" class="btn btn-google btn-lg">
+                       
+                        Google로 로그인
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+<!-- Bootstrap JS (optional, if needed for interactivity) -->
+<script src="/js/bootstrap.bundle.min.js"></script>
 
 <!-- 하단 배너 -->
 <footer th:replace="fragments/footer.html :: footer"></footer>

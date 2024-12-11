@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 정보</title>
+    <link rel="icon" href="/img/logo.png"/>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	        .card-header {
+	            background-color: #28a745; /* 부트스트랩 녹색 계열 색상 */
+	            color: white;
+	        }
+
+	        .btn-success-custom {
+	            background-color: #28a745; /* 버튼 녹색 */
+	            border-color: #28a745;
+	        }
+
+	        .btn-success-custom:hover {
+	            background-color: #218838; /* hover 시 더 어두운 녹색 */
+	            border-color: #1e7e34;
+	        }
+	    </style>
+</head>
+
+<body>
+
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<div class="container mt-5">
+       <div class="card shadow-lg">
+           <div class="card-header text-center">
+               <h2>내 정보</h2>
+           </div>
+           <div class="card-body">
+               <div class="row mb-3">
+                   <label class="col-sm-2 col-form-label fw-bold text-success">이름:</label>
+                   <div class="col-sm-10">
+                       <p class="form-control-plaintext text-success" th:text="${name}">박기정</p>
+                   </div>
+               </div>
+               <div class="row mb-3">
+                   <label class="col-sm-2 col-form-label fw-bold text-success">이메일:</label>
+                   <div class="col-sm-10">
+                       <p class="form-control-plaintext text-success" th:text="${email}">wowkijung2@naver.com</p>
+                   </div>
+               </div>
+           </div>
+           <div class="card-footer text-center">
+               <a href="/" class="btn btn-success-custom">홈으로</a>
+               <a href="/logout" class="btn btn-success-custom">로그아웃</a>
+           </div>
+       </div>
+   </div>
+<!--
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+
+<a th:text="${name}"> </a>
+<a th:text="${email}"> </a>
+-->
+
+
+</div>
+<!-- Bootstrap JS (optional, if needed for interactivity) -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
+</body>
+</html>
