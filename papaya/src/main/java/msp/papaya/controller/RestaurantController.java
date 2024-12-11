@@ -1,7 +1,10 @@
 package msp.papaya.controller;
 
 import msp.papaya.model.Restaurant;
+import msp.papaya.model.Review;
+import msp.papaya.model.Score;
 import msp.papaya.service.RestaurantService;
+import msp.papaya.service.RestaurantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -14,14 +17,42 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/restaurants")
+//@RequestMapping("/restaurants")
 public class RestaurantController {
 
-  private final RestaurantService restaurantService;
-
   @Autowired
-  public RestaurantController(RestaurantService restaurantService) {
-    this.restaurantService = restaurantService;
+  private RestaurantServiceImpl restaurantService;
+//  private final RestaurantServiceImpl restaurantServiceImpl;
+//
+//  @Autowired
+//  public RestaurantController(RestaurantServiceImpl restaurantServiceImpl) {
+//    this.restaurantServiceImpl = restaurantServiceImpl;
+//  }
+
+  @GetMapping("/{id}")
+  public Restaurant getRestaurantDetails(@PathVariable Integer id) {
+    // Restaurant 데이터를 가져옴
+    Restaurant restaurant = restaurantService.getRestaurantDetails(id);
+
+    // JSON 데이터 간단히 출력
+    System.out.println("Restaurant JSON Data: " + restaurant);
+
+    return restaurant;
   }
+
+//  @GetMapping("/{id}")
+//  public String getRestaurantDetails(@PathVariable Long id, Model model) {
+//    System.out.println("요청된 ID: " + id); // 요청 ID를 출력
+//    Restaurant restaurant = restaurantServiceImpl.getRestaurantById(id);
+//    Score score = restaurantServiceImpl.getScoreByRestaurantId(Math.toIntExact(id));
+//    List<Review> reviews = restaurantServiceImpl.getReviewsByRestaurantId(Math.toIntExact(id));
+//
+//    model.addAttribute("restaurant", restaurant);
+//    model.addAttribute("score", score);
+//    model.addAttribute("reviews", reviews);
+//
+//    return "restaurant";
+//  }
 
   @GetMapping("/search")
   public ResponseEntity<List<Map<String, Object>>> searchRestaurants(@RequestParam String keyword) {
@@ -41,10 +72,10 @@ public class RestaurantController {
     return ResponseEntity.ok(response);
   }
 
-  @GetMapping("/restaurant/{id}")
-  public String restaurantPage(@PathVariable Long id, Model model) {
-    Restaurant restaurant = restaurantService.getRestaurantById(id);
-    model.addAttribute("restaurant", restaurant);
-    return "restaurant"; // restaurant.html 템플릿
-  }
+//  @GetMapping("/restaurant/{id}")
+//  public String restaurantPage(@PathVariable Integer id, Model model) {
+//    Restaurant restaurant = restaurantService.getRestaurantById(id);
+//    model.addAttribute("restaurant", restaurant);
+//    return "restaurant"; // restaurant.html 템플릿
+//  }
 }

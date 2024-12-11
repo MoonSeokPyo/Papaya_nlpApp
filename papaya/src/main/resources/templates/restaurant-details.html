@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음식점 상세 정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .restaurant-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .restaurant-info, .reviews, .map-container {
+            margin-bottom: 30px;
+        }
+        .reviews ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .reviews li {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="restaurant-header">
+    <h1 id="restaurant-name">음식점 이름</h1>
+    <p id="restaurant-type">음식 유형</p>
+</div>
+
+<div class="restaurant-info">
+    <h2>기본 정보</h2>
+    <p><strong>주소:</strong> <span id="restaurant-address">도로명 주소</span></p>
+    <p><strong>전화번호:</strong> <span id="restaurant-phone">전화번호</span></p>
+    <p><strong>우편번호:</strong> <span id="restaurant-zipcode">우편번호</span></p>
+</div>
+
+<div class="map-container">
+    <h2>지도</h2>
+    <p>위도: <span id="latitude">위도</span>, 경도: <span id="longitude">경도</span></p>
+    <iframe
+            id="map"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+    </iframe>
+</div>
+
+<div class="reviews">
+    <h2>리뷰</h2>
+    <ul id="review-list">
+        <!-- 리뷰 항목이 여기에 동적으로 추가됩니다 -->
+    </ul>
+</div>
+
+<div class="scores">
+    <h2>평균 점수</h2>
+    <p><strong>리뷰 개수:</strong> <span id="review-count">0</span></p>
+    <p><strong>평균 평점:</strong> <span id="average-score">0.0</span></p>
+</div>
+
+<script>
+    // JSON 데이터 예제
+    const restaurantData = {
+        "businessName": "Example Restaurant",
+        "businessType": "Korean",
+        "roadAddress": "Seoul, Korea",
+        "locationPhone": "02-123-4567",
+        "locationZipcode": "12345",
+        "gpsCoordinates": {
+            "latitude": 37.5665,
+            "longitude": 126.9780
+        },
+        "reviews": [
+            { "review": "Great food!", "score": 4.5 },
+            { "review": "Nice ambiance.", "score": 4.0 },
+            { "review": "Service was average.", "score": 3.0 }
+        ],
+        "scores": {
+            "reviewCount": 3,
+            "averageScore": 3.83
+        }
+    };
+
+    // 페이지에 데이터 렌더링
+    document.getElementById("restaurant-name").textContent = restaurantData.businessName;
+    document.getElementById("restaurant-type").textContent = `음식 유형: ${restaurantData.businessType}`;
+    document.getElementById("restaurant-address").textContent = restaurantData.roadAddress;
+    document.getElementById("restaurant-phone").textContent = restaurantData.locationPhone;
+    document.getElementById("restaurant-zipcode").textContent = restaurantData.locationZipcode;
+    document.getElementById("latitude").textContent = restaurantData.gpsCoordinates.latitude;
+    document.getElementById("longitude").textContent = restaurantData.gpsCoordinates.longitude;
+
+    const mapFrame = document.getElementById("map");
+    mapFrame.src = `https://www.google.com/maps?q=${restaurantData.gpsCoordinates.latitude},${restaurantData.gpsCoordinates.longitude}&output=embed`;
+
+    // 리뷰 렌더링
+    const reviewList = document.getElementById("review-list");
+    restaurantData.reviews.forEach(review => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<p><strong>평점:</strong> ${review.score}</p><p>${review.review}</p>`;
+        reviewList.appendChild(listItem);
+    });
+
+    // 평균 점수 및 리뷰 개수 렌더링
+    document.getElementById("review-count").textContent = restaurantData.scores.reviewCount;
+    document.getElementById("average-score").textContent = restaurantData.scores.averageScore.toFixed(2);
+</script>
+</body>
+</html>

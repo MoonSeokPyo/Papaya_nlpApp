@@ -1,12 +1,30 @@
 package msp.papaya.controller;
 
+import msp.papaya.model.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class PageController {
+
+  private final String API_URL = "http://localhost:8080/api/restaurants/";
+//  private final String API_URL = "https://papaya.re.kr/api/restaurants/";
+
+  private final RestTemplate restTemplate;
+
+  @Autowired
+  public PageController(RestTemplate restTemplate) {
+    this.restTemplate = restTemplate;
+  }
 
   @Value("${kakao.api.key}")
   private String kakaoApiKey;
@@ -54,6 +72,28 @@ public class PageController {
   public String aitestPage() {
     return "aitest";
   }
+
+  // HTML 페이지 반환
+  @GetMapping("/restaurant/{id}")
+  public String restaurantPage(@PathVariable Integer id, Model model) {
+    // API 호출 경로
+    String apiUrl = API_URL + id;
+
+    // API 호출
+    Restaurant restaurant = restTemplate.getForObject(apiUrl, Restaurant.class);
+
+    // 디버깅용 데이터 확인
+    System.out.println("Restaurant from API: " + restaurant);
+
+    // 모델에 데이터 추가
+    model.addAttribute("restaurant", restaurant);
+    model.addAttribute("kakaoApiKey", kakaoApiKey);
+
+    // 템플릿 반환
+    return "restaurant"; // restaurant.html 템플릿
+  }
+
+
 
 //  @GetMapping("/restaurant/{id}")
 //  public String restaurantPage(@PathVariable Long id, Model model) {

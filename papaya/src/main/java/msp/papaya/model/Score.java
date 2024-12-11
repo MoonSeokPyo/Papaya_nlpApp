@@ -1,5 +1,6 @@
 package msp.papaya.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,7 @@ import java.math.BigDecimal;
 public class Score {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  @Column(name = "restaurant_id", nullable = false)
+  @Column(name = "restaurant_id") //, nullable = false)
   private Integer restaurantId;
 
   @Column(name = "review_count", nullable = false)
@@ -25,5 +23,17 @@ public class Score {
   @Column(name = "average_score", precision = 3, scale = 2)
   private BigDecimal averageScore;
 
-  // Getters and Setters
+  @OneToOne
+  @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
+  @JsonManagedReference
+  private Restaurant restaurant;
+
+  @Override
+  public String toString() {
+    return "Score{" +
+        "reviewCount=" + reviewCount +
+        ", averageScore=" + averageScore +
+        '}';
+  }
+
 }

@@ -1,5 +1,7 @@
 package msp.papaya.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,5 +36,23 @@ public class GPS {
   private BigDecimal longitude;
 //  private Double longitude;
 
-  // Getters and Setters
+//  @OneToOne
+//  @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
+//  @JsonManagedReference
+//  private Restaurant restaurant;
+
+  @ManyToOne
+  @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
+  @JsonBackReference
+  private Restaurant restaurant;
+
+
+  @Override
+  public String toString() {
+    return "GpsCoordinates{" +
+        "latitude=" + latitude +
+        ", longitude=" + longitude +
+        '}';
+  }
+
 }

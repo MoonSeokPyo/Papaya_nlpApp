@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
   // 커스텀 쿼리 메서드 작성 가능 (예: 이름으로 검색)
   List<Restaurant> findByBusinessNameContainingIgnoreCase(String keyword);
 }

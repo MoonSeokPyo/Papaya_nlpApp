@@ -1,8 +1,11 @@
 package msp.papaya.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,8 +14,8 @@ import lombok.Setter;
 public class Restaurant {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @Column(name = "id")
+  private Integer id;
 
   @Column(name = "location_phone")
   private String locationPhone;
@@ -35,9 +38,58 @@ public class Restaurant {
   @Column(name = "business_type")
   private String businessType;
 
-  @OneToOne
-  @JoinColumn(name = "id", referencedColumnName = "restaurant_id")
-  private GPS gps; // GPS 좌표 연결
+//  @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
+//  @JsonManagedReference
+//  private GPS gps;
+//
+//  @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+//  @JsonManagedReference
+//  private List<Review> reviews;
+//
+//  @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
+//  @JsonManagedReference
+//  private Score scores;
+
+
+  @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  private GPS gps;
+
+  @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  private List<Review> reviews;
+
+  @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  private Score scores;
+
+
+  @Override
+  public String toString() {
+    return "Restaurant{" +
+        "id=" + id +
+        ", businessName='" + businessName + '\'' +
+        ", businessType='" + businessType + '\'' +
+        ", roadAddress='" + roadAddress + '\'' +
+        ", locationPhone='" + locationPhone + '\'' +
+        ", locationZipcode='" + locationZipcode + '\'' +
+        ", gpsCoordinates=" + gps +
+        ", reviews=" + reviews +
+        ", scores=" + scores +
+        '}';
+  }
+
+//  @OneToOne
+//  @JoinColumn(name = "id", referencedColumnName = "restaurant_id")
+//  private GPS gps; // GPS 좌표 연결
+//
+//  @OneToOne
+//  @JoinColumn(name = "id", referencedColumnName = "restaurant_id")
+//  private Review review; // GPS 좌표 연결
+//
+//  @OneToOne
+//  @JoinColumn(name = "id", referencedColumnName = "restaurant_id")
+//  private Score score; // GPS 좌표 연결
 
   // Getters and Setters
 //  public String getLocationPhone() {
