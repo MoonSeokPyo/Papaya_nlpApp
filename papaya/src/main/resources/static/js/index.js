@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Top Ranked Restaurants
     const topRestaurants = [
-        { id: 1, name: "맛있는 파스타", rating: 4.8, image: "/static/images/restaurant1.jpg", cuisine: "이탈리안" },
-        { id: 2, name: "황금 돈까스", rating: 4.7, image: "/static/images/restaurant2.jpg", cuisine: "일식" },
-        { id: 3, name: "신선한 초밥", rating: 4.6, image: "/static/images/restaurant3.jpg", cuisine: "일식" },
-        { id: 4, name: "화덕 피자", rating: 4.5, image: "/static/images/restaurant4.jpg", cuisine: "이탈리안" },
-        { id: 5, name: "매콤한 떡볶이", rating: 4.4, image: "/static/images/restaurant5.jpg", cuisine: "한식" },
+        { id: 1, name: "맛있는 파스타", rating: 4.8, image: "/img/restaurant1.png", cuisine: "이탈리안" },
+        { id: 2, name: "황금 돈까스", rating: 4.7, image: "/img/restaurant2.png", cuisine: "일식" },
+        { id: 3, name: "신선한 초밥", rating: 4.6, image: "/img/restaurant3.png", cuisine: "일식" },
+        { id: 4, name: "화덕 피자", rating: 4.5, image: "/img/restaurant4.png", cuisine: "이탈리안" },
+        { id: 5, name: "매콤한 떡볶이", rating: 4.4, image: "/img/restaurant5.png", cuisine: "한식" },
     ];
 
     const topRestaurantsSlider = document.getElementById('topRestaurantsSlider');
@@ -47,14 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Recommended Restaurants
     const recommendedRestaurants = [
-        { id: 1, name: "향긋한 커피", category: "카페", image: "/static/images/cafe.jpg" },
-        { id: 2, name: "매콤한 떡볶이", category: "분식", image: "/static/images/tteokbokki.jpg" },
-        { id: 3, name: "건강한 샐러드", category: "건강식", image: "/static/images/salad.jpg" },
-        { id: 4, name: "풍미 가득 피자", category: "양식", image: "/static/images/pizza.jpg" },
-        { id: 5, name: "신선한 회", category: "일식", image: "/static/images/sashimi.jpg" },
-        { id: 6, name: "든든한 백반", category: "한식", image: "/static/images/korean-set-meal.jpg" },
-        { id: 7, name: "달콤한 디저트", category: "디저트", image: "/static/images/dessert.jpg" },
-        { id: 8, name: "향긋한 차", category: "카페", image: "/static/images/tea.jpg" },
+        { id: 1, name: "향긋한 커피", category: "카페", image: "/img/cafe.png" },
+        { id: 2, name: "매콤한 떡볶이", category: "분식", image: "/img/tteokbokki.png" },
+        { id: 3, name: "건강한 샐러드", category: "건강식", image: "/img/salad.png" },
+        { id: 4, name: "풍미 가득 피자", category: "양식", image: "/img/pizza.png" },
+        { id: 5, name: "신선한 회", category: "일식", image: "/img/sashimi.png" },
+        { id: 6, name: "든든한 백반", category: "한식", image: "/img/korean-set-meal.png" },
+        { id: 7, name: "달콤한 디저트", category: "디저트", image: "/img/dessert.png" },
+        { id: 8, name: "향긋한 차", category: "카페", image: "/img/tea.png" },
     ];
 
     const categories = ["전체", "카페", "분식", "건강식", "양식", "일식", "한식", "디저트"];

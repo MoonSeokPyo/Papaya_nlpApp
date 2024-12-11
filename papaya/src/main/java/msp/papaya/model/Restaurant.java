@@ -73,9 +73,9 @@ public class Restaurant {
         ", roadAddress='" + roadAddress + '\'' +
         ", locationPhone='" + locationPhone + '\'' +
         ", locationZipcode='" + locationZipcode + '\'' +
-        ", gpsCoordinates=" + gps +
+        ", gps=" + gps +
         ", reviews=" + reviews +
-        ", scores=" + scores +
+        ", scores" + scores +
         '}';
   }
 

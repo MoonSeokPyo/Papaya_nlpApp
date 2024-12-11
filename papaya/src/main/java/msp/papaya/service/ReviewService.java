@@ -20,7 +20,7 @@ import java.util.Map;
 public class ReviewService {
   private final RestTemplate restTemplate;
 
-    private final String FASTAPI_URL = "http://127.0.0.1:8000/analyze_review/";
+  private final String FASTAPI_URL = "http://127.0.0.1:8000/analyze_review/";
 //  private final String FASTAPI_URL = "http://analyze_review:8000/analyze_review/";
 
   public ReviewService(RestTemplate restTemplate) {

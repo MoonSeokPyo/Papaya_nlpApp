@@ -2,11 +2,15 @@ package msp.papaya.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -27,6 +31,9 @@ public class Review {
   @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
   @JsonManagedReference
   private Restaurant restaurant;
+
+  public Review(String 리뷰_없음, BigDecimal bigDecimal) {
+  }
 
   @Override
   public String toString() {

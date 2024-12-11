@@ -1,9 +1,6 @@
 package msp.papaya.service;
 
-import msp.papaya.model.GPS;
-import msp.papaya.model.Restaurant;
-import msp.papaya.model.Review;
-import msp.papaya.model.Score;
+import msp.papaya.model.*;
 import msp.papaya.repository.GPSRepository;
 import msp.papaya.repository.RestaurantRepository;
 import msp.papaya.repository.ReviewRepository;
@@ -56,8 +53,54 @@ public class RestaurantServiceImpl implements RestaurantService {
   private GPSRepository gpsRepository;
 
   public Restaurant getRestaurantDetails(Integer id) {
-    Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-    return restaurant.orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + id));
+//    Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+//    return restaurant.orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + id));
+    // ID로 레스토랑 검색
+    Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
+    Restaurant restaurant = restaurantOptional.orElseThrow(() ->
+        new RuntimeException("Restaurant not found with id: " + id)
+    );
+
+    // 필드 값이 없으면 기본값으로 치환
+    if (restaurant.getBusinessName() == null || restaurant.getBusinessName().isEmpty()) {
+      restaurant.setBusinessName("이름 없음");
+    }
+    if (restaurant.getBusinessType() == null || restaurant.getBusinessType().isEmpty()) {
+      restaurant.setBusinessType("업종 없음");
+    }
+    if (restaurant.getRoadAddress() == null || restaurant.getRoadAddress().isEmpty()) {
+      restaurant.setRoadAddress("도로명 주소 없음");
+    }
+    if (restaurant.getLocationPhone() == null || restaurant.getLocationPhone().isEmpty()) {
+      restaurant.setLocationPhone("전화번호 없음");
+    }
+    if (restaurant.getLocationZipcode() == null || restaurant.getLocationZipcode().isEmpty()) {
+      restaurant.setLocationZipcode("우편번호 없음");
+    }
+    if (restaurant.getLocationAddress() == null || restaurant.getLocationAddress().isEmpty()) {
+      restaurant.setLocationAddress("주소 없음");
+    }
+    if (restaurant.getRoadZipcode() == null || restaurant.getRoadZipcode().isEmpty()) {
+      restaurant.setRoadZipcode("도로명 우편번호 없음");
+    }
+    if (restaurant.getGps() == null) {
+      GPS defaultGps = new GPS();
+      defaultGps.setLatitude(BigDecimal.valueOf(0.0));
+      defaultGps.setLongitude(BigDecimal.valueOf(0.0));
+      restaurant.setGps(defaultGps);
+    }
+    if (restaurant.getScores() == null) {
+      Score defaultScore = new Score();
+      defaultScore.setReviewCount(0);
+      defaultScore.setAverageScore(BigDecimal.valueOf(0.0));
+      restaurant.setScores(defaultScore);
+    }
+    if (restaurant.getReviews() == null || restaurant.getReviews().isEmpty()) {
+      restaurant.setReviews(List.of(new Review("리뷰 없음", BigDecimal.valueOf(0.0))));
+    }
+
+    // 모든 필드가 정상인 경우 레스토랑 반환
+    return restaurant;
   }
 
   @Override

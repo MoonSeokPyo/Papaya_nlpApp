@@ -1,174 +1,173 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/img/logo.png"/>
-    <title>음식점 상세 정보</title>
+    <title th:text="'음식점 상세 정보 - ' + ${restaurant.businessName}">음식점 상세 정보</title>
+    <link rel="icon" href="/img/logo.png"/>
+    <script th:src="'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey}"></script>
     <style>
+        @font-face {
+            font-family: 'MaplestoryLight'; /* 폰트의 이름을 정의 */
+            src: url('/webfonts/Maplestory OTF Light.otf') format('opentype'); /* 경로와 형식 */
+            font-weight: normal; /* (선택) 굵기 */
+            font-style: normal;  /* (선택) 스타일 */
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'MaplestoryLight', sans-serif; /* 선언한 폰트를 적용 */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
-        .restaurant-header {
-            text-align: center;
-            margin-bottom: 20px;
+
+        h1, h2 {
+            color: #333;
         }
-        .restaurant-info, .reviews, .map-container {
-            margin-bottom: 30px;
+
+        section {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
         }
-        .reviews ul {
+
+        ul {
             list-style-type: none;
             padding: 0;
         }
-        .reviews li {
-            border: 1px solid #ddd;
-            padding: 10px;
+
+        ul li {
             margin-bottom: 10px;
-            border-radius: 5px;
         }
+
+        strong {
+            color: #555;
+        }
+
         #map {
             width: 100%;
             height: 400px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
         }
+
+        .average-score {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .review-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f8f8;
+        }
+
+        .review-item:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+
     </style>
-    <!-- 카카오맵 API 스크립트 -->
-    <script th:src="'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'"></script>
 </head>
 <body>
-<div class="restaurant-header">
-    <h1 th:text="${restaurant.businessName}">음식점 이름</h1>
-    <p th:text="'음식 유형: ' + ${restaurant.businessType}">음식 유형</p>
-</div>
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
 
-<div class="restaurant-info">
+<section>
+    <h1>
+        <span th:text="${restaurant.businessName}">음식점 이름</span>
+        <br/><span> 평균 점수: </span>
+        <span id="average-score">
+            <span th:text="${restaurant.scores.averageScore}"></span>
+        </span>
+    </h1>
+    <p th:text="'업종: ' + ${restaurant.businessType}">업종 정보</p>
+</section>
+
+<section>
     <h2>기본 정보</h2>
-    <p><strong>주소:</strong> <span th:text="${restaurant.roadAddress}">도로명 주소</span></p>
-    <p><strong>전화번호:</strong> <span th:text="${restaurant.locationPhone}">전화번호</span></p>
-    <p><strong>우편번호:</strong> <span th:text="${restaurant.locationZipcode}">우편번호</span></p>
-</div>
+    <ul>
+        <li><strong>도로명 주소:</strong> <span th:text="${restaurant.roadAddress}">도로명 주소</span></li>
+        <li><strong>도로명 우편번호:</strong> <span th:text="${restaurant.locationZipcode != null ? restaurant.locationZipcode : '없음'}">도로명 우편번호</span></li>
+        <li><strong>전화번호:</strong> <span th:text="${restaurant.locationPhone}">전화번호</span></li>
+        <li><strong>지번 주소:</strong> <span th:text="${restaurant.locationAddress != null ? restaurant.locationAddress : '없음'}">지번 주소</span></li>
+        <li><strong>지번 우편번호:</strong> <span th:text="${restaurant.locationZipcode != null ? restaurant.locationZipcode : '없음'}">지번 우편번호</span></li>
+        <li><strong>업종:</strong> <span th:text="${restaurant.businessType}">업종</span></li>
+        <li><strong>음식점 ID:</strong> <span th:text="${restaurant.id}">음식점 ID</span></li>
+    </ul>
+</section>
 
-<div class="map-container">
-    <h2>지도</h2>
+<section>
+    <h2>위치 정보</h2>
+    <div>
+        <p><strong>위도:</strong> <span th:text="${restaurant.gps.latitude}">위도</span></p>
+        <p><strong>경도:</strong> <span th:text="${restaurant.gps.longitude}">경도</span></p>
+    </div>
+    <!--    <div id="map" style="width: 100%; height: 400px;"></div>-->
     <div id="map"></div>
-</div>
 
-<div class="reviews">
+    <script>
+        const gpsLatitude = "[[${restaurant.gps.latitude}]]";
+        const gpsLongitude = "[[${restaurant.gps.longitude}]]";
+
+        const mapContainer = document.getElementById('map');
+        const mapOption = {
+            center: new kakao.maps.LatLng(gpsLatitude, gpsLongitude),
+            level: 3
+        };
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+
+        const markerPosition = new kakao.maps.LatLng(gpsLatitude, gpsLongitude);
+        const marker = new kakao.maps.Marker({position: markerPosition});
+        marker.setMap(map);
+    </script>
+</section>
+
+<section>
     <h2>리뷰</h2>
     <ul>
-        <li th:each="review : ${restaurant.reviews}">
-            <p><strong>평점:</strong> <span th:text="${review.score}">4.5</span></p>
+        <li class="review-item" th:each="review : ${restaurant.reviews}">
             <p th:text="${review.review}">리뷰 내용</p>
+            <p><strong>평점:</strong> <span th:text="${review.score}">점수</span></p>
         </li>
     </ul>
-</div>
+</section>
 
-<div class="scores">
-    <h2>평균 점수</h2>
-    <p><strong>리뷰 개수:</strong> <span th:text="${restaurant.scores.reviewCount}">0</span></p>
-    <p><strong>평균 평점:</strong> <span th:text="${restaurant.scores.averageScore}">0.0</span></p>
-</div>
+<section>
+    <h2>평균 평점 및 리뷰 수</h2>
+    <p><strong>평균 평점:</strong> <span th:text="${restaurant.scores.averageScore}">평균 점수</span></p>
+    <p><strong>리뷰 수:</strong> <span th:text="${restaurant.scores.reviewCount}">리뷰 수</span></p>
+</section>
 
 <script>
-    // 카카오맵 초기화
     document.addEventListener("DOMContentLoaded", function () {
-        var container = document.getElementById('map');
-        var latitude = /*[[${restaurant.gpsCoordinates.latitude}]]*/ 37.5665; // 서버에서 전달받은 위도
-        var longitude = /*[[${restaurant.gpsCoordinates.longitude}]]*/ 126.9780; // 서버에서 전달받은 경도
-        var options = {
-            center: new kakao.maps.LatLng(latitude, longitude), // 중심 좌표
-            level: 3 // 확대 레벨
-        };
+        const scoreElement = document.getElementById("average-score");
+        const averageScore = parseFloat(scoreElement.textContent.trim());
 
-        var map = new kakao.maps.Map(container, options); // 지도 생성
+        // 점수에 따라 색상 계산 (0 = 빨강, 5 = 초록)
+        function calculateColor(score) {
+            const red = Math.min(255, Math.max(0, Math.floor((5 - score) * 51))); // 점수가 낮을수록 빨강 강도 증가
+            const green = Math.min(255, Math.max(0, Math.floor(score * 51)));   // 점수가 높을수록 초록 강도 증가
+            return `rgb(${red}, ${green}, 0)`; // 빨강-초록 혼합
+        }
 
-        // 마커 생성
-        var markerPosition = new kakao.maps.LatLng(latitude, longitude);
-        var marker = new kakao.maps.Marker({
-            position: markerPosition
-        });
+        const textColor = calculateColor(averageScore);
 
-        // 마커를 지도에 표시
-        marker.setMap(map);
+        // 글자 색상 적용
+        scoreElement.style.color = textColor;
+        scoreElement.style.fontWeight = "bold"; // 강조 표시
     });
 </script>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
 </body>
 </html>
-
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>음식점 페이지</title>-->
-<!--    <link rel="icon" href="/img/logo.png"/>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            line-height: 1.6;-->
-<!--            margin: 0;-->
-<!--            padding: 0;-->
-<!--        }-->
-<!--        .container {-->
-<!--            max-width: 800px;-->
-<!--            margin: 20px auto;-->
-<!--            padding: 20px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 5px;-->
-<!--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);-->
-<!--        }-->
-<!--        h1, h2 {-->
-<!--            color: #333;-->
-<!--        }-->
-<!--        .info, .reviews {-->
-<!--            margin-bottom: 20px;-->
-<!--        }-->
-<!--        .review {-->
-<!--            padding: 10px;-->
-<!--            border-bottom: 1px solid #ddd;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash; 상단 배너 &ndash;&gt;-->
-<!--<header th:replace="fragments/header.html :: header"></header>-->
-
-
-<!--<div class="container">-->
-<!--    &lt;!&ndash; 음식점 기본 정보 &ndash;&gt;-->
-<!--    <div class="info">-->
-<!--        <h1 th:text="${restaurant.businessName}">Restaurant Name</h1>-->
-<!--        <p><strong>업종:</strong> <span th:text="${restaurant.businessType}">Business Type</span></p>-->
-<!--        <p><strong>도로명 주소:</strong> <span th:text="${restaurant.roadAddress}">Road Address</span></p>-->
-<!--        <p><strong>우편번호:</strong> <span th:text="${restaurant.roadZipcode}">Road Zipcode</span></p>-->
-<!--        <p><strong>전화번호:</strong> <span th:text="${restaurant.locationPhone}">Phone Number</span></p>-->
-<!--        <p><strong>GPS 좌표:</strong>-->
-<!--            <span th:text="${restaurant.gps.latitude}">Latitude</span>,-->
-<!--            <span th:text="${restaurant.gps.longitude}">Longitude</span>-->
-<!--        </p>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; 평점 정보 &ndash;&gt;-->
-<!--    <div class="score">-->
-<!--        <h2>평점 및 리뷰</h2>-->
-<!--        <p><strong>리뷰 개수:</strong> <span th:text="${score.reviewCount}">0</span></p>-->
-<!--        <p><strong>평균 평점:</strong> <span th:text="${score.averageScore}">0.0</span> / 5.0</p>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; 리뷰 리스트 &ndash;&gt;-->
-<!--    <div class="reviews">-->
-<!--        <h2>리뷰</h2>-->
-<!--        <div th:each="review : ${reviews}">-->
-<!--            <div class="review">-->
-<!--                <p th:text="${review.review}">Review text</p>-->
-<!--                <p><strong>평점:</strong> <span th:text="${review.score}">0.0</span> / 5.0</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--&lt;!&ndash; 하단 배너 &ndash;&gt;-->
-<!--<footer th:replace="fragments/footer.html :: footer"></footer>-->
-<!--</body>-->
-<!--</html>-->

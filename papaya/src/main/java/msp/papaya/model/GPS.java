@@ -36,20 +36,20 @@ public class GPS {
   private BigDecimal longitude;
 //  private Double longitude;
 
-//  @OneToOne
-//  @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
-//  @JsonManagedReference
-//  private Restaurant restaurant;
-
-  @ManyToOne
+  @OneToOne
   @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
-  @JsonBackReference
+  @JsonManagedReference
   private Restaurant restaurant;
+
+//  @ManyToOne
+//  @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
+//  @JsonBackReference
+//  private Restaurant restaurant;
 
 
   @Override
   public String toString() {
-    return "GpsCoordinates{" +
+    return "GPS{" +
         "latitude=" + latitude +
         ", longitude=" + longitude +
         '}';
