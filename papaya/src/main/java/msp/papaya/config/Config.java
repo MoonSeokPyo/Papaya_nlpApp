@@ -20,6 +20,10 @@ import msp.papaya.service.CustomOAuth2UserService;
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class Config {
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
 	private final CustomOAuth2UserService customOAuth2UserService;
 
@@ -45,9 +49,10 @@ public class Config {
 		return new BCryptPasswordEncoder();
 	}
 	
-	
+
+	// 이거 해결해야 함
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+	public RestTemplate restTemplate_2(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 }
