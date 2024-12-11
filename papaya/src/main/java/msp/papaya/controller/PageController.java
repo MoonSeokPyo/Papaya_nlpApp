@@ -24,7 +24,7 @@ import msp.papaya.repository.UserRepository;
 @Controller
 public class PageController {
 
-  private final String API_URL = "http://localhost:8080/api/restaurants/";
+//  private final String API_URL = "http://localhost:8080/api/restaurants/";
 //  private final String API_URL = "https://papaya.re.kr/api/restaurants/";
 
 //  @Value("${google.api.key}")
