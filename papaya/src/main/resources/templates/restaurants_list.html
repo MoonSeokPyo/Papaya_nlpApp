@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/logo.png"/>
+    <title>음식점 리스트</title>
+    <style>
+        @font-face {
+            font-family: 'MaplestoryLight'; /* 폰트의 이름을 정의 */
+            src: url('/webfonts/Maplestory OTF Light.otf') format('opentype'); /* 경로와 형식 */
+            font-weight: normal; /* (선택) 굵기 */
+            font-style: normal;  /* (선택) 스타일 */
+        }
+        body {
+            font-family: 'MaplestoryLight', sans-serif; /* 선언한 폰트를 적용 */
+            /*font-family: 'Arial', sans-serif;*/
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .search-results {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .message-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: red;
+            font-weight: bold;
+        }
+
+        .restaurant-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .restaurant-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .restaurant-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .restaurant-link {
+            text-decoration: none;
+            color: #333333;
+            width: 100%;
+            display: flex;
+        }
+
+        .restaurant-info {
+            margin-left: 10px;
+        }
+
+        .restaurant-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0;
+            color: #007BFF;
+        }
+
+        .restaurant-address {
+            font-size: 1em;
+            color: #666666;
+            margin: 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 상단 배너 -->
+<header th:replace="fragments/header.html :: header"></header>
+
+<section class="search-results">
+    <h1>음식점 검색 결과</h1>
+
+    <!-- 메시지 출력 -->
+    <div class="message-box" th:if="${message != null}">
+        <p class="message" th:text="${message}"></p>
+    </div>
+
+    <!-- 검색 결과 출력 -->
+    <ul class="restaurant-list" th:if="${!restaurants.isEmpty()}">
+        <li class="restaurant-item" th:each="restaurant : ${restaurants}">
+            <a class="restaurant-link" th:href="@{/restaurant/{id}(id=${restaurant.id})}">
+                <div class="restaurant-info">
+                    <h2 class="restaurant-name" th:text="${restaurant.businessName}"></h2>
+                    <p class="restaurant-address" th:text="${restaurant.roadAddress}"></p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</section>
+
+<!-- 하단 배너 -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="ko">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link rel="icon" href="/img/logo.png"/>-->
+<!--    <title>음식점 리스트</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; 상단 배너 &ndash;&gt;-->
+<!--<header th:replace="fragments/header.html :: header"></header>-->
+<!--<section>-->
+<!--    <h1>음식점 검색 결과</h1>-->
+
+<!--    &lt;!&ndash; 메시지 출력 &ndash;&gt;-->
+<!--    <div th:if="${message != null}">-->
+<!--        <p th:text="${message}" style="color: red; font-weight: bold;"></p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; 검색 결과 출력 &ndash;&gt;-->
+<!--    <ul th:if="${!restaurants.isEmpty()}">-->
+<!--        <li th:each="restaurant : ${restaurants}">-->
+<!--            <a th:href="@{/restaurant/{id}(id=${restaurant.id})}">-->
+<!--                <span th:text="${restaurant.businessName}"></span>-->
+<!--            </a> - -->
+<!--            <span th:text="${restaurant.roadAddress}"></span>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</section>-->
+<!--&lt;!&ndash; 하단 배너 &ndash;&gt;-->
+<!--<footer th:replace="fragments/footer.html :: footer"></footer>-->
+<!--</body>-->
+<!--</html>-->

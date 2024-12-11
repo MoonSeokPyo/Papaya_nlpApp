@@ -10,11 +10,19 @@
                     <span class="logo-text">PAPAYA</span>
                 </a>
             </div>
+<!--            <div class="search-bar">-->
+<!--                <input type="text" placeholder="음식점 검색...">-->
+<!--                <button type="button" class="search-button">-->
+<!--                    <i class="fas fa-search"></i>-->
+<!--                </button>-->
+<!--            </div>-->
             <div class="search-bar">
-                <input type="text" placeholder="음식점 검색...">
-                <button type="button" class="search-button">
-                    <i class="fas fa-search"></i>
-                </button>
+                <form th:action="@{/restaurants/search}" method="get">
+                    <input type="text" name="keyword" placeholder="음식점 검색...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             </div>
             <button id="sidebarToggle" class="sidebar-toggle">
                 <i class="fas fa-bars"></i>

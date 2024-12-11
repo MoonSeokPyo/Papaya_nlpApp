@@ -1,6 +1,8 @@
 package msp.papaya.controller;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import msp.papaya.service.RestaurantServiceImpl;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
@@ -105,6 +108,29 @@ public class PageController {
     // 템플릿 반환
     return "restaurant"; // restaurant.html 템플릿
   }
+
+  @GetMapping("/restaurants/search")
+  public String searchRestaurants(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+    List<Restaurant> restaurants;
+    String message = null;
+
+    if (keyword == null || keyword.isEmpty()) {
+      // 키워드가 없을 경우
+      restaurants = Collections.emptyList(); // 빈 리스트 반환
+      message = "키워드가 입력되지 않았습니다.";
+    } else {
+      // 키워드로 검색
+      restaurants = restaurantService.searchRestaurantsByKeyword(keyword);
+      if (restaurants.isEmpty()) {
+        message = "검색 결과가 없습니다.";
+      }
+    }
+
+    model.addAttribute("restaurants", restaurants);
+    model.addAttribute("message", message); // 메시지를 모델에 추가
+    return "restaurants_list"; // templates/restaurants_list.html로 이동
+  }
+
   /////////////////////////////////////////////////////////////////////////////////
   // 가림막
 
